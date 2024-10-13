@@ -1,0 +1,123 @@
+/* Home.css */
+
+/* Main container for the home page */
+.home-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  min-height: 100vh; /* Full viewport height */
+  color: #fff;
+  background: rgba(0, 0, 0, 0.6); /* Optional: A semi-transparent background for better contrast */
+}
+
+/* Fix the background image to the entire page */
+body {
+  background: url('./Pc.jpg') no-repeat center center fixed;
+  background-size: cover;
+  margin: 0;
+  height: 100%; /* Full height of the viewport */
+  font-family: 'Arial', sans-serif;
+}
+
+/* Hero Section Styling */
+.hero-section {
+  width: 100%;
+  min-height: 300px; /* Fixed height for the hero section */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+}
+
+.title {
+  font-size: 2.5rem; /* Large title */
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  font-size: 1.25rem; /* Subtitle size */
+  margin-bottom: 1rem;
+}
+
+.cta-button {
+  background-color: #0073e6; /* Primary button color */
+  color: #fff;
+  padding: 10px 20px; /* Button padding */
+  border: none;
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Smooth transition on hover */
+}
+
+.cta-button:hover {
+  background-color: #005bb5; /* Darker shade on hover */
+}
+
+/* Services Section */
+.services-section {
+  margin: 20px 0; /* Margin around the services section */
+  text-align: center; /* Center text in the section */
+  width: 100%;
+}
+
+.service-cards {
+  display: grid; /* Using grid layout for the service cards */
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive columns */
+  gap: 20px; /* Gap between cards */
+  margin-top: 20px; /* Margin above the cards */
+}
+
+.card {
+  background-color: rgba(168, 168, 168, 0.863); /* Semi-transparent card background */
+  border-radius: 8px; /* Rounded corners for cards */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  padding: 20px; /* Inner padding for the card */
+  transition: transform 0.3s ease; /* Transition for hover effect */
+}
+
+.card:hover {
+  transform: translateY(-5px); /* Slight lift effect on hover */
+  background-color: #36b5ff;
+  color: #000;
+}
+
+/* About Section */
+.about-section {
+  margin: 20px 0; /* Margin around the about section */
+  text-align: center; /* Centered text */
+  width: 100%;
+}
+
+/* Footer Styling */
+.footer {
+  margin-top: 20px; /* Margin above the footer */
+  text-align: center; /* Centered text */
+  padding: 10px 0; /* Padding around footer text */
+  font-size: 0.9rem; /* Smaller font size for footer */
+  color: #777; /* Lighter text color for footer */
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+  body {
+    background-image: url(./Mobile.jpg);
+  }
+  
+  .hero-section {
+    height: 200px; /* Reduce hero section height on mobile */
+  }
+
+  .title {
+    font-size: 2rem; /* Adjust title size on mobile */
+  }
+
+  .subtitle {
+    font-size: 1rem; /* Adjust subtitle size on mobile */
+  }
+
+  .cta-button {
+    padding: 8px 16px; /* Smaller button padding on mobile */
+  }
+}

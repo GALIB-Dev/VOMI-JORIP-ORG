@@ -1,39 +1,32 @@
+/* App.css */
+
+body {
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  background-image: url('./background4.jpg'); /* Background image */
+  background-size: cover; /* Cover the entire page */
+  background-position: center; /* Center the image */
+  color: #000000; /* Text color */
+  height: 100vh; /* Full viewport height */
+  overflow: scroll; /* Prevent scrolling */
+}
+
+/* Main content area */
+.content {
+  padding: 20px; /* Add padding for content spacing */
+  flex-grow: 1; /* Ensure it takes up remaining space */
+}
+
+/* Make sure the footer sticks to the bottom */
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-  border-radius: 100%;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 3s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  min-height: 100vh; /* Ensures the App component fills the viewport */
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
+/* Media queries for mobile responsiveness */
+@media screen and (max-width: 768px) {
+  .content {
+    padding: 15px; /* Slightly reduce padding on mobile */
   }
 }

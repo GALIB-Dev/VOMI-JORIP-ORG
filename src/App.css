@@ -9,9 +9,7 @@ html, body {
 
 /* Background image on the body */
 body {
-  background-image: url('./background4.jpg'); /* Background image */
-  background-size: cover; /* Cover the entire page */
-  background-position: center; /* Center the image */
+  background: transparent;
 }
 
 /* Main content area */

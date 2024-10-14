@@ -6,9 +6,7 @@ const Contact = () => {
     <div className="contact-container">
       <h1>যোগাযোগ করুন</h1>
       <p>আমাদের অফিস: জয়পুরহাট সদর</p>
-      <p>ফোন নম্বর: +8801712617226</p>
-
-      <h2>আমাদের সাথে যোগাযোগ করতে নিচের ফর্মটি পূরণ করুন :</h2>
+      <p><h3>ফোন নম্বর: +8801712617226</h3></p>
 
       <div className="form-container">
         {/* Embed Google Form using iframe */}

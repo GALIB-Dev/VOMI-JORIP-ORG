@@ -75,7 +75,7 @@ body {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
   padding: 20px; /* Inner padding for the card */
   transition: transform 0.3s ease; /* Transition for hover effect */
-  border: 3px solid;
+  border: 3px solid transparent; /* Default transparent border */
 }
 
 .card:hover {
@@ -98,19 +98,17 @@ body {
   padding: 10px 0; /* Padding around footer text */
   font-size: 0.9rem; /* Smaller font size for footer */
   color: #777; /* Lighter text color for footer */
-  justify-content: center;
-    align-items: center;
 }
 
 /* Responsive Design */
 @media screen and (max-width: 768px) {
   body {
-    background-image: url(./Mobile.jpg);
-    
+    background-image: url('./Mobile.jpg'); /* Use mobile background */
+    background-position: center;
   }
-  
+
   .hero-section {
-    height: 200px; /* Reduce hero section height on mobile */
+    min-height: 200px; /* Reduce hero section height on mobile */
   }
 
   .title {
@@ -123,8 +121,7 @@ body {
 
   .cta-button {
     padding: 8px 16px; /* Smaller button padding on mobile */
-    border: 3px solid;
-
+    border: 3px solid; /* Border adjustment for mobile */
   }
 
   .card {
@@ -132,9 +129,9 @@ body {
     flex-direction: row; /* Ensure icon and title stack vertically */
     justify-content: center;
     align-items: center;
-    width: 320px;
-    height: 90px;
-    border: 3px solid;
+    width: 320px; /* Fixed width for cards on mobile */
+    height: 90px; /* Fixed height for cards on mobile */
+    border: 3px solid; /* Border for cards on mobile */
     cursor: pointer;
   }
 

@@ -1,0 +1,132 @@
+/* Add this to your About.css or in the main CSS file */
+@import "~slick-carousel/slick/slick.css"; 
+@import "~slick-carousel/slick/slick-theme.css";
+
+.slider {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.slider img {
+  width: 100%; /* Adjust as necessary */
+  height: auto; /* Maintain aspect ratio */
+}
+
+
+
+.about-container {
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.9); /* Light background */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    margin: 20px; /* Margin around the container */
+  }
+  
+  .about-title {
+    font-size: 2rem; /* Title size */
+    text-align: center; /* Center align */
+    margin-bottom: 10px; /* Space below title */
+  }
+  
+  .about-description {
+    font-size: 1.2rem; /* Description size */
+    line-height: 1.5; /* Line height for readability */
+  }
+  
+  /* Gallery Styles */
+  .about-gallery {
+    margin: 20px 0; /* Margin around the gallery */
+  }
+  
+  .gallery-title {
+    text-align: center; /* Center align */
+    font-size: 1.5rem; /* Gallery title size */
+    margin-bottom: 10px; /* Space below title */
+  }
+  
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Responsive grid */
+    gap: 10px; /* Gap between images */
+  }
+  
+  .gallery-grid img {
+    width: 100%; /* Responsive images */
+    border-radius: 8px; /* Rounded corners for images */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Shadow for images */
+  }
+  
+  /* Testimonials Styles */
+  .about-testimonials {
+    margin: 20px 0; /* Margin around testimonials */
+  }
+  
+  .testimonials-title {
+    text-align: center; /* Center align */
+    font-size: 1.5rem; /* Testimonials title size */
+    margin-bottom: 10px; /* Space below title */
+  }
+  
+  .testimonial-cards {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center align cards */
+  }
+  
+  .testimonial-card {
+    background-color: #f9f9f9; /* Light background for cards */
+    border: 1px solid #e0e0e0; /* Light border */
+    border-radius: 8px; /* Rounded corners */
+    padding: 15px; /* Inner padding for cards */
+    margin: 10px; /* Margin between cards */
+    width: 80%; /* Width of cards */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  }
+  
+  .testimonial-feedback {
+    font-style: italic; /* Italic for feedback */
+    text-align: center; /* Center align */
+  }
+  
+  .testimonial-name {
+    text-align: right; /* Right align */
+    font-weight: bold; /* Bold name */
+  }
+  
+  /* Mission and Contact Styles */
+  .about-mission {
+    font-size: 1rem; /* Smaller size for mission text */
+    margin-top: 20px; /* Margin above mission text */
+  }
+  
+  .about-contact {
+    text-align: center; /* Center align */
+    margin-top: 20px; /* Margin above contact */
+  }
+  
+  .about-contact a {
+    color: #0073e6; /* Link color */
+    text-decoration: none; /* Remove underline */
+  }
+  
+  .about-contact a:hover {
+    text-decoration: underline; /* Underline on hover */
+  }
+  
+
+  .about-authenticity {
+    margin: 20px 0;
+  }
+  
+  .authenticity-docs {
+    display: flex;
+    gap: 10px; /* Space between documents */
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+  }
+  
+  .authenticity-docs img {
+    width: 100%; /* Adjust as necessary */
+    height: auto; /* Maintain aspect ratio */
+    max-width: 200px; /* Limit max width for better layout */
+  }
+  

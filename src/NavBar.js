@@ -27,7 +27,7 @@ const NavBar = () => {
             <Link to="#service3">সেবা ৩</Link>
           </div>
         </div>
-        <Link to="/about">আমাদের-বিষয়ে</Link>
+        <Link to="/About">আমাদের-বিষয়ে</Link>
         <Link to="/contact">যোগাযোগ</Link> {/* Updated link */}
       </div>
 

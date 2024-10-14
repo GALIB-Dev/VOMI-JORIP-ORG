@@ -1,9 +1,11 @@
-import React from "react";
-import './App.css';
-import NavBar from './NavBar';
-import Home from './Home';
-import Footer from './Footer'; // Assuming you have a Footer component
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import NavBar from './NavBar.js';
+import Home from './Home.js';
+import Services from './Services.js';
+import About from './About.js';
+import Contact from './Contact.js';
+import Footer from './Footer.js';
 
 function App() {
   return (
@@ -13,11 +15,10 @@ function App() {
 
         <main className="content">
           <Routes>
-            {/* Home component displayed at root */}
             <Route path="/" element={<Home />} />
-            
-            {/* You can add more routes for other pages later */}
-            {/* Example: <Route path="/about" element={<About />} /> */}
+            <Route path="/services" element={<Services />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} /> {/* Ensure this route is correct */}
           </Routes>
         </main>
 

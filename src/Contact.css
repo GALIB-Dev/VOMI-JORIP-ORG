@@ -1,0 +1,20 @@
+.contact-container {
+    /* Ensure visibility styles */
+    display: block; /* or flex, depending on your layout */
+    padding: 20px; /* Add some padding */
+    color: hwb(0 0% 100% / 0.822); /* Text color */
+    z-index: 9999;
+  }
+  
+  .form-container {
+    margin-top: 20px;
+    width: 100%;
+    max-width: 800px; /* Set a max width for the form */
+    margin: 0 auto; /* Center the form on the page */
+    z-index: 10000;
+  }
+  
+  iframe {
+    border: none; /* Remove border from the iframe */
+  }
+  

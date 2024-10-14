@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 import './NavBar.css'; // Import your CSS
 import Logo from './logo1.jpg';
 
@@ -17,22 +18,22 @@ const NavBar = () => {
       </div>
 
       <div className={`nav-links ${menuOpen ? 'open' : ''}`}>
-        <a href="#home"><h2>⌂</h2></a>
+        <Link to="/"><h4>হোম</h4></Link>
         <div className="dropdown">
-          <a href="#services" className="dropbtn">সেবা</a>
+          <Link to="#services" className="dropbtn">সেবা</Link>
           <div className="dropdown-content">
-            <a href="#service1">সেবা ১</a>
-            <a href="#service2">সেবা ২</a>
-            <a href="#service3">সেবা ৩</a>
+            <Link to="#service1">সেবা ১</Link>
+            <Link to="#service2">সেবা ২</Link>
+            <Link to="#service3">সেবা ৩</Link>
           </div>
         </div>
-        <a href="#about">আমাদের-বিষয়ে</a>
-        <a href="#contact">যোগাযোগ</a>
+        <Link to="/about">আমাদের-বিষয়ে</Link>
+        <Link to="/contact">যোগাযোগ</Link> {/* Updated link */}
       </div>
 
       <div className="search-bar">
         <input type="text" placeholder="অনুসন্ধান করুন..." />
-        <button type="submit">যাও</button>
+        <button type="submit"><h4>যাও</h4></button>
       </div>
 
       <div className="menu-toggle" onClick={toggleMenu}>

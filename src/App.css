@@ -1,20 +1,24 @@
-/* App.css */
-
-body {
+/* Ensure html and body take up the full viewport height */
+html, body {
   margin: 0;
+  height: 100%; /* Full viewport height */
   font-family: 'Arial', sans-serif;
+  color: #000000; /* Text color */
+  overflow: auto; /* Scroll naturally */
+}
+
+/* Background image on the body */
+body {
   background-image: url('./background4.jpg'); /* Background image */
   background-size: cover; /* Cover the entire page */
   background-position: center; /* Center the image */
-  color: #000000; /* Text color */
-  height: 100vh; /* Full viewport height */
-  overflow: scroll; /* Prevent scrolling */
 }
 
 /* Main content area */
 .content {
   padding: 20px; /* Add padding for content spacing */
   flex-grow: 1; /* Ensure it takes up remaining space */
+  width: 100%; /* Make sure content takes full width */
 }
 
 /* Make sure the footer sticks to the bottom */
@@ -24,9 +28,24 @@ body {
   min-height: 100vh; /* Ensures the App component fills the viewport */
 }
 
+/* Styling for the footer */
+.footer {
+  background-color: #f1f1f1; /* Light background for the footer */
+  padding: 10px;
+  text-align: center;
+  width: 100%; /* Full width footer */
+  position: relative;
+  bottom: 0; /* Stick footer to the bottom */
+}
+
 /* Media queries for mobile responsiveness */
 @media screen and (max-width: 768px) {
   .content {
     padding: 15px; /* Slightly reduce padding on mobile */
+  }
+
+  /* Adjustments for small screens */
+  .footer {
+    font-size: 0.9rem; /* Smaller font for the footer on mobile */
   }
 }

@@ -29,13 +29,11 @@
   cursor: pointer;
   border-radius: 100%;
   border: 2px solid;
-
 }
+
 .logotext {
   position: relative;
-  top: 0px;
   color: #000000;
-
 }
 
 /* Navigation Links */
@@ -59,7 +57,7 @@
 }
 
 .nav-links .active {
-  color: #007bff; /* Indicates active link */
+  color: #007bff; /* Active link color */
   font-weight: 700; /* Bold for active links */
 }
 
@@ -67,7 +65,6 @@
 .dropdown {
   position: relative;
   display: inline-block;
-
 }
 
 .dropdown-content {
@@ -138,6 +135,7 @@
   margin: 3px 0;
 }
 
+/* Responsive Styling for Mobile */
 @media screen and (max-width: 768px) {
   .nav-links {
     position: absolute;
@@ -158,13 +156,31 @@
   }
 
   .search-bar {
-    margin-top: 0rem;
+    display: none;
   }
 
   .menu-toggle {
     display: flex;
   }
+
   .logotext {
-    display:none;
+    position: relative;
+    display: flex; /* Keep this if you want it hidden initially */
+    right: -60px;
+    margin-top: -45px;
+    font-size: 1rem; /* Adjust the text size (smaller size) */
   }
+
+  .logo img {
+    height: 50px;
+    cursor: pointer;
+    border-radius: 100%;
+    border: 2px solid;
+    margin-top: -20px;
+  }
+  
+}
+
+@media screen and (max-width: 468px) {
+  /* You can add further styles here for smaller screen sizes if needed */
 }

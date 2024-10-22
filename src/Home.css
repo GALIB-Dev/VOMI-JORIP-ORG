@@ -1,143 +1,149 @@
-/* Home.css */
-
-/* Main container for the home page */
-.home-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
-  min-height: 100vh; /* Full viewport height */
-  color: #fff;
-  background: rgba(0, 0, 0, 0.6); /* Optional: A semi-transparent background for better contrast */
-}
-
-/* Fix the background image to the entire page */
-body {
-  background: url('./Pc.jpg') no-repeat center center fixed;
-  background-size: cover;
+/* General Styling */
+body, html {
   margin: 0;
-  height: 100%; /* Full height of the viewport */
+  padding: 0;
   font-family: 'Arial', sans-serif;
+  box-sizing: border-box;
 }
 
-/* Hero Section Styling */
-.hero-section {
+.home-container {
   width: 100%;
-  min-height: 300px; /* Fixed height for the hero section */
+  min-height: 100vh;
+  background-color: #f7f7f7;
+  padding-bottom: 40px;
+}
+
+/* Hero Section */
+.hero-section {
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url('Pc.jpg') center/cover no-repeat;
+  height: 90vh;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  color: white;
   text-align: center;
-  padding: 20px;
 }
 
-.title {
-  font-size: 2.5rem; /* Large title */
-  margin-bottom: 0.5rem;
+.hero-content .title {
+  font-size: 3rem;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
 }
 
-.subtitle {
-  font-size: 1.25rem; /* Subtitle size */
-  margin-bottom: 1rem;
+.hero-content .subtitle {
+  font-size: 1.5rem;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
 }
 
 .cta-button {
-  background-color: #0073e6; /* Primary button color */
-  color: #fff;
-  padding: 10px 20px; /* Button padding */
+  background-color: #ff6347;
+  color: white;
+  padding: 15px 30px;
+  font-size: 1.2rem;
   border: none;
-  border-radius: 5px; /* Rounded corners */
+  border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease; /* Smooth transition on hover */
+  transition: background-color 0.3s ease;
 }
 
 .cta-button:hover {
-  background-color: #005bb5; /* Darker shade on hover */
+  background-color: #ff4500;
 }
 
 /* Services Section */
 .services-section {
-  margin: 20px 0; /* Margin around the services section */
-  text-align: center; /* Center text in the section */
-  width: 100%;
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.services-section h2 {
+  font-size: 2.5rem;
+  margin-bottom: 40px;
+  color: #333;
 }
 
 .service-cards {
-  display: grid; /* Using grid layout for the service cards */
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive columns */
-  gap: 20px; /* Gap between cards */
-  margin-top: 20px; /* Margin above the cards */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
 }
 
-.card {
-  background-color: rgba(168, 168, 168, 0.863); /* Semi-transparent card background */
-  border-radius: 8px; /* Rounded corners for cards */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-  padding: 20px; /* Inner padding for the card */
-  transition: transform 0.3s ease; /* Transition for hover effect */
-  border: 3px solid transparent; /* Default transparent border */
+.service-card {
+  flex: 1 1 300px;
+  max-width: 30%;
+  margin: 20px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.card:hover {
-  transform: translateY(-4px); /* Slight lift effect on hover */
-  background-color: #36b5ff;
-  color: #000;
+.service-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
-/* About Section */
-.about-section {
-  margin: 20px 0; /* Margin around the about section */
-  text-align: center; /* Centered text */
-  width: 100%;
+.service-box {
+  padding: 20px;
+  text-align: center;
 }
 
-/* Footer Styling */
-.footer {
-  margin-top: 20px; /* Margin above the footer */
-  text-align: center; /* Centered text */
-  padding: 10px 0; /* Padding around footer text */
-  font-size: 0.9rem; /* Smaller font size for footer */
-  color: #777; /* Lighter text color for footer */
+.service-box img {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 15px;
+  transition: transform 0.3s ease;
 }
 
-/* Responsive Design */
-@media screen and (max-width: 768px) {
-  body {
-    background-image: url('./Mobile.jpg'); /* Use mobile background */
-    background-position: center;
+.service-box:hover img {
+  transform: rotate(10deg) scale(1.05);
+}
+
+.service-box span {
+  font-size: 1.2rem;
+  color: #333;
+  display: block;
+  margin-top: 10px;
+  transition: color 0.3s ease;
+}
+
+.service-box:hover span {
+  color: #ff6347;
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+  .hero-content .title {
+    font-size: 2.5rem;
   }
 
-  .hero-section {
-    min-height: 200px; /* Reduce hero section height on mobile */
-  }
-
-  .title {
-    font-size: 2rem; /* Adjust title size on mobile */
-  }
-
-  .subtitle {
-    font-size: 1rem; /* Adjust subtitle size on mobile */
+  .hero-content .subtitle {
+    font-size: 1.2rem;
   }
 
   .cta-button {
-    padding: 8px 16px; /* Smaller button padding on mobile */
-    border: 3px solid; /* Border adjustment for mobile */
+    font-size: 1rem;
+    padding: 10px 20px;
   }
 
-  .card {
-    display: flex;
-    flex-direction: row; /* Ensure icon and title stack vertically */
-    justify-content: center;
-    align-items: center;
-    width: 320px; /* Fixed width for cards on mobile */
-    height: 90px; /* Fixed height for cards on mobile */
-    border: 3px solid; /* Border for cards on mobile */
-    cursor: pointer;
+  .service-card {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-content .title {
+    font-size: 2rem;
   }
 
-  .card:hover {
-    transform: translateY(-2px); /* Slight lift effect on hover */
-    background-color: #36b5ff;
-    color: #000;
+  .hero-content .subtitle {
+    font-size: 1rem;
+  }
+
+  .cta-button {
+    font-size: 0.9rem;
+    padding: 8px 16px;
   }
 }

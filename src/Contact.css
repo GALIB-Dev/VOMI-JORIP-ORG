@@ -2,7 +2,7 @@
     /* Ensure visibility styles */
     display: block; /* or flex, depending on your layout */
     padding: 20px; /* Add some padding */
-    color: hwb(0 0% 100% / 0.822); /* Text color */
+    color: hwb(0 0% 100% / 0.911); /* Text color */
     z-index: 9999;
   }
   

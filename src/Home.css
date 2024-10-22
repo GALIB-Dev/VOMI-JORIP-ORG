@@ -15,42 +15,114 @@ body, html {
 
 /* Hero Section */
 .hero-section {
-  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+  background: linear-gradient(
+      rgba(0, 0, 0, 0.6),
+      rgba(0, 0, 0, 0.6)
+    ), /* Darker overlay for better contrast */
     url('Pc.jpg') center/cover no-repeat;
-  height: 90vh;
+  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
   text-align: center;
+  position: relative;
+  overflow: hidden; /* In case of animated elements */
+}
+
+.hero-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4); /* Subtle overlay for text readability */
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
+  padding: 0 20px;
+  animation: fadeIn 1.5s ease-in-out;
 }
 
 .hero-content .title {
-  font-size: 3rem;
-  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+  font-size: 4rem;
+  font-family: 'Poppins', sans-serif; /* Modern and professional font */
+  text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.7);
+  letter-spacing: 2px; /* Better spacing */
+  line-height: 1.2; /* Enhances readability */
+  margin-bottom: 20px;
+  color: #f0f0f0; /* Softer white for elegance */
+  animation: slideInDown 1.5s ease-in-out;
 }
 
 .hero-content .subtitle {
-  font-size: 1.5rem;
-  margin-top: 10px;
-  margin-bottom: 20px;
+  font-size: 1.8rem;
+  margin-top: 20px;
+  margin-bottom: 30px;
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+  color: #e0e0e0;
+  font-family: 'Open Sans', sans-serif;
+  animation: slideInUp 1.5s ease-in-out;
 }
 
+/* CTA Button */
 .cta-button {
   background-color: #ff6347;
   color: white;
-  padding: 15px 30px;
-  font-size: 1.2rem;
+  padding: 15px 40px;
+  font-size: 1.3rem;
+  font-family: 'Poppins', sans-serif;
   border: none;
-  border-radius: 5px;
+  border-radius: 50px; /* Circular edges for a modern look */
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(255, 99, 71, 0.4); /* Soft shadow for depth */
 }
 
 .cta-button:hover {
   background-color: #ff4500;
+  transform: translateY(-5px); /* Slight lift effect */
+  box-shadow: 0 6px 20px rgba(255, 69, 0, 0.6); /* Enhance hover shadow */
 }
+
+/* Keyframes for smooth animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInDown {
+  from {
+    transform: translateY(-100px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    transform: translateY(100px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Design for Mobile */
+@media (max-width: 768px) {
+ 
+}
+
 
 /* Services Section */
 .services-section {
@@ -124,13 +196,15 @@ body, html {
   }
 
   .cta-button {
-    font-size: 1rem;
-    padding: 10px 20px;
+    padding: 12px 30px;
+    font-size: 1.1rem;
   }
 
   .service-card {
     max-width: 100%;
   }
+
+ 
 }
 
 @media (max-width: 480px) {

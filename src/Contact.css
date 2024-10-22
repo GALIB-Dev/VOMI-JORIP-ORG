@@ -1,20 +1,84 @@
+/* Contact Page Container */
 .contact-container {
-    /* Ensure visibility styles */
-    display: block; /* or flex, depending on your layout */
-    padding: 20px; /* Add some padding */
-    color: hwb(0 0% 100% / 0.911); /* Text color */
-    z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #f5f5f5; /* Soft classic background */
+  color: #333;
+  padding: 20px;
+  font-family: 'Georgia', serif; /* A more classic font */
+}
+
+/* Header Section */
+.contact-header h1 {
+  font-size: 2.5rem;
+  color: #006400; /* Dark green */
+  margin-bottom: 10px;
+  border-bottom: 2px solid #8b0000; /* Red underline */
+  padding-bottom: 5px;
+}
+
+.contact-header p {
+  font-size: 1.3rem;
+  color: #4f4f4f;
+  margin-bottom: 15px;
+}
+
+.contact-header h3 {
+  font-size: 1.4rem;
+  color: #006400; /* Dark green */
+  margin-bottom: 20px;
+}
+
+.contact-header h3 a {
+  color: #8b0000; /* Dark red */
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s ease;
+}
+
+.contact-header h3 a:hover {
+  border-bottom: 1px solid #8b0000; /* Red underline on hover */
+}
+
+/* Form Container */
+.form-container {
+  width: 90%;
+  max-width: 800px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: 2px solid #006400; /* Green border */
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.form-container iframe {
+  border: none;
+  border-radius: 10px;
+}
+
+/* Add padding and spacing for classic look */
+.contact-container, .form-container {
+  padding: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .contact-header h1 {
+    font-size: 2rem;
   }
-  
-  .form-container {
-    margin-top: 20px;
-    width: 100%;
-    max-width: 800px; /* Set a max width for the form */
-    margin: 0 auto; /* Center the form on the page */
-    z-index: 10000;
+
+  .contact-header p {
+    font-size: 1.1rem;
   }
-  
-  iframe {
-    border: none; /* Remove border from the iframe */
+
+  .contact-header h3 {
+    font-size: 1.2rem;
   }
-  
+
+  .form-container iframe {
+    height: 500px;
+  }
+}

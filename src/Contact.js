@@ -4,9 +4,11 @@ import './Contact.css'; // Assuming you have a Contact.css for styling
 const Contact = () => {
   return (
     <div className="contact-container">
-      <h1>যোগাযোগ করুন</h1>
-      <p>আমাদের অফিস: জয়পুরহাট সদর</p>
-      <p><h3>ফোন নম্বর: +8801712617226</h3></p>
+      <div className="contact-header">
+        <h1>যোগাযোগ করুন</h1>
+        <p>আমাদের অফিস: জয়পুরহাট সদর</p>
+        <h3>ফোন নম্বর: <a href="tel:+8801712617226">+8801712617226</a></h3>
+      </div>
 
       <div className="form-container">
         {/* Embed Google Form using iframe */}

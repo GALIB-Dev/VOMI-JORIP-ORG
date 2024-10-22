@@ -5,7 +5,7 @@ import sell from './services.1.0.1/property sell.png';
 import digital from './services.1.0.1/digital survey.png';
 import mouzamap from './services.1.0.1/mouzamap.png';
 import con from './services.1.0.1/cons.jpg';
-import train from './services.1.0.1/training2.jpg';
+import train from './services.1.0.1/images.png';
 
 const Home = () => {
   return (
@@ -126,14 +126,14 @@ const Home = () => {
               href="/landpedia" // Provide a valid route here
               target="_blank"
               rel="noreferrer"
-              aria-label="ভূমি পিডিয়া">
+              aria-label="জরিপ প্রশিক্ষণ">
               <div className="service-box">
                 <img
                   className="img-responsive"
                   src={train}
-                  alt="ভূমি পিডিয়া"
+                  alt="জরিপ প্রশিক্ষণ"
                 />
-                <span>ভূমি পিডিয়া</span>
+                <span>জরিপ প্রশিক্ষণ</span>
               </div>
             </a>
           </div>

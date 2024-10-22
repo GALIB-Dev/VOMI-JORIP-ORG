@@ -167,7 +167,7 @@
     position: relative;
     display: flex; /* Keep this if you want it hidden initially */
     right: -60px;
-    margin-top: -45px;
+    margin-top: -40px;
     font-size: 1rem; /* Adjust the text size (smaller size) */
   }
 

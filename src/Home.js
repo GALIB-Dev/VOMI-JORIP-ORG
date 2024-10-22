@@ -1,5 +1,13 @@
 import React from 'react';
 import './Home.css'; // Importing the Home-specific CSS
+import survey from './services.1.0.1/land survey.png';
+import sell from './services.1.0.1/property sell.png';
+import digital from './services.1.0.1/digital survey.png';
+import mouzamap from './services.1.0.1/mouzamap.png';
+import con from './services.1.0.1/cons.jpg';
+import train from './services.1.0.1/training2.jpg';
+
+
 
 const Home = () => {
   return (
@@ -22,18 +30,18 @@ const Home = () => {
           {/* Service 1 */}
           <div className="service-card">
             <a
-              href="https://mutation.land.gov.bd"
+              href="/survey" // Update the href with a valid internal or external link
               target="_blank"
               rel="noreferrer"
-              aria-label="নামজারি">
+              aria-label="জমি জরিপ">
               <div className="service-box">
                 <img
                   className="img-responsive"
-                  src="https://land.gov.bd/wp-content/uploads/2024/08/Namjari-Logo-v3.png"
-                  alt="নামজারি"
+                  src={survey}
+                  alt="জমি জরিপ"
                   style={{ width: '116px' }}
                 />
-                <span>নামজারি</span>
+                <span>জমি জরিপ</span>
               </div>
             </a>
           </div>
@@ -41,18 +49,18 @@ const Home = () => {
           {/* Service 2 */}
           <div className="service-card">
             <a
-              href="https://ldtax.gov.bd/"
+              href="/buy-sell" // Update the href with a valid internal or external link
               target="_blank"
               rel="noreferrer"
-              aria-label="ভূমি উন্নয়ন কর">
+              aria-label="জমি ক্রয় এবং বিক্রয়">
               <div className="service-box">
                 <img
                   className="img-responsive"
-                  src="https://land.gov.bd/wp-content/themes/land-portal/images/icons/ldt.png"
-                  alt="ভূমি উন্নয়ন কর"
+                  src={sell}
+                  alt="জমি ক্রয় এবং বিক্রয়"
                   style={{ width: '149px', marginTop: '-9px' }}
                 />
-                <span>ভূমি উন্নয়ন কর</span>
+                <span>জমি ক্রয় এবং বিক্রয়</span>
               </div>
             </a>
           </div>
@@ -60,18 +68,18 @@ const Home = () => {
           {/* Service 3 */}
           <div className="service-card">
             <a
-              href="https://www.eporcha.gov.bd/"
+              href="#"
               target="_blank"
               rel="noreferrer"
-              aria-label="ভূমি রেকর্ড ও ম্যাপ">
+              aria-label="ডিজিটাল জরিপ">
               <div className="service-box">
                 <img
                   className="img-responsive"
-                  src="https://land.gov.bd/wp-content/uploads/2024/08/dlrms.png"
-                  alt="ভূমি রেকর্ড ও ম্যাপ"
+                  src={digital}
+                  alt="ডিজিটাল জরিপ"
                   style={{ width: '222px', margin: '17px auto' }}
                 />
-                <span>ভূমি রেকর্ড ও ম্যাপ</span>
+                <span>ডিজিটাল জরিপ</span>
               </div>
             </a>
           </div>
@@ -79,14 +87,14 @@ const Home = () => {
           {/* Service 4 */}
           <div className="service-card">
             <a
-              href="http://map.land.gov.bd/"
+              href="#"
               target="_blank"
               rel="noreferrer"
               aria-label="ভূমি নকশা">
               <div className="service-box">
                 <img
                   className="img-responsive"
-                  src="https://land.gov.bd/wp-content/uploads/2024/08/service-img-naksha.png"
+                  src={mouzamap}
                   alt="ভূমি নকশা"
                   style={{ width: '210px' }}
                 />
@@ -98,18 +106,18 @@ const Home = () => {
           {/* Service 5 */}
           <div className="service-card">
             <a
-              href="https://mutation.land.gov.bd/search-mortgage-info"
+              href="#"
               target="_blank"
               rel="noreferrer"
-              aria-label="মর্টগেজ তথ্য যাচাই">
+              aria-label="ল্যান্ড কনসালটেন্ট">
               <div className="service-box">
                 <img
                   className="img-responsive"
-                  src="https://land.gov.bd/wp-content/uploads/2023/03/morgaj.png"
-                  alt="মর্টগেজ তথ্য যাচাই"
+                  src={con}
+                  alt="ল্যান্ড কনসালটেন্ট"
                   style={{ width: '110px', marginTop: '13px' }}
                 />
-                <span>মর্টগেজ তথ্য যাচাই</span>
+                <span>ল্যান্ড কনসালটেন্ট</span>
               </div>
             </a>
           </div>
@@ -117,14 +125,14 @@ const Home = () => {
           {/* Service 6 */}
           <div className="service-card">
             <a
-              href="http://bhumipedia.land.gov.bd/"
+              href="#"
               target="_blank"
               rel="noreferrer"
               aria-label="ভূমি পিডিয়া">
               <div className="service-box">
                 <img
                   className="img-responsive"
-                  src="https://land.gov.bd/wp-content/uploads/2024/08/service-img-pidia.png"
+                  src={train}
                   alt="ভূমি পিডিয়া"
                 />
                 <span>ভূমি পিডিয়া</span>

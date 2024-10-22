@@ -7,8 +7,6 @@ import mouzamap from './services.1.0.1/mouzamap.png';
 import con from './services.1.0.1/cons.jpg';
 import train from './services.1.0.1/training2.jpg';
 
-
-
 const Home = () => {
   return (
     <div className="home-container">
@@ -68,7 +66,7 @@ const Home = () => {
           {/* Service 3 */}
           <div className="service-card">
             <a
-              href="#"
+              href="/digital-survey" // Provide a valid route here
               target="_blank"
               rel="noreferrer"
               aria-label="ডিজিটাল জরিপ">
@@ -87,7 +85,7 @@ const Home = () => {
           {/* Service 4 */}
           <div className="service-card">
             <a
-              href="#"
+              href="/land-mouzamap" // Provide a valid route here
               target="_blank"
               rel="noreferrer"
               aria-label="ভূমি নকশা">
@@ -106,7 +104,7 @@ const Home = () => {
           {/* Service 5 */}
           <div className="service-card">
             <a
-              href="#"
+              href="/consultant" // Provide a valid route here
               target="_blank"
               rel="noreferrer"
               aria-label="ল্যান্ড কনসালটেন্ট">
@@ -125,7 +123,7 @@ const Home = () => {
           {/* Service 6 */}
           <div className="service-card">
             <a
-              href="#"
+              href="/landpedia" // Provide a valid route here
               target="_blank"
               rel="noreferrer"
               aria-label="ভূমি পিডিয়া">

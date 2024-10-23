@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+import { Link } from 'react-router-dom';
 import './NavBar.css'; // Import your CSS
 import Logo from './logo1.jpg';
 
@@ -22,13 +22,13 @@ const NavBar = () => {
         <div className="dropdown">
           <Link to="#services" className="dropbtn">সেবা</Link>
           <div className="dropdown-content">
-            <Link to="#service1">সেবা ১</Link>
-            <Link to="#service2">সেবা ২</Link>
+            <Link to="/market">জমি বাজার</Link>
+            <Link to="/PropertyForm">জমি বিক্রি</Link>
             <Link to="#service3">সেবা ৩</Link>
           </div>
         </div>
         <Link to="/About">আমাদের-বিষয়ে</Link>
-        <Link to="/contact">যোগাযোগ</Link> {/* Updated link */}
+        <Link to="/Contact">যোগাযোগ</Link>
       </div>
 
       <div className="search-bar">
@@ -36,7 +36,7 @@ const NavBar = () => {
         <button type="submit"><h4>যাও</h4></button>
       </div>
 
-      <div className="menu-toggle" onClick={toggleMenu}>
+      <div className="menu-toggle" onClick={toggleMenu} aria-expanded={menuOpen} aria-label="Toggle navigation">
         <span className="menu-bar"></span>
         <span className="menu-bar"></span>
         <span className="menu-bar"></span>

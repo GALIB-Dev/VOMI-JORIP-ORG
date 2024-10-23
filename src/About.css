@@ -3,7 +3,7 @@
 @import "~slick-carousel/slick/slick-theme.css";
 
 .slider {
-  width: 100%;
+  width: 80%;
   margin: 0 auto;
 }
 
@@ -130,3 +130,15 @@
     max-width: 200px; /* Limit max width for better layout */
   }
   
+  @media (max-width: 768px) {
+    .slider {
+      width: 100%;
+      margin: 0 auto;
+    }
+    
+    .slider img {
+      width: 100%; /* Adjust as necessary */
+      height: auto; /* Maintain aspect ratio */
+    }
+    
+  }

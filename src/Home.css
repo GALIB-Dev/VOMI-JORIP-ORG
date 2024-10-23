@@ -118,11 +118,6 @@ body, html {
   }
 }
 
-/* Responsive Design for Mobile */
-@media (max-width: 768px) {
- 
-}
-
 
 /* Services Section */
 .services-section {
@@ -153,7 +148,7 @@ body, html {
 }
 
 .service-card:hover {
-  transform: translateY(-10px);
+  transform: translateY(-5px);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
@@ -170,7 +165,7 @@ body, html {
 }
 
 .service-box:hover img {
-  transform: rotate(10deg) scale(1.05);
+  transform: rotate(5deg) scale(1.05);
 }
 
 .service-box span {

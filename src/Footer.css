@@ -1,9 +1,57 @@
 .footer {
-    background-color: #000000ec;
-    color: #fff;
-    text-align: center;
-    padding: 1rem 0;
-    width: 100%;
-    bottom: 0;
-    position: relative;
-  }  
+  background: linear-gradient(145deg, #003300, #004d00); /* Advanced gradient background */
+  color: #ffffff;
+  text-align: center;
+  padding: 2rem 0;
+  position: relative;
+  width: 100%;
+  font-family: 'Roboto', sans-serif;
+  box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.2); /* Slight shadow for a subtle floating effect */
+  border-top: 1px solid #006600;
+}
+
+.footer p {
+  margin: 0.1rem 0;
+  font-size: .8rem;
+  letter-spacing: 0.5px;
+}
+
+.footer a {
+  color: #66ff66; /* More vivid green link color */
+  text-decoration: none;
+  font-weight: 500;
+  letter-spacing: .8px;
+  transition: color 0.4s ease, transform 0.3s ease; /* Added transform for slight scaling */
+}
+
+.footer a:hover {
+  color: #99ff99; /* Softer green on hover */
+  transform: scale(1.05); /* Scale up the text slightly for interaction */
+}
+
+
+.footer hr {
+  border: 0;
+  height: 1px;
+  background: #006600;
+  margin: 1.5rem 0;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  opacity: 0.6;
+}
+
+.footer .powered-by {
+  margin-top: 1rem;
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.footer .powered-by a {
+  font-weight: 700;
+  color: #66ff66;
+}
+
+.footer .powered-by a:hover {
+  color: #99ff99;
+}

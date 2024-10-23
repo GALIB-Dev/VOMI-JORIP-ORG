@@ -2,7 +2,8 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import NavBar from './NavBar.js';
 import Home from './Home.js';
-import Services from './Services.js';
+import Market from './market.js';
+import PropertyForm from './PropertyForm.js';
 import About from './About.js';
 import Contact from './Contact.js';
 import Footer from './Footer.js';
@@ -16,9 +17,10 @@ function App() {
         <main className="content">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/services" element={<Services />} />
+            <Route path="/market" element={<Market />} />
             <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} /> {/* Ensure this route is correct */}
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/PropertyForm" element={<PropertyForm />} /> {/* Changed from component to element */}
           </Routes>
         </main>
 

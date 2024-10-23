@@ -1,0 +1,41 @@
+.market {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Center the items horizontally */
+  padding: 20px; /* Add some padding around the market section */
+  background-color: #f5f5f5; /* Light background for contrast */
+}
+
+.property-card {
+  background-color: #ffffff; /* White background for each card */
+  border: 1px solid #ccc; /* Light gray border */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  margin: 15px; /* Space between cards */
+  padding: 20px; /* Inner spacing */
+  max-width: 300px; /* Maximum width for cards */
+  text-align: center; /* Center-align text */
+  transition: transform 0.3s, box-shadow 0.3s; /* Smooth transition effects */
+}
+
+.property-card:hover {
+  transform: translateY(-5px); /* Slight lift on hover */
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2); /* Increased shadow on hover */
+}
+
+.property-card img {
+  width: 100%; /* Make images responsive */
+  height: auto; /* Maintain aspect ratio */
+  border-radius: 4px; /* Slightly round image corners */
+}
+
+.property-card h4 {
+  font-size: 1.2rem; /* Slightly larger font for property description */
+  margin: 10px 0; /* Space around the title */
+}
+
+.property-card p {
+  font-size: 0.9rem; /* Slightly smaller font for additional info */
+  color: #555; /* Dark gray color for text */
+  margin: 5px 0; /* Space between paragraphs */
+}

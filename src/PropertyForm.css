@@ -1,0 +1,19 @@
+.form-container {
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .form-link {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff; /* Bootstrap primary color */
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-top: 10px;
+  }
+  
+  .form-link:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+  }
+  

@@ -45,7 +45,7 @@
 
 /* Form Container */
 .form-container {
-  width: 90%;
+  width: 100%;
   max-width: 800px;
   background-color: #ffffff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);

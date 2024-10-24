@@ -1,19 +1,34 @@
-.form-container {
-    padding: 20px;
-    text-align: center;
-  }
-  
-  .form-link {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #007bff; /* Bootstrap primary color */
-    color: white;
-    border-radius: 5px;
-    text-decoration: none;
-    margin-top: 10px;
-  }
-  
-  .form-link:hover {
-    background-color: #0056b3; /* Darker shade on hover */
-  }
-  
+.property-form-container {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.property-form-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.property-form-header h1 {
+  font-size: 2em;
+  color: #333;
+}
+
+.property-form-header p {
+  font-size: 1.2em;
+  color: #666;
+}
+
+.property-form-header a {
+  color: #0b79d0;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.form-container iframe {
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}

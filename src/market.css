@@ -12,7 +12,7 @@
   border-radius: 8px; /* Rounded corners */
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
   margin: 15px; /* Space between cards */
-  padding: 20px; /* Inner spacing */
+  padding: 50px; /* Inner spacing */
   max-width: 300px; /* Maximum width for cards */
   text-align: center; /* Center-align text */
   transition: transform 0.3s, box-shadow 0.3s; /* Smooth transition effects */

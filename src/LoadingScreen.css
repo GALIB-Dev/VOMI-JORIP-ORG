@@ -1,0 +1,68 @@
+/* Full-screen loading container */
+.loading-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #151F28;
+    z-index: 9999; /* Ensures it overlays everything */
+  }
+  
+  /* Spinning element */
+  .spinner {
+    width: 80px;
+    height: 80px;
+    border: 8px solid rgba(255, 255, 255, 0.3);
+    border-top-color: #00ff88;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+  
+  /* Animation for spinning */
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
+  /* Loading text style */
+  .loading-text {
+    color: #ffffff;
+    font-size: 1.2rem;
+    font-family: 'Arial', sans-serif;
+    margin-top: 20px;
+    text-shadow: 0 0 10px #00ff88;
+    letter-spacing: 0.05em;
+  }
+  
+  /* Three-dot animation */
+  .loading-dots::after {
+    content: '';
+    display: inline-block;
+    animation: dots 1s steps(5, end) infinite;
+  }
+  
+  /* Keyframes for the dot animation */
+  @keyframes dots {
+    0%, 20% {
+      content: '';
+    }
+    40% {
+      content: '.';
+    }
+    60% {
+      content: '..';
+    }
+    80%, 100% {
+      content: '...';
+    }
+  }
+  

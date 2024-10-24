@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './NavBar.css'; // Import your CSS
-import Logo from './logo1.jpg';
+import Logo from './logo1.jpg'; // Update the path as necessary
 
 const NavBar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -20,7 +20,7 @@ const NavBar = () => {
       <div className={`nav-links ${menuOpen ? 'open' : ''}`}>
         <Link to="/"><h4>হোম</h4></Link>
         <div className="dropdown">
-          <Link to="#services" className="dropbtn">সেবা</Link>
+          <Link className="dropbtn">সেবা</Link>
           <div className="dropdown-content">
             <Link to="/market">জমি বাজার</Link>
             <Link to="/PropertyForm">জমি বিক্রি</Link>

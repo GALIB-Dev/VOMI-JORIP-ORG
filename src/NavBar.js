@@ -1,7 +1,8 @@
+// NavBar.js
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import './NavBar.css'; // Import your CSS
-import Logo from './logo1.jpg'; // Update the path as necessary
+import './NavBar.css';
+import Logo from './logo1.jpg';
 
 const NavBar = () => {
   const [menuOpen, setMenuOpen] = useState(false);

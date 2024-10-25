@@ -30,6 +30,7 @@ body {
 .footer {
   background-color: #f1f1f1; /* Light background for the footer */
   padding: 10px;
+  color:#f1f1f1;
   text-align: center;
   width: 100%; /* Full width footer */
   position: relative;

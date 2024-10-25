@@ -1,34 +1,122 @@
-.property-form-container {
+body {
+  font-family: 'SolaimanLipi', sans-serif;
+  background-color: #f9f5e6;
   padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  max-width: 900px;
-  margin: 0 auto;
+  color: #333;
 }
 
-.property-form-header {
+h2 {
+  text-align: center;
+  color: #2c3e50;
+  font-size: 24px;
+}
+
+form {
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+input[type="text"], input[type="number"], select, textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f9f5e6;
+}
+
+button {
+  display: inline-block;
+  background-color: #27ae60;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+button:hover {
+  background-color: #1e8449;
+}
+
+textarea {
+  min-height: 100px;
+}
+
+select {
+  background-color: #f9f5e6;
+}
+
+img {
+  max-width: 100%;
+  margin-top: 10px;
+}
+
+p {
+  font-size: 12px;
+  text-align: center;
+}
+.property-form {
+  padding: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+  background: #f0f0f0;
+  border-radius: 8px;
+}
+
+.form-title {
   text-align: center;
   margin-bottom: 20px;
 }
 
-.property-form-header h1 {
-  font-size: 2em;
-  color: #333;
-}
-
-.property-form-header p {
-  font-size: 1.2em;
-  color: #666;
-}
-
-.property-form-header a {
-  color: #0b79d0;
-  text-decoration: none;
+.form-label {
+  display: block;
+  margin-bottom: 10px;
   font-weight: bold;
 }
 
-.form-container iframe {
-  border: none;
+.form-input {
+  display: block;
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.error-message {
+  color: red;
+  margin-bottom: 20px;
+}
+
+.image-preview {
+  margin-bottom: 20px;
+}
+
+.uploaded-image {
+  width: 100%;
+  height: auto;
   border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.submit-button {
+  padding: 10px 20px;
+  background: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }

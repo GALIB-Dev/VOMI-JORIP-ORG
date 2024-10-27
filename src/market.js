@@ -8,8 +8,8 @@ const Market = () => {
 
   // Helper function to format Google Drive URLs
   const formatDriveUrl = (url) => {
-    return url.includes('drive.google.com') 
-      ? url.replace('/file/d/', '/uc?export=view&id=').replace('/view?usp=sharing', '') 
+    return url.includes('drive.google.com')
+      ? url.replace('/file/d/', '/uc?export=view&id=').replace('/view?usp=sharing', '')
       : url;
   };
 
@@ -25,20 +25,21 @@ const Market = () => {
         }
 
         const data = await response.text();
-        const rows = data.split('\n').slice(1);
+        const rows = data.split('\n').slice(1); // Skip header row
 
         const formattedProperties = rows.map(row => {
           const columns = row.split(',');
           return {
-            timestamp: columns[0],
-            image: formatDriveUrl(columns[1]),
-            description: columns[2],
-            price: columns[3],
-            ownerName: columns[4],
-            phoneNumber: columns[5],
-            location: columns[6],
-            additionalInfo: columns[7],
-            confirmationMessage: columns[8],
+            date: columns[0],
+            propertyType: columns[1],
+            price: columns[2],
+            ownerName: columns[3],
+            ownerPhone: columns[4],
+            location: columns[5],
+            additionalInfo: columns[6],
+            propertyAmount: columns[7],
+            landUnit: columns[8],
+            propertyImage: formatDriveUrl(columns[9]),
           };
         });
 
@@ -66,21 +67,21 @@ const Market = () => {
           {properties.map((property, index) => (
             <div key={index} className="property-card">
               <img
-                src={property.image}
+                src={property.propertyImage}
                 alt={`Property ${index + 1}`}
                 onError={(e) => {
                   e.target.onerror = null;
-                  e.target.src = "https://drive.google.com/drive/folders/1X7KZAsyHyRhlTN8pnE64Lciu7MQ0cR9oGuNNFGMLMl4HMv3PAsRthqR0R7lMNopue5pYiNxK?usp=sharinghttps://drive.google.com/drive/folders/1kncp3ITzJtSeQNjkJiioUACDR1y5Tk5VkQIL7qggX5onSCv_STD_oQQuKcR8JuA1q9EPm9I3?usp=sharing"; // Default fallback image
+                  e.target.src = "https://example.com/fallback-image.jpg"; // Default fallback image URL
                 }}
               />
               <div className="property-details">
-                <h4>মূল্য  : {property.description} BDT</h4>
-                <p> মালিক : {property.price}</p>
-                <p>যোগাযোগ : {property.ownerName}</p>
-                <p>অবস্থান  : {property.phoneNumber}</p>
-                <p> বিস্তারিত : {property.location}</p>
-                <p>পরিমাণ  : {property.additionalInfo}</p>
-                <p className="confirmation-message">একক : {property.confirmationMessage}</p>
+                <h4>মূল্য: {property.price} BDT</h4>
+                <p><h4><b>ধরন: {property.propertyType}</b></h4></p>
+                <p>মালিক: {property.ownerName}</p>
+                <p>যোগাযোগ: {property.ownerPhone}</p>
+                <p>অবস্থান: {property.location}</p>
+                <p>বিস্তারিত: {property.additionalInfo}</p>
+                <p><b>পরিমাণ: {property.propertyAmount} {property.landUnit}</b></p>
               </div>
             </div>
           ))}

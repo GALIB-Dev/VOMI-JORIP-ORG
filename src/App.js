@@ -7,7 +7,7 @@ import PropertyForm from './PropertyForm.js';
 import About from './About.js';
 import Contact from './Contact.js';
 import Footer from './Footer.js';
-import LoadingScreen from './LoadingScreen.js';
+import Loading from './Loading.js';
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -18,14 +18,14 @@ function App() {
     setLoading(true);
     const timeout = setTimeout(() => {
       setLoading(false);
-    }, 500); // Simulate loading time (1 second)
+    }, 700); // Simulate loading time (1 second)
 
     return () => clearTimeout(timeout);
   }, [location]);
 
   return (
     <div className="App">
-      {loading && <LoadingScreen />} {/* Show loading screen when loading */}
+      {loading && <Loading />} {/* Show loading screen when loading */}
       <NavBar /> {/* Navbar is static across all routes */}
       <main className="content">
         <Routes>

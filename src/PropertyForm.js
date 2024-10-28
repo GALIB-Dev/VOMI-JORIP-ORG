@@ -58,8 +58,15 @@ const PropertyForm = () => {
       method: 'POST',
       body: formData,
     })
-      .then((response) => response.json())
+      .then((response) => {
+        // Check if response is OK
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
       .then((data) => {
+        // Adjust based on your data structure
         setSubmitStatus({ success: true, message: 'ফর্ম সফলভাবে জমা দেওয়া হয়েছে!' });
         resetForm();
       })
@@ -97,38 +104,37 @@ const PropertyForm = () => {
 
       <label className="form-label">সম্পত্তির ধরণ</label>
       <select value={propertyType} onChange={(e) => setPropertyType(e.target.value)} className="form-input">
-  <option value="">ধরণ নির্বাচন করুন</option>
-  <option value="চাষের জমি">চাষের জমি</option> 
-  <option value="বাণিজ্যিক জমি">বাণিজ্যিক জমি</option> 
-  <option value="বাণিজ্যিক এলাকা">বাণিজ্যিক এলাকা</option>
-  <option value="পুকুর">পুকুর</option>
-  <option value="বিল্ডিং">বিল্ডিং</option>
-  <option value="বনের জমি">বনের জমি</option> 
-  <option value="নদীর পাশের জমি">নদীর পাশের জমি</option>
-  <option value="চর জমি">চর জমি</option>
-  <option value="বাড়ির আঙ্গিনা">বাড়ির আঙ্গিনা</option>
-  <option value="গুদাম জমি">গুদাম জমি</option>
-  <option value="গ্রাম্য জমি">গ্রাম্য জমি</option> 
-  <option value="বিল বা জলাভূমি">বিল বা জলাভূমি</option> 
-  <option value="চা বাগান">চা বাগান</option> 
-  <option value="মাছের খামার">মাছের খামার</option> 
-  <option value="বাঁশ বাগান">বাঁশ বাগান</option>
-  <option value="জলাশয়">জলাশয়</option> 
-  <option value="ফলের বাগান">ফলের বাগান</option>
-  <option value="শিক্ষা প্রতিষ্ঠান জমি">শিক্ষা প্রতিষ্ঠান জমি</option> 
-  <option value="কবরস্থান জমি">কবরস্থান জমি</option>
-  <option value="উচ্চভূমি">উচ্চভূমি</option>
-  <option value="খামার বাড়ি">খামার বাড়ি</option> 
-  <option value="সেচন জমি">সেচন জমি</option> 
-  <option value="পালিত বন">পালিত বন</option> 
-  <option value="কৃষি খামার জমি">কৃষি খামার জমি</option> 
-  <option value="পশুপালন খামার জমি">পশুপালন খামার জমি</option> 
-  <option value="ঝোপঝাড় জমি">ঝোপঝাড় জমি</option>
-  <option value="ভিটেবাড়ি">ভিটেবাড়ি</option> 
-  <option value="কাঠের জমি">কাঠের জমি</option> 
-  <option value="সীমান্ত জমি">সীমান্ত জমি</option> 
-</select>
-
+        <option value="">ধরণ নির্বাচন করুন</option>
+        <option value="চাষের জমি">চাষের জমি</option>
+        <option value="বাণিজ্যিক জমি">বাণিজ্যিক জমি</option>
+        <option value="বাণিজ্যিক এলাকা">বাণিজ্যিক এলাকা</option>
+        <option value="পুকুর">পুকুর</option>
+        <option value="বিল্ডিং">বিল্ডিং</option>
+        <option value="বনের জমি">বনের জমি</option>
+        <option value="নদীর পাশের জমি">নদীর পাশের জমি</option>
+        <option value="চর জমি">চর জমি</option>
+        <option value="বাড়ির আঙ্গিনা">বাড়ির আঙ্গিনা</option>
+        <option value="গুদাম জমি">গুদাম জমি</option>
+        <option value="গ্রাম্য জমি">গ্রাম্য জমি</option>
+        <option value="বিল বা জলাভূমি">বিল বা জলাভূমি</option>
+        <option value="চা বাগান">চা বাগান</option>
+        <option value="মাছের খামার">মাছের খামার</option>
+        <option value="বাঁশ বাগান">বাঁশ বাগান</option>
+        <option value="জলাশয়">জলাশয়</option>
+        <option value="ফলের বাগান">ফলের বাগান</option>
+        <option value="শিক্ষা প্রতিষ্ঠান জমি">শিক্ষা প্রতিষ্ঠান জমি</option>
+        <option value="কবরস্থান জমি">কবরস্থান জমি</option>
+        <option value="উচ্চভূমি">উচ্চভূমি</option>
+        <option value="খামার বাড়ি">খামার বাড়ি</option>
+        <option value="সেচন জমি">সেচন জমি</option>
+        <option value="পালিত বন">পালিত বন</option>
+        <option value="কৃষি খামার জমি">কৃষি খামার জমি</option>
+        <option value="পশুপালন খামার জমি">পশুপালন খামার জমি</option>
+        <option value="ঝোপঝাড় জমি">ঝোপঝাড় জমি</option>
+        <option value="ভিটেবাড়ি">ভিটেবাড়ি</option>
+        <option value="কাঠের জমি">কাঠের জমি</option>
+        <option value="সীমান্ত জমি">সীমান্ত জমি</option>
+      </select>
 
       <label className="form-label">মূল্য (BDT)</label>
       <input type="number" value={price} onChange={(e) => setPrice(e.target.value)} placeholder="মূল্য লিখুন" className="form-input" />
@@ -150,7 +156,7 @@ const PropertyForm = () => {
 
       <label className="form-label">মাপের একক</label>
       <select value={landUnit} onChange={(e) => setLandUnit(e.target.value)} className="form-input">
-        <option value="কাঠা">কাঠা</option>
+      <option value="কাঠা">কাঠা</option>
         <option value="বিঘা">বিঘা</option>
         <option value="শতাংশ">শতাংশ</option>
         <option value="একর">একর</option>
@@ -160,14 +166,12 @@ const PropertyForm = () => {
       <button type="submit" className="submit-button">জমা দিন</button>
 
       {submitStatus && (
-        <p className={submitStatus.success ? 'success-message' : 'error-message'}>
+        <div className={`submit-status ${submitStatus.success ? 'success' : 'error'}`}>
           {submitStatus.message}
-        </p>
+        </div>
       )}
     </form>
   );
 };
 
 export default PropertyForm;
-
-

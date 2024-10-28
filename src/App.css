@@ -1,50 +1,60 @@
 /* Ensure html and body take up the full viewport height */
 html, body {
   margin: 0;
-  height: 100%; /* Full viewport height */
+  padding: 0;
+  height: 100vh; /* Full viewport height */
   font-family: 'Arial', sans-serif;
-  color: #000000; /* Text color */
-  overflow: auto; /* Scroll naturally */
+  color: #333333; /* Softer text color for readability */
+  overflow: hidden; /* Prevent scroll bounce */
+  display: flex;
+  flex-direction: column;
 }
 
-/* Background image on the body */
+/* Body styling with a smooth background and centered content */
 body {
-  background: transparent;
+  background: linear-gradient(to bottom right, #f0f0f0, #d3d3d3); /* Subtle gradient */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Main content area */
 .content {
-  padding: 20px; /* Add padding for content spacing */
-  flex-grow: 1; /* Ensure it takes up remaining space */
-  width: 100%; /* Make sure content takes full width */
+  padding: 25px; /* Increased padding for breathing room */
+  flex-grow: 1; /* Ensure it expands to fill available space */
+  width: 100%;
+  max-width: 1200px; /* Center content with max-width */
+  box-sizing: border-box; /* Include padding in element width */
 }
 
-/* Make sure the footer sticks to the bottom */
+/* Ensure the App component fills the viewport */
 .App {
   display: flex;
   flex-direction: column;
-  min-height: 100vh; /* Ensures the App component fills the viewport */
+  min-height: 100vh;
+  width: 100%;
 }
 
-/* Styling for the footer */
+/* Footer styling */
 .footer {
-  background-color: #f1f1f1; /* Light background for the footer */
-  padding: 10px;
-  color:#f1f1f1;
+  background-color: #333333; /* Darker footer for contrast */
+  padding: 15px;
+  color: #ffffff; /* White text for visibility */
   text-align: center;
-  width: 100%; /* Full width footer */
-  position: relative;
-  bottom: 0; /* Stick footer to the bottom */
+  width: 100%;
+  margin-top: auto; /* Push footer to bottom without absolute positioning */
+  font-size: 0.95rem;
 }
 
 /* Media queries for mobile responsiveness */
 @media screen and (max-width: 768px) {
   .content {
-    padding: 15px; /* Slightly reduce padding on mobile */
+    padding: 20px; /* Consistent padding across devices */
   }
 
-  /* Adjustments for small screens */
+  /* Footer adjustments for small screens */
   .footer {
-    font-size: 0.9rem; /* Smaller font for the footer on mobile */
+    font-size: 0.85rem; /* Adjust font size for readability */
+    padding: 10px;
   }
 }

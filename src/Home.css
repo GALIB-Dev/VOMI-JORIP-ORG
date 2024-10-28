@@ -196,6 +196,12 @@ body, html {
     font-size: 1.1rem;
   }
 
+  .service-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
   .service-card {
     max-width: 100%;
   }
@@ -215,5 +221,47 @@ body, html {
   .cta-button {
     font-size: 0.9rem;
     padding: 8px 16px;
+  }
+
+  /* Service cards styled as app icons for mobile */
+  .service-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 icons per row */
+    gap: 15px;
+    justify-items: center;
+  }
+
+  .service-card {
+    width: 80px;
+    height: 80px;
+    margin: 0; /* Remove extra margin */
+    padding: 10px;
+    border-radius: 15px; /* Rounded corners for icon style */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    transition: none; /* Disable hover effects on mobile */
+    text-align: center;
+  }
+
+  .service-box {
+    padding: 0; /* Remove extra padding */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .service-box img {
+    width: 50px; /* Adjust icon size for compact display */
+    height: 50px;
+    margin: 0 auto; /* Center image */
+  }
+
+  .service-box span {
+    font-size: 0.7rem; /* Smaller font for icon label */
+    color: #333;
+    margin-top: 5px;
   }
 }

@@ -17,7 +17,7 @@ const Home = () => {
           <p className="subtitle">
             আমরা আপনাকে আত্মবিশ্বাসের সাথে সম্পত্তি কিনতে, বিক্রি করতে এবং জরিপ করতে সহায়তা করি।
           </p>
-          <button className="cta-button">শুরু করুন</button>
+          <button className="cta-button">জমি বাজার</button>
         </div>
       </header>
 
@@ -28,7 +28,7 @@ const Home = () => {
           {/* Service 1 */}
           <div className="service-card">
             <a
-              href="/survey" // Update the href with a valid internal or external link
+              href="/contact" // Update the href with a valid internal or external link
               target="_blank"
               rel="noreferrer"
               aria-label="জমি জরিপ">
@@ -47,7 +47,7 @@ const Home = () => {
           {/* Service 2 */}
           <div className="service-card">
             <a
-              href="/buy-sell" // Update the href with a valid internal or external link
+              href="/market" // Update the href with a valid internal or external link
               target="_blank"
               rel="noreferrer"
               aria-label="জমি ক্রয় এবং বিক্রয়">
@@ -66,7 +66,7 @@ const Home = () => {
           {/* Service 3 */}
           <div className="service-card">
             <a
-              href="/digital-survey" // Provide a valid route here
+              href="/contact" // Provide a valid route here
               target="_blank"
               rel="noreferrer"
               aria-label="ডিজিটাল জরিপ">
@@ -85,7 +85,7 @@ const Home = () => {
           {/* Service 4 */}
           <div className="service-card">
             <a
-              href="/land-mouzamap" // Provide a valid route here
+              href="/contact" // Provide a valid route here
               target="_blank"
               rel="noreferrer"
               aria-label="ভূমি নকশা">
@@ -104,7 +104,7 @@ const Home = () => {
           {/* Service 5 */}
           <div className="service-card">
             <a
-              href="/consultant" // Provide a valid route here
+              href="/contact" // Provide a valid route here
               target="_blank"
               rel="noreferrer"
               aria-label="ল্যান্ড কনসালটেন্ট">
@@ -123,7 +123,7 @@ const Home = () => {
           {/* Service 6 */}
           <div className="service-card">
             <a
-              href="/landpedia" // Provide a valid route here
+              href="/contact" // Provide a valid route here
               target="_blank"
               rel="noreferrer"
               aria-label="জরিপ প্রশিক্ষণ">

@@ -25,7 +25,7 @@ const NavBar = () => {
           <div className="dropdown-content">
             <Link to="/market">জমি বাজার</Link>
             <Link to="/PropertyForm">জমি বিক্রি</Link>
-            <Link to="#service3">সেবা ৩</Link>
+            <Link to="#service3">অফিস</Link>
           </div>
         </div>
         <Link to="/About">আমাদের-বিষয়ে</Link>

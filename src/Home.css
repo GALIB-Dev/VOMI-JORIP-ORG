@@ -254,14 +254,14 @@ body, html {
   }
 
   .service-box img {
-    width: 50px; /* Adjust icon size for compact display */
-    height: 50px;
+    width: 35px; /* Adjust icon size for compact display */
+    height: 40px;
     margin: 0 auto; /* Center image */
   }
 
   .service-box span {
-    font-size: 0.7rem; /* Smaller font for icon label */
+    font-size: 0.6rem; /* Smaller font for icon label */
     color: #333;
-    margin-top: 5px;
+    margin-top: 1px;
   }
 }

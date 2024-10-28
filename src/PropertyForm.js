@@ -136,7 +136,7 @@ const PropertyForm = () => {
         <option value="সীমান্ত জমি">সীমান্ত জমি</option>
       </select>
 
-      <label className="form-label">মূল্য (BDT)</label>
+      <label className="form-label">মূল্য:প্রতি একক(BDT)</label>
       <input type="number" value={price} onChange={(e) => setPrice(e.target.value)} placeholder="মূল্য লিখুন" className="form-input" />
 
       <label className="form-label">মালিকের নাম</label>
@@ -148,7 +148,7 @@ const PropertyForm = () => {
       <label className="form-label">অবস্থান</label>
       <input type="text" value={location} onChange={(e) => setLocation(e.target.value)} placeholder="অবস্থান লিখুন" className="form-input" />
 
-      <label className="form-label">অতিরিক্ত তথ্য (ঐচ্ছিক)</label>
+      <label className="form-label">অতিরিক্ত তথ্য (Optional)</label>
       <textarea value={additionalInfo} onChange={(e) => setAdditionalInfo(e.target.value)} placeholder="অতিরিক্ত তথ্য" className="form-input" />
 
       <label className="form-label">পরিমাণ</label>

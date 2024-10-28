@@ -8,9 +8,11 @@ const Market = () => {
 
   // Helper function to format Google Drive URLs
   const formatDriveUrl = (url) => {
-    return url.includes('drive.google.com')
-      ? url.replace('/file/d/', '/uc?export=view&id=').replace('/view?usp=sharing', '')
-      : url;
+    if (url.includes('drive.google.com/file/d/')) {
+      const id = url.split('/d/')[1].split('/')[0]; // Extract the file ID
+      return `https://drive.google.com/uc?export=view&id=${id}`; // Create direct link
+    }
+    return url; // Return original URL if it's not a Google Drive link
   };
 
   useEffect(() => {
@@ -39,7 +41,7 @@ const Market = () => {
             additionalInfo: columns[6],
             propertyAmount: columns[7],
             landUnit: columns[8],
-            propertyImage: formatDriveUrl(columns[9]),
+            propertyImage: formatDriveUrl(columns[9]), // Format image URL
           };
         });
 
@@ -71,12 +73,12 @@ const Market = () => {
                 alt={`Property ${index + 1}`}
                 onError={(e) => {
                   e.target.onerror = null;
-                  e.target.src = "https://example.com/fallback-image.jpg"; // Default fallback image URL
+                  e.target.src = "https://via.placeholder.com/280x180.png?text=Image+Not+Available"; // Fallback image
                 }}
               />
               <div className="property-details">
                 <h4>মূল্য: {property.price} BDT</h4>
-                <p><h4><b>ধরন: {property.propertyType}</b></h4></p>
+                <p><b>ধরন: {property.propertyType}</b></p>
                 <p>মালিক: {property.ownerName}</p>
                 <p>যোগাযোগ: {property.ownerPhone}</p>
                 <p>অবস্থান: {property.location}</p>

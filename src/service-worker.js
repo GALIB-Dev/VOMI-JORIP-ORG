@@ -8,7 +8,7 @@ const urlsToCache = [
 ];
 
 // Install the service worker and cache assets
-self.addEventListener('install', (event) => {
+this.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
       return cache.addAll(urlsToCache);
@@ -17,7 +17,7 @@ self.addEventListener('install', (event) => {
 });
 
 // Fetch event to serve cached assets
-self.addEventListener('fetch', (event) => {
+this.addEventListener('fetch', (event) => {
   event.respondWith(
     caches.match(event.request).then((response) => {
       return response || fetch(event.request);
@@ -26,7 +26,7 @@ self.addEventListener('fetch', (event) => {
 });
 
 // Activate the service worker and clean up old caches
-self.addEventListener('activate', (event) => {
+this.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((cacheNames) => {
       return Promise.all(

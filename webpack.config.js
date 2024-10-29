@@ -30,4 +30,14 @@ module.exports = {
     extensions: ['.js', '.json'], // Automatically resolve certain extensions
   },
   devtool: 'source-map', // For easier debugging
+
+   // Your other configuration...
+   plugins: [
+    new GenerateSW({
+      clientsClaim: true,
+      skipWaiting: true,
+      // This is important for precaching
+      include: [/\.html$/, /\.js$/, /\.css$/],
+    }),
+  ],
 };

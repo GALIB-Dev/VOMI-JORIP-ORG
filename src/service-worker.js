@@ -1,4 +1,8 @@
-/* eslint-disable no-restricted-globals */
+/* eslint-disable no-restricted-globals, no-undef */
+importScripts('https://storage.googleapis.com/workbox-cdn/releases/6.0.0/workbox-sw.js');
+
+// Ensure the __WB_MANIFEST variable is available for precaching
+workbox.precaching.precacheAndRoute(self.__WB_MANIFEST || []);
 
 const CACHE_NAME = 'my-cache-v1';
 const urlsToCache = [
@@ -41,5 +45,4 @@ self.addEventListener('activate', (event) => {
     })
   );
 });
-
-/* eslint-enable no-restricted-globals */
+/* eslint-enable no-restricted-globals, no-undef */

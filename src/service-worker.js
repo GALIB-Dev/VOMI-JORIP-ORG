@@ -1,3 +1,5 @@
+/* eslint-disable no-restricted-globals */
+
 const CACHE_NAME = 'my-cache-v1';
 const urlsToCache = [
   '/',
@@ -8,7 +10,7 @@ const urlsToCache = [
 ];
 
 // Install the service worker and cache assets
-this.addEventListener('install', (event) => {
+self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
       return cache.addAll(urlsToCache);
@@ -17,7 +19,7 @@ this.addEventListener('install', (event) => {
 });
 
 // Fetch event to serve cached assets
-this.addEventListener('fetch', (event) => {
+self.addEventListener('fetch', (event) => {
   event.respondWith(
     caches.match(event.request).then((response) => {
       return response || fetch(event.request);
@@ -26,7 +28,7 @@ this.addEventListener('fetch', (event) => {
 });
 
 // Activate the service worker and clean up old caches
-this.addEventListener('activate', (event) => {
+self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((cacheNames) => {
       return Promise.all(
@@ -39,3 +41,5 @@ this.addEventListener('activate', (event) => {
     })
   );
 });
+
+/* eslint-enable no-restricted-globals */

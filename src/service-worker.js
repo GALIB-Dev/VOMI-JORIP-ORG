@@ -1,4 +1,6 @@
-/* eslint-disable no-restricted-globals, no-undef */
+/* eslint-disable no-restricted-globals */
+/* global importScripts, workbox */ // Define global variables
+
 importScripts('https://storage.googleapis.com/workbox-cdn/releases/6.0.0/workbox-sw.js');
 
 // Ensure the __WB_MANIFEST variable is available for precaching
@@ -38,11 +40,11 @@ self.addEventListener('activate', (event) => {
       return Promise.all(
         cacheNames.map((cacheName) => {
           if (cacheName !== CACHE_NAME) {
-            return caches.delete(cacheName);
+            return caches.delete(cacheName); // This returns a promise
           }
+          return Promise.resolve(); // Ensure a promise is returned if the cache is not deleted
         })
       );
     })
   );
 });
-/* eslint-enable no-restricted-globals, no-undef */

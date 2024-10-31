@@ -17,7 +17,7 @@ const Home = () => {
           <p className="subtitle">
             আমরা আপনাকে আত্মবিশ্বাসের সাথে সম্পত্তি কিনতে, বিক্রি করতে এবং জরিপ করতে সহায়তা করি।
           </p>
-          <button className="cta-button">জমি বাজার</button>
+          <a href='/market'><button className="cta-button">জমি বাজার</button></a>
         </div>
       </header>
 

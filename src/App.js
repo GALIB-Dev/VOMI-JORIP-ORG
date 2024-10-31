@@ -8,6 +8,7 @@ import About from './About.js';
 import Contact from './Contact.js';
 import Footer from './Footer.js';
 import Loading from './Loading.js';
+import Office from './office.js';
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -33,6 +34,7 @@ function App() {
           <Route path="/market" element={<Market />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/office" element={<Office />} />
           <Route path="/PropertyForm" element={<PropertyForm />} /> {/* Corrected */}
         </Routes>
       </main>

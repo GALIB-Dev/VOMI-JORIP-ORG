@@ -1,87 +1,87 @@
-/* Main container with gradient background */
+/* Contact Page Container */
 .contact-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px 10px; /* Reduced padding for smaller screens */
+  justify-content: center;
   min-height: 100vh;
-  background: linear-gradient(135deg, #1f4037, #99f2c8); /* Green gradient */
-  color: #ffffff;
+  background-color: #f5f5f5; /* Soft classic background */
+  color: #333;
+  padding: 20px;
+  font-family: 'Georgia', serif; /* A more classic font */
 }
 
-/* Header styling */
-.contact-header {
-  text-align: center;
-  margin-bottom: 20px; /* Reduced margin */
-  color: #ffffff;
-}
-
+/* Header Section */
 .contact-header h1 {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 2rem; /* Adjusted for smaller screens */
-  text-transform: uppercase;
-  color: #ffeb3b; /* Bright yellow accent */
-  margin-bottom: 8px;
+  font-size: 2.5rem;
+  color: #006400; /* Dark green */
+  margin-bottom: 10px;
+  border-bottom: 2px solid #8b0000; /* Red underline */
+  padding-bottom: 5px;
 }
 
-.contact-header p,
+.contact-header p {
+  font-size: 1.3rem;
+  color: #4f4f4f;
+  margin-bottom: 15px;
+}
+
 .contact-header h3 {
-  font-size: 1rem; /* Reduced font size */
-  margin: 5px 0;
+  font-size: 1.4rem;
+  color: #006400; /* Dark green */
+  margin-bottom: 20px;
 }
 
 .contact-header h3 a {
-  color: #ffffff;
-  text-decoration: underline;
-  font-weight: bold;
-  transition: color 0.3s;
+  color: #8b0000; /* Dark red */
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s ease;
 }
 
 .contact-header h3 a:hover {
-  color: #ffeb3b; /* Hover effect to match header accent color */
+  border-bottom: 1px solid #8b0000; /* Red underline on hover */
 }
 
-/* Form container styling */
+/* Form Container */
 .form-container {
-  width: 95%; /* Full width for mobile */
-  max-width: 600px;
-  background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
-  border-radius: 8px;
-  padding: 15px; /* Reduced padding */
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Adjusted shadow for depth */
+  width: 109%;
+  max-width: 800px;
+  justify-content: center;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: 2px solid #006400; /* Green border */
+  border-radius: 10px;
+
   overflow: hidden;
-  transition: transform 0.3s ease;
 }
 
-iframe {
+.form-container iframe {
   border: none;
-  border-radius: 8px;
-  width: 100%; /* Full width for the iframe */
-  height: 500px; /* Adjust height for mobile */
+  border-radius: 10px;
 }
 
-/* Hover effect for form container */
-.form-container:hover {
-  transform: scale(1.01); /* Slight scale-up on hover for smaller effect */
+/* Add padding and spacing for classic look */
+.contact-container, .form-container {
+  padding: 20px;
 }
 
-/* Additional media query for screens 480px and below */
-@media (max-width: 480px) {
+/* Responsive Design */
+@media (max-width: 768px) {
   .contact-header h1 {
-    font-size: 1.8rem;
+    font-size: 2rem;
   }
 
-  .contact-header p,
+  .contact-header p {
+    font-size: 1.1rem;
+  }
+
   .contact-header h3 {
-    font-size: 0.9rem;
+    font-size: 1.2rem;
   }
 
-  .form-container {
-    padding: 10px; /* Smaller padding */
+  .form-container iframe {
+    height: 500px;
     width: 100%;
-  }
-
-  iframe {
-    height: 450px; /* Adjusted height for better fit */
   }
 }

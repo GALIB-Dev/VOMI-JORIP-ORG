@@ -13,7 +13,7 @@ const Home = () => {
       {/* Hero Section */}
       <header className="hero-section">
         <div className="hero-content">
-          <h1 className="title">ভূমি জরিপ উন্নয়ন সংস্থা</h1>
+          <h1 className="title">ভূমি জরিপ উন্নয়ন সংস্থা </h1>
           <p className="subtitle">
             আমরা আপনাকে আত্মবিশ্বাসের সাথে সম্পত্তি কিনতে, বিক্রি করতে এবং জরিপ করতে সহায়তা করি।
           </p>

@@ -1,3 +1,5 @@
+// Loading state and enhanced error handling added to PropertyForm component
+
 import React, { useState } from 'react';
 import './PropertyForm.css';
 
@@ -13,6 +15,7 @@ const PropertyForm = () => {
   const [propertyAmount, setPropertyAmount] = useState('');
   const [landUnit, setLandUnit] = useState('কাঠা');
   const [submitStatus, setSubmitStatus] = useState(null);
+  const [loading, setLoading] = useState(false); // New loading state
 
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
@@ -29,22 +32,21 @@ const PropertyForm = () => {
         setPropertyImage(null);
         return;
       }
-
       setImageError('');
-      setPropertyImage(file); // Store file directly as a Blob
+      setPropertyImage(file);
     }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    if (!propertyImage) {
-      setImageError('ছবি আপলোড করতে হবে');
+    if (!propertyImage || !propertyType || !price || !ownerName || !ownerPhone || !location || !propertyAmount) {
+      setSubmitStatus({ success: false, message: 'সকল বাধ্যতামূলক ফিল্ড পূরণ করুন।' });
       return;
     }
 
+    setLoading(true); // Start loading
     const formData = new FormData();
-    formData.append('propertyImage', propertyImage); // Send image as Blob
+    formData.append('propertyImage', propertyImage);
     formData.append('propertyType', propertyType);
     formData.append('price', price);
     formData.append('ownerName', ownerName);
@@ -59,20 +61,19 @@ const PropertyForm = () => {
       body: formData,
     })
       .then((response) => {
-        // Check if response is OK
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
+        if (!response.ok) throw new Error('Network response was not ok');
         return response.json();
       })
-      .then((data) => {
-        // Adjust based on your data structure
+      .then(() => {
         setSubmitStatus({ success: true, message: 'ফর্ম সফলভাবে জমা দেওয়া হয়েছে!' });
         resetForm();
       })
       .catch((error) => {
         console.error('Error:', error);
         setSubmitStatus({ success: false, message: 'ফর্ম জমা দিতে সমস্যা হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।' });
+      })
+      .finally(() => {
+        setLoading(false); // End loading
       });
   };
 
@@ -87,12 +88,14 @@ const PropertyForm = () => {
     setPropertyAmount('');
     setLandUnit('কাঠা');
     setSubmitStatus(null);
+    setLoading(false);
   };
 
   return (
     <form onSubmit={handleSubmit} className="property-form">
       <h2 className="form-title">জমি বিক্রয় ফর্ম</h2>
 
+      {/* Image upload with error handling */}
       <label className="form-label">সম্পত্তির ছবি (PNG বা JPG, সর্বাধিক ৫ এমবি)</label>
       <input type="file" onChange={handleImageUpload} accept="image/jpeg, image/png" className="form-input" />
       {imageError && <p className="error-message">{imageError}</p>}
@@ -102,7 +105,7 @@ const PropertyForm = () => {
         </div>
       )}
 
-      <label className="form-label">সম্পত্তির ধরণ</label>
+<label className="form-label">সম্পত্তির ধরণ</label>
       <select value={propertyType} onChange={(e) => setPropertyType(e.target.value)} className="form-input">
         <option value="">ধরণ নির্বাচন করুন</option>
         <option value="চাষের জমি">চাষের জমি</option>
@@ -136,9 +139,6 @@ const PropertyForm = () => {
         <option value="সীমান্ত জমি">সীমান্ত জমি</option>
       </select>
 
-      <label className="form-label">মূল্য:প্রতি একক(BDT)</label>
-      <input type="number" value={price} onChange={(e) => setPrice(e.target.value)} placeholder="মূল্য লিখুন" className="form-input" />
-
       <label className="form-label">মালিকের নাম</label>
       <input type="text" value={ownerName} onChange={(e) => setOwnerName(e.target.value)} placeholder="মালিকের নাম লিখুন" className="form-input" />
 
@@ -163,8 +163,15 @@ const PropertyForm = () => {
         <option value="আধেক">আধেক</option>
       </select>
 
-      <button type="submit" className="submit-button">জমা দিন</button>
+      <label className="form-label">মূল্য: প্রতি একক (BDT)</label>
+      <input type="number" value={price} onChange={(e) => setPrice(e.target.value)} placeholder="মূল্য লিখুন" className="form-input" />
 
+      {/* Submit button with loading */}
+      <button type="submit" className="submit-button" disabled={loading}>
+        {loading ? 'জমা দিচ্ছে...' : 'জমা দিন'}
+      </button>
+
+      {/* Submission status */}
       {submitStatus && (
         <div className={`submit-status ${submitStatus.success ? 'success' : 'error'}`}>
           {submitStatus.message}

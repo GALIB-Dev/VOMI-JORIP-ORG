@@ -4,8 +4,8 @@ import './office.css';
 const Office = () => {
   const [isAuthorized, setIsAuthorized] = useState(false);
   const [passwordInput, setPasswordInput] = useState('');
-  const [jela, setJela] = useState('');
-  const [upajila, setUpajila] = useState('');
+  const [জেলা, setজেলা] = useState('');
+  const [উপজেলা, setউপজেলা] = useState('');
   
   const correctPassword = 'rouf24'; // Set your chosen password here
 
@@ -17,23 +17,23 @@ const Office = () => {
     }
   };
 
-  // Define links for each Upajila
+  // Define links for each উপজেলা
   const mapLinks = {
     akkelpur: [
-      { name: "Akkelpur Map 1", url: "https://example.com/akkelpur-map1.pdf" },
-      { name: "Akkelpur Map 2", url: "https://example.com/akkelpur-map2.pdf" },
+      { name: "আক্কেলপুর উপজেলা Map 1", url: "https://example.com/akkelpur-map1.pdf" },
+      { name: "আক্কেলপুর উপজেলা Map 2", url: "https://example.com/akkelpur-map2.pdf" },
     ],
     khetlal: [
-      { name: "Khetlal Map 1", url: "https://example.com/khetlal-map1.pdf" },
-      { name: "Khetlal Map 2", url: "https://example.com/khetlal-map2.pdf" },
+      { name: "ক্ষেতলাল উপজেলা Map 1", url: "https://example.com/khetlal-map1.pdf" },
+      { name: "ক্ষেতলাল উপজেলা Map 2", url: "https://example.com/khetlal-map2.pdf" },
     ],
     kalai: [
       { name: "Kalai Map 1", url: "https://example.com/kalai-map1.pdf" },
       { name: "Kalai Map 2", url: "https://example.com/kalai-map2.pdf" },
     ],
-    "jaipurhat-sadar": [
-      { name: "Jaipurhat Sadar Map 1", url: "https://example.com/jaipurhat-sadar-map1.pdf" },
-      { name: "Jaipurhat Sadar Map 2", url: "https://example.com/jaipurhat-sadar-map2.pdf" },
+    "joypurhat-sadar": [
+      { name: "joypurhat Sadar Total Map ", url: "https://drive.google.com/drive/folders/1NBPk3FWm3TR-ZRHEvSbt-6pgRyIypdFt?usp=sharing" },
+      ///{ name: "joypurhat Sadar Map 2", url: "https://example.com/joypurhat-sadar-map2.pdf" },
     ],
     panchbibi: [
       { name: "Panchbibi Map 1", url: "https://example.com/panchbibi-map1.pdf" },
@@ -47,31 +47,31 @@ const Office = () => {
         <>
           <h2>Office</h2>
           <div style={{ margin: '1rem 0' }}>
-            <label>Jela: </label>
-            <select value={jela} onChange={(e) => setJela(e.target.value)}>
-              <option value="">Select Jela</option>
-              <option value="jaipurhat">Jaipurhat</option>
+            <label>জেলা: </label>
+            <select value={জেলা} onChange={(e) => setজেলা(e.target.value)}>
+              <option value="">নির্বাচন করুন জেলা</option>
+              <option value="joypurhat">জয়পুরহাট</option>
             </select>
           </div>
 
-          {jela === 'jaipurhat' && (
+          {জেলা === 'joypurhat' && (
             <div style={{ margin: '1rem 0' }}>
-              <label>Upajila: </label>
-              <select value={upajila} onChange={(e) => setUpajila(e.target.value)}>
-                <option value="">Select Upajila</option>
-                <option value="akkelpur">Akkelpur</option>
-                <option value="khetlal">Khetlal</option>
-                <option value="kalai">Kalai</option>
-                <option value="jaipurhat-sadar">Jaipurhat Sadar</option>
-                <option value="panchbibi">Panchbibi</option>
+              <label>উপজেলা: </label>
+              <select value={উপজেলা} onChange={(e) => setউপজেলা(e.target.value)}>
+                <option value="">নির্বাচন করুন উপজেলা</option>
+                <option value="akkelpur">আক্কেলপুর</option>
+                <option value="khetlal">ক্ষেতলাল</option>
+                <option value="kalai">কালাই</option>
+                <option value="joypurhat-sadar">জয়পুরহাট সদর</option>
+                <option value="panchbibi">পাঁচবিবি</option>
               </select>
             </div>
           )}
 
-          {upajila && (
+          {উপজেলা && (
             <div style={{ marginTop: '1rem' }}>
-              <h3>Available Maps for {upajila.charAt(0).toUpperCase() + upajila.slice(1)}</h3>
-              {mapLinks[upajila]?.map((map, index) => (
+              <h3>Available Maps for {উপজেলা.charAt(0).toUpperCase() + উপজেলা.slice(1)}</h3>
+              {mapLinks[উপজেলা]?.map((map, index) => (
                 <div key={index} style={{ margin: '0.5rem' }}>
                   <a href={map.url} target="_blank" rel="noopener noreferrer">
                     {map.name}

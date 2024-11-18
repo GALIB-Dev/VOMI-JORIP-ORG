@@ -55,3 +55,15 @@
 .footer .powered-by a:hover {
   color: #99ff99;
 }
+               
+
+.footer .privacy-link {
+  margin-top: 10px;
+  display: inline-block;
+  font-size: 14px;
+  color: #00ffcc;
+}
+
+.footer .privacy-link:hover {
+  text-decoration: underline;
+}

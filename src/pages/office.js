@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import './office.css';
+import React from 'react';
+import '../styles/office.css';
+import { useState } from 'react';
  
 const Office = () => {
   const [isAuthorized, setIsAuthorized] = useState(false);

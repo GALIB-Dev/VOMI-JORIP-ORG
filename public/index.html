@@ -1,11 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn-BD">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#000000" />
-    <meta name="description" content="Welcome to ভূমি জরিপ উন্নয়ন সংস্থা, your go-to platform for land selling and property management." />
-    <meta name="robots" content="index, follow" />
+    <!-- Security headers -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https:; script-src 'self' https: 'unsafe-inline'; style-src 'self' https: 'unsafe-inline';">
+    <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()">
+    
+    <!-- Primary Meta Tags -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+    <meta name="description" content="ভূমি জরিপ উন্নয়ন সংস্থা - বাংলাদেশের সর্ববৃহৎ জমি ক্রয়-বিক্রয় এবং সম্পত্তি ব্যবস্থাপনা প্ল্যাটফর্ম। আপনার নিখুঁত জমি খুঁজে নিন সহজেই।" />
+
+    <!-- Preconnect to critical domains -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    
+    <!-- Favicons with modern formats -->
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/manifest.json">
 
     <!-- Favicon and Icons -->
     <link rel="icon" href="https://vjus.org/favicon.ico" />
@@ -26,13 +42,18 @@
     <title>ভূমি জরিপ উন্নয়ন সংস্থা</title>
 
     <!-- SEO Metadata -->
-    <meta name="keywords" content="land, selling, property, management, real estate, legal, buying, selling land, surveying" />
+    <meta name="keywords" content="জমি বিক্রয়, জমি ক্রয়, ভূমি জরিপ, সম্পত্তি ব্যবস্থাপনা, land selling, property management, real estate Bangladesh, land survey" />
     <meta name="author" content="ভূমি জরিপ উন্নয়ন সংস্থা" />
+    <meta name="geo.region" content="BD" />
+    <meta name="geo.position" content="23.8103;90.4125" />
+    <meta name="ICBM" content="23.8103, 90.4125" />
 
     <!-- Open Graph Meta Tags for Social Sharing -->
-    <meta property="og:title" content="ভূমি জরিপ উন্নয়ন সংস্থা - Your trusted land selling and property management platform" />
-    <meta property="og:description" content="ভূমি জরিপ উন্নয়ন সংস্থা - আপনার স্বপ্নের জমি খুঁজে নিন এবং সম্পত্তি ব্যবস্থাপনা সেবা পান" />
-    <meta property="og:image" content="https://vjus.org/android-chrome-192x192.png" />
+    <meta property="og:title" content="ভূমি জরিপ উন্নয়ন সংস্থা | বাংলাদেশের সর্ববৃহৎ জমি ক্রয়-বিক্রয় প্ল্যাটফর্ম" />
+    <meta property="og:description" content="নিরাপদ এবং বিশ্বস্ত জমি ক্রয়-বিক্রয় সেবা। আইনি সহায়তা, জমি জরিপ এবং সম্পত্তি ব্যবস্থাপনা সেবা পান।" />
+    <meta property="og:image" content="https://vjus.org/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta property="og:url" content="https://vjus.org" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="bn_BD" />
@@ -45,37 +66,77 @@
     <meta name="twitter:image" content="https://vjus.org/android-chrome-192x192.png" />
 
     <!-- External CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-l0jMBQXobgkPvSpOX9NmFwDS6YPmTqBoc5O7vIoKwZejk4Qv5p1j7xt+O5b0o7kp" crossorigin="anonymous" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.5.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" 
+          integrity="sha512-..." 
+          crossorigin="anonymous"
+          media="print" 
+          onload="this.media='all'" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css"
+          integrity="sha512-..."
+          crossorigin="anonymous"
+          media="print" 
+          onload="this.media='all'" />
 
     <!-- Structured Data: JSON-LD (for rich results) -->
     <script type="application/ld+json">
         {
             "@context": "https://schema.org",
-            "@type": "Organization",
-            "name": "ভূমি জরিপ উন্নয়ন সংস্থা",
-            "url": "https://vjus.org",
-            "logo": "https://vjus.org/android-chrome-192x192.png",
-            "sameAs": [
-                "https://facebook.com/vjus.org",
-                "https://twitter.com/vjus_org"
-            ],
-            "contactPoint": {
-                "@type": "ContactPoint",
-                "telephone": "+880 171 261 7226",
-                "contactType": "Customer Service",
-                "areaServed": "BD",
-                "availableLanguage": "Bangla"
-            }
+            "@graph": [
+                {
+                    "@type": "Organization",
+                    "@id": "https://vjus.org/#organization",
+                    "name": "ভূমি জরিপ উন্নয়ন সংস্থা",
+                    "url": "https://vjus.org",
+                    "logo": {
+                        "@type": "ImageObject",
+                        "url": "https://vjus.org/logo.png",
+                        "width": 192,
+                        "height": 192
+                    },
+                    "sameAs": [
+                        "https://facebook.com/vjus.org",
+                        "https://twitter.com/vjus_org",
+                        "https://linkedin.com/company/vjus-org"
+                    ],
+                    "contactPoint": [{
+                        "@type": "ContactPoint",
+                        "telephone": "+880-171-261-7226",
+                        "contactType": "customer service",
+                        "areaServed": "BD",
+                        "availableLanguage": ["bn", "en"],
+                        "hoursAvailable": "Mo-Sa 09:00-18:00"
+                    }]
+                },
+                {
+                    "@type": "RealEstateAgent",
+                    "@id": "https://vjus.org/#realestateagent",
+                    "name": "ভূমি জরিপ উন্নয়ন সংস্থা",
+                    "areaServed": {
+                        "@type": "Country",
+                        "name": "Bangladesh"
+                    },
+                    "priceRange": "৳৳-৳৳৳৳"
+                }
+            ]
         }
     </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
 </head>
 <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <noscript>
+        <div style="padding: 20px; background: #f44336; color: white; text-align: center;">
+            এই ওয়েবসাইটটি ব্যবহার করার জন্য জাভাস্ক্রিপ্ট সক্রিয় করুন।
+            <br>
+            You need to enable JavaScript to run this app.
+        </div>
+    </noscript>
     <div id="root"></div>
 
     <!-- External Scripts -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl5/0yWZ5nA+2PfP2TnxL9ktLkjtIo3A5OQZ68Zl6" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js" 
+            integrity="sha512-..." 
+            crossorigin="anonymous" 
+            defer></script>
 </body>
 </html>

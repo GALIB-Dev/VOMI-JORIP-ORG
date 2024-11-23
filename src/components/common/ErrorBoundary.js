@@ -1,33 +1,27 @@
 import React from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
+import { toast } from 'react-toastify';
 
-class ErrorBoundary extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { hasError: false, error: null };
-  }
+const ErrorFallback = ({ error, resetErrorBoundary }) => (
+  <div className="error-container">
+    <h2>কিছু সমস্যা হয়েছে!</h2>
+    <pre>{error.message}</pre>
+    <button onClick={resetErrorBoundary}>আবার চেষ্টা করুন</button>
+  </div>
+);
 
-  static getDerivedStateFromError(error) {
-    return { hasError: true, error };
-  }
-
-  componentDidCatch(error, errorInfo) {
-    console.error('Error caught by boundary:', error, errorInfo);
-  }
-
-  render() {
-    if (this.state.hasError) {
-      return (
-        <div className="error-boundary">
-          <h1>Something went wrong.</h1>
-          <button onClick={() => window.location.reload()}>
-            Refresh Page
-          </button>
-        </div>
-      );
-    }
-
-    return this.props.children;
-  }
-}
-
-export default ErrorBoundary; 
+export const withErrorBoundary = (Component) => (props) => (
+  <ErrorBoundary
+    FallbackComponent={ErrorFallback}
+    onError={(error) => {
+      toast.error('দুঃখিত! কিছু সমস্যা হয়েছে।');
+      console.error('Error:', error);
+    }}
+    onReset={() => {
+      // Reset the state here
+      window.location.reload();
+    }}
+  >
+    <Component {...props} />
+  </ErrorBoundary>
+); 

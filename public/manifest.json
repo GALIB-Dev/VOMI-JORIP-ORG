@@ -1,10 +1,10 @@
 {
   "name": "ভূমি জরিপ উন্নয়ন সংস্থা",
   "short_name": "VJUS",
-  "description": "Discover your ideal land and property management solutions with ভূমি জরিপ উন্নয়ন সংস্থা.",
-  "start_url": "/",
+  "description": "বাংলাদেশের অন্যতম নির্ভরযোগ্য জমি জরিপ সেবা। নির্ভুল জমি পরিমাপ, মৌজা ম্যাপ এবং দাগ চিহ্নিতকরণ সেবা পান।",
+  "start_url": ".",
   "display": "standalone",
-  "orientation": "portrait",
+  "orientation": "any",
   "background_color": "#ffffff",
   "theme_color": "#000000",
   "icons": [
@@ -12,12 +12,13 @@
       "src": "/android-chrome-192x192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "density": "4.0"
+      "purpose": "any maskable"
     },
     {
       "src": "/android-chrome-512x512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
       "src": "/favicon-16x16.png",
@@ -36,12 +37,17 @@
     }
   ],
   "scope": "/",
-  "lang": "bn",
-  "related_applications": [
+  "lang": "bn-BD",
+  "dir": "ltr",
+  "categories": ["business", "utilities", "productivity"],
+  "screenshots": [],
+  "shortcuts": [
     {
-      "platform": "web"
+      "name": "জমি জরিপ",
+      "url": "/services",
+      "description": "আমাদের সেবাসমূহ দেখুন"
     }
   ],
-  "prefer_related_applications": false,
-  "categories": ["business", "real estate", "utilities"]
+  "related_applications": [],
+  "prefer_related_applications": false
 }

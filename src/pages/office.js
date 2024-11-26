@@ -29,8 +29,8 @@ const Office = () => {
       { name: "ক্ষেতলাল উপজেলা Map 2", url: "https://example.com/khetlal-map2.pdf" },
     ],
     kalai: [
-      { name: "Kalai Map 1", url: "https://example.com/kalai-map1.pdf" },
-      { name: "Kalai Map 2", url: "https://example.com/kalai-map2.pdf" },
+      { name: "Kalai Map 1", url: "https://drive.google.com/drive/folders/1AnXT_x0_jKYby-JJZEKdWg2WYZ1DNYFi?usp=sharing" },
+      ///{ name: "Kalai Map 2", url: "https://example.com/kalai-map2.pdf" },
     ],
     "joypurhat-sadar": [
       { name: "joypurhat Sadar Total Map ", url: "https://drive.google.com/drive/folders/1NBPk3FWm3TR-ZRHEvSbt-6pgRyIypdFt?usp=sharing" },

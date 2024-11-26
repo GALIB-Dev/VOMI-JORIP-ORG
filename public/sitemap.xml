@@ -1,39 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset
-      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-<!-- Sitemap based on routes in App.js -->
 
-<url>
-  <loc>https://vjus.org/</loc>
-  <lastmod>2024-11-09T14:07:44+00:00</lastmod>
-</url>
+  <!-- Home Page -->
+  <url>
+    <loc>https://vjus.org/</loc>
+    <lastmod>2024-02-26T12:00:00+06:00</lastmod>
+    <priority>1.0</priority>
+    <changefreq>weekly</changefreq>
+  </url>
 
-<url>
-  <loc>https://vjus.org/market</loc>
-  <lastmod>2024-11-09T14:07:44+00:00</lastmod>
-</url>
+  <!-- Main Services -->
+  <url>
+    <loc>https://vjus.org/market</loc>
+    <lastmod>2024-02-26T12:00:00+06:00</lastmod>
+    <priority>0.9</priority>
+    <changefreq>weekly</changefreq>
+  </url>
 
-<url>
-  <loc>https://vjus.org/about</loc>
-  <lastmod>2024-11-09T14:07:44+00:00</lastmod>
-</url>
+  <!-- Property Form -->
+  <url>
+    <loc>https://vjus.org/PropertyForm</loc>
+    <lastmod>2024-02-26T12:00:00+06:00</lastmod>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+  </url>
 
-<url>
-  <loc>https://vjus.org/contact</loc>
-  <lastmod>2024-11-09T14:07:44+00:00</lastmod>
-</url>
+  <!-- About Page -->
+  <url>
+    <loc>https://vjus.org/about</loc>
+    <lastmod>2024-02-26T12:00:00+06:00</lastmod>
+    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+  </url>
 
-<url>
-  <loc>https://vjus.org/office</loc>
-  <lastmod>2024-11-09T14:07:44+00:00</lastmod>
-</url>
+  <!-- Contact Information -->
+  <url>
+    <loc>https://vjus.org/contact</loc>
+    <lastmod>2024-02-26T12:00:00+06:00</lastmod>
+    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+  </url>
 
-<url>
-  <loc>https://vjus.org/PropertyForm</loc>
-  <lastmod>2024-11-09T14:07:44+00:00</lastmod>
-</url>
+  <!-- Office Location -->
+  <url>
+    <loc>https://vjus.org/office</loc>
+    <lastmod>2024-02-26T12:00:00+06:00</lastmod>
+    <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
+  </url>
 
 </urlset>

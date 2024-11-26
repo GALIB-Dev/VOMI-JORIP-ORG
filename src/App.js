@@ -7,6 +7,7 @@ import 'nprogress/nprogress.css';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { ParallaxProvider } from 'react-scroll-parallax';
 
 // Components
 import NavBar from './components/common/NavBar';
@@ -138,66 +139,73 @@ function App() {
   // Preload adjacent routes
   usePreloadRoutes(location.pathname);
 
+  // Scroll to top on route change
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
+
   return (
-    <GoogleOAuthProvider 
-      clientId="523803568624-4k11ovb16jneppjaclsksjcr52umh7jh.apps.googleusercontent.com"
-    >
-      <div className="App">
-        <ErrorBoundary 
-          FallbackComponent={ErrorFallback}
-          onReset={() => window.location.reload()}
-        >
-          <NavBar />
-          <main className="main-content">
-            <AnimatePresence mode="wait" initial={false}>
-              <motion.div
-                key={location.pathname}
-                {...(routes.find(r => r.path === location.pathname)?.skipAnimation 
-                  ? {} 
-                  : pageTransition)}
-                className="page-container"
-              >
-                <Suspense fallback={<DelayedLoading />}>
-                  <Routes location={location}>
-                    {routes.map(({ path, element: Element, meta }) => (
-                      <Route
-                        key={path}
-                        path={path}
-                        element={
-                          <ErrorBoundary 
-                            FallbackComponent={ErrorFallback}
-                            onReset={() => window.location.reload()}
-                          >
-                            <Element />
-                          </ErrorBoundary>
-                        }
+    <ParallaxProvider>
+      <GoogleOAuthProvider 
+        clientId="523803568624-4k11ovb16jneppjaclsksjcr52umh7jh.apps.googleusercontent.com"
+      >
+        <div className="App">
+          <ErrorBoundary 
+            FallbackComponent={ErrorFallback}
+            onReset={() => window.location.reload()}
+          >
+            <NavBar />
+            <main className="main-content">
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.div
+                  key={location.pathname}
+                  {...(routes.find(r => r.path === location.pathname)?.skipAnimation 
+                    ? {} 
+                    : pageTransition)}
+                  className="page-container"
+                >
+                  <Suspense fallback={<DelayedLoading />}>
+                    <Routes location={location}>
+                      {routes.map(({ path, element: Element, meta }) => (
+                        <Route
+                          key={path}
+                          path={path}
+                          element={
+                            <ErrorBoundary 
+                              FallbackComponent={ErrorFallback}
+                              onReset={() => window.location.reload()}
+                            >
+                              <Element />
+                            </ErrorBoundary>
+                          }
+                        />
+                      ))}
+                      <Route 
+                        path="*" 
+                        element={<Navigate to="/" replace />} 
                       />
-                    ))}
-                    <Route 
-                      path="*" 
-                      element={<Navigate to="/" replace />} 
-                    />
-                  </Routes>
-                </Suspense>
-              </motion.div>
-            </AnimatePresence>
-          </main>
-          <Footer />
-          <ToastContainer
-            position="top-right"
-            autoClose={5000}
-            hideProgressBar={false}
-            newestOnTop
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="light"
-          />
-        </ErrorBoundary>
-      </div>
-    </GoogleOAuthProvider>
+                    </Routes>
+                  </Suspense>
+                </motion.div>
+              </AnimatePresence>
+            </main>
+            <Footer />
+            <ToastContainer
+              position="top-right"
+              autoClose={5000}
+              hideProgressBar={false}
+              newestOnTop
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="light"
+            />
+          </ErrorBoundary>
+        </div>
+      </GoogleOAuthProvider>
+    </ParallaxProvider>
   );
 }
 

@@ -1,8 +1,26 @@
-/* Reset and base styles */
+/* Reset styles */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+/* Reset specific elements that might cause conflicts */
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+/* Clear any inherited backgrounds */
+.home-page,
+.about-page {
+  background: none;
+}
+
+/* Ensure proper stacking context */
+#root {
+  isolation: isolate;
 }
 
 body {

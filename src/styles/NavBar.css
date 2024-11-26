@@ -1,0 +1,248 @@
+/* ====== Main Navbar Container ====== */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+/* Scrolled state for navbar - reduces height */
+.navbar.scrolled {
+  height: 70px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+/* ====== Content Wrapper - Controls max width and spacing ====== */
+.navbar-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  height: 100%;
+  display: flex;
+  justify-content: space-between; /* Creates space between logo and menu */
+  align-items: center;
+  gap: 20px; /* Minimum space between elements */
+}
+
+/* ====== Logo and Brand Name Section ====== */
+.brand-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  text-decoration: none;
+  padding: 0.5rem 0;
+  flex-shrink: 0; /* Prevents logo from shrinking */
+  margin-right: auto; /* Pushes menu to the right */
+}
+
+/* Logo Image */
+.nav-logo {
+  height: 50px;
+  width: auto;
+  object-fit: contain;
+}
+
+/* Company Name Text */
+.company-name {
+  color: #1a1a1a;
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+  white-space: nowrap; /* Prevents text wrapping */
+}
+
+/* ====== Navigation Menu Section ====== */
+.nav-container {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-left: auto; /* Creates space from logo */
+}
+
+/* Navigation Links Wrapper */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+/* Individual Nav Items */
+.nav-item {
+  color: #333333;
+  text-decoration: none;
+  justify-items: right;
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+/* ====== Dropdown Menu Styles ====== */
+.dropdown {
+  position: relative;
+}
+
+.dropbtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  color: #333333;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Dropdown arrow animation */
+.dropdown-arrow {
+  transition: transform 0.3s ease;
+}
+
+.dropdown.active .dropdown-arrow {
+  transform: rotate(180deg);
+}
+
+/* Dropdown Content Panel */
+.dropdown-content {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 200px;
+  background: white;
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+  z-index: 1001; /* Ensure dropdown appears above other elements */
+}
+
+/* Show dropdown when active */
+.dropdown.active .dropdown-content {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* Dropdown links */
+.dropdown-content a {
+  display: block;
+  padding: 0.75rem 1rem;
+  color: #333333;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+.dropdown-content a:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+/* Mobile dropdown styles */
+@media (max-width: 768px) {
+  .dropdown-content {
+    position: static;
+    box-shadow: none;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    display: none;
+    background: #f8f9fa;
+    margin-top: 0.5rem;
+    border-radius: 4px;
+  }
+
+  .dropdown.active .dropdown-content {
+    display: block;
+  }
+
+  .dropdown-content a {
+    padding: 0.75rem 1.5rem;
+  }
+}
+
+/* ====== Mobile Menu Button ====== */
+.menu-toggle {
+  display: none; /* Hidden on desktop */
+}
+
+/* ====== Mobile Responsive Styles ====== */
+@media (max-width: 768px) {
+  /* Mobile Menu Button Display */
+  .menu-toggle {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 20px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin-left: 50px; /* Space from other elements */
+    position: relative;
+    z-index: 1000;
+  }
+
+  /* Menu Button Bars */
+  .menu-bar {
+    width: 100%;
+    height: 2px;
+    background: #333;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+  }
+
+  /* Menu Open Animation */
+  .menu-toggle.open .top-bar {
+    transform: translateY(9px) rotate(45deg);
+    background: #4CAF50;
+  }
+
+  .menu-toggle.open .bottom-bar {
+    transform: translateY(-9px) rotate(-45deg);
+    background: #4CAF50;
+  }
+
+  /* Mobile Navigation Panel */
+  .nav-links {
+    position: fixed;
+    top: 80px;
+    left: 0;
+    right: 0;
+    background: white;
+    padding: 1rem;
+    flex-direction: column;
+    align-items: stretch;
+    transform: translateY(-150%);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    z-index: 999;
+  }
+
+  /* Mobile Menu Open State */
+  .nav-links.open {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+/* ====== Extra Small Device Adjustments ====== */
+@media (max-width: 380px) {
+  .menu-toggle {
+    width: 25px;
+    height: 18px;
+    margin-left: 15px; /* Reduced spacing for small screens */
+  }
+}

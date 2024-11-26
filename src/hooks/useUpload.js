@@ -1,33 +1,41 @@
-import { useState } from 'react';
-import { compressImage } from '../utils/imageCompression';
-import { storage } from '../config/firebase';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { storage } from '../config/firebase';
+import { toast } from 'react-toastify';
 
 export const useUpload = () => {
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-
   const uploadImage = async (file) => {
     try {
-      setLoading(true);
-      setError(null);
-      
-      // Compress image
-      const compressedFile = await compressImage(file);
-      
-      // Upload to Firebase Storage
-      const storageRef = ref(storage, `properties/${Date.now()}-${file.name}`);
-      const snapshot = await uploadBytes(storageRef, compressedFile);
-      const downloadURL = await getDownloadURL(snapshot.ref);
-      
-      return downloadURL;
-    } catch (err) {
-      setError(err.message);
-      throw err;
-    } finally {
-      setLoading(false);
+      // Validate file type
+      if (!file.type.startsWith('image/')) {
+        toast.error('শুধুমাত্র ছবি আপলোড করুন');
+        return null;
+      }
+
+      // Validate file size (max 5MB)
+      if (file.size > 5 * 1024 * 1024) {
+        toast.error('ছবির সাইজ ৫MB এর কম হতে হবে');
+        return null;
+      }
+
+      // Create unique filename
+      const fileName = `${Date.now()}-${file.name}`;
+      const storageRef = ref(storage, `property-images/${fileName}`);
+
+      // Upload file
+      const snapshot = await uploadBytes(storageRef, file);
+      console.log('Image uploaded successfully');
+
+      // Get download URL
+      const url = await getDownloadURL(snapshot.ref);
+      console.log('Download URL:', url);
+
+      return url;
+    } catch (error) {
+      console.error('Upload error:', error);
+      toast.error('ছবি আপলোড করতে সমস্যা হয়েছে');
+      return null;
     }
   };
 
-  return { uploadImage, loading, error };
+  return { uploadImage };
 };

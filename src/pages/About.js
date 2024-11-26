@@ -28,6 +28,16 @@ const About = () => {
     };
   }, []);
 
+  useEffect(() => {
+    // Remove home page classes
+    document.body.classList.remove('home-page');
+    document.body.classList.add('about-page');
+
+    return () => {
+      document.body.classList.remove('about-page');
+    };
+  }, []);
+
   const heroFeatures = [
     { 
       icon: <FaMapMarkedAlt />, 

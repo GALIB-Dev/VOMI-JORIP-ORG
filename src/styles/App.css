@@ -55,6 +55,8 @@ body {
   background: linear-gradient(135deg, var(--light) 0%, #f9f9f9 100%);
   padding-top: calc(var(--navbar-height) + var(--safe-area-inset-top));
   padding-bottom: var(--safe-area-inset-bottom);
+  min-height: 100vh;
+  margin: 0;
 }
 
 /* Main Content Area */
@@ -71,9 +73,8 @@ body {
 /* Container for sections */
 .container {
   width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 1rem;
+  margin: 0;
+  padding: 0;
 }
 
 /* Mobile-optimized scrollbar */

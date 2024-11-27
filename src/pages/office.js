@@ -77,18 +77,6 @@ const Office = () => {
   }, []);
 
   // 2. Define error handler
-  const handleApiError = useCallback((error) => {
-    let errorMessage = 'মৌজা ম্যাপ লোড করতে সমস্যা হচ্ছে। পরে আবার চেষ্টা করুন।';
-    
-    if (error.status === 403) {
-      errorMessage = 'API কী সমস্যা। অনুগ্রহ করে অ্যাডমিনের সাথে যোগাযোগ করুন।';
-    } else if (error.status === 404) {
-      errorMessage = 'ফোল্ডার খুঁজে পাওয়া যায়নি।';
-    }
-    
-    setError(errorMessage);
-  }, [setError]);
-
   const retryFetch = useCallback(async (fn, retries = 3) => {
     try {
       return await fn();
@@ -161,6 +149,7 @@ const Office = () => {
 
       setMaps(mapsData);
       setLoadingProgress({ loaded: mapsData.length, total: mapsData.length });
+      setError('');
       
     } catch (err) {
       console.error('Fetch Error:', err);
@@ -249,7 +238,7 @@ const Office = () => {
         await handleDownload(map);
       } catch (error) {
         console.error('Download failed:', error);
-        setError('ডাউনলোড ব্যর্থ হয়েছে');
+        setError('ডউনলোড ব্যর্থ হয়েছে');
       } finally {
         setIsDownloading(false);
       }

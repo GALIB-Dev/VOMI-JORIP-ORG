@@ -17,12 +17,12 @@ const mapLinks = {
   khetlal: {
     folderId: '1mJqxmOej6KVG02Xhk9izbduUjEhHiLkK',
     name: "ক্ষেতলাল উপজেলা মৌজা ম্যাপ",
-    totalMouzas: "115",
+    totalMouzas: "114",
   },
   kalai: {
     folderId: '1AnXT_x0_jKYby-JJZEKdWg2WYZ1DNYFi',
     name: "কালাই উপজেলা মৌজা ম্যাপ",
-    totalMouzas: "১৪৫",
+    totalMouzas: "133",
   },
   "joypurhat-sadar": {
     folderId: '1NBPk3FWm3TR-ZRHEvSbt-6pgRyIypdFt',
@@ -159,7 +159,7 @@ const Office = () => {
       
       const errorMessage = (() => {
         if (err.message === 'API_KEY_MISSING') {
-          return 'API কী সমস্যা। অনুগ্রহ করে অ্যাডমিনের সাথে যোগাযোগ করুন।';
+          return 'API Key সমস্যা। অনুগ্রহ করে অ্যাডমিনের সাথে যোগাযোগ করুন।';
         }
         if (err.message === 'INVALID_RESPONSE_FORMAT') {
           return 'অবৈধ ডেটা ফরম্যাট। পরে আবার চেষ্টা করুন।';
@@ -167,10 +167,10 @@ const Office = () => {
         try {
           const parsedError = JSON.parse(err.message);
           if (parsedError.status === 403) {
-            return 'API কী সমস্যা। অনুগ্রহ করে অ্যাডমিনের সাথে যোগাযোগ করুন।';
+            return 'API Key সমস্যা। অনুগ্রহ করে অ্যাডমিনের সাথে যোগাযোগ করুন।';
           }
           if (parsedError.status === 404) {
-            return 'ফোল্ডার খুঁজে পাওয়া যায়নি।';
+            return 'NO file !?';
           }
         } catch {
           // Parse error, use default message
@@ -271,8 +271,8 @@ const Office = () => {
         <div className="map-info">
           <h3>{map.name}</h3>
           <div className="map-metadata">
-            <span>সাইজ: {map.size}</span>
-            <span>আপেট: {map.modifiedDate}</span>
+            <span>size: {map.size}</span>
+            <span>Updated: {map.modifiedDate}</span>
           </div>
           <div className="map-actions">
             <a 
@@ -336,7 +336,7 @@ const Office = () => {
                 type="password"
                 value={passwordInput}
                 onChange={(e) => setPasswordInput(e.target.value)}
-                placeholder="পাসওয়ার্ড দিন"
+                placeholder="Enter Password"
                 className="password-input"
               />
               <button type="submit" className="submit-button">
@@ -380,7 +380,7 @@ const Office = () => {
                   <option value="akkelpur">আক্কেলপুর</option>
                   <option value="khetlal">ক্ষেতলাল</option>
                   <option value="kalai">কালাই</option>
-                  <option value="joypurhat-sadar">জয়পুরহাট সদর</option>
+                  <option value="joypurhat-sadar">জয়পুরহাট</option>
                   <option value="panchbibi">পাঁচবিবি</option>
                 </select>
               </div>

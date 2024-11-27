@@ -86,7 +86,14 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "7.21.11",
+    "typescript": "4.9.5",
     "json-loader": "0.5.7",
     "workbox-webpack-plugin": "7.0.0"
+  },
+  "resolutions": {
+    "typescript": "4.9.5"
+  },
+  "overrides": {
+    "typescript": "4.9.5"
   }
 }

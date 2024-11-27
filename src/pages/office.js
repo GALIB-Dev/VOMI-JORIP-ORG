@@ -95,6 +95,18 @@ const Office = () => {
     setApiStatus({ loading: false, error: errorMessage, success: false });
   }, [setError, setApiStatus]);
 
+  const retryFetch = async (fn, retries = 3) => {
+    try {
+      return await fn();
+    } catch (error) {
+      if (retries > 0) {
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        return retryFetch(fn, retries - 1);
+      }
+      throw error;
+    }
+  };
+
   // 3. Define main fetch function
   const fetchMapsFromDrive = useCallback(async (folderId) => {
     setApiStatus({ loading: true, error: null, success: false });
@@ -102,63 +114,77 @@ const Office = () => {
     
     try {
       const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;
+      console.log('API Key exists:', !!apiKey); // Debug log
+      
       if (!apiKey) {
         throw new Error('Google API key is missing');
       }
 
-      console.log('Fetching maps from folder:', folderId);
-      
       const baseUrl = 'https://www.googleapis.com/drive/v3/files';
       const params = new URLSearchParams({
         q: `'${folderId}' in parents and mimeType='application/pdf'`,
         key: apiKey,
         fields: 'files(id,name,size,modifiedTime,webViewLink,thumbnailLink,webContentLink)',
-        pageSize: '1000',
-        orderBy: 'name'  // Add sorting by name
-      });
+        pageSize: '1000'
+      }).toString();
 
-      const response = await fetch(`${baseUrl}?${params}`, {
+      const url = `${baseUrl}?${params}`;
+      console.log('Fetching URL:', url.replace(apiKey, 'HIDDEN')); // Safe logging
+
+      const response = await retryFetch(() => fetch(url, {
         method: 'GET',
         headers: {
           'Accept': 'application/json',
           'Origin': window.location.origin,
           'Referer': window.location.origin
         }
-      });
+      }));
 
       if (!response.ok) {
         const errorText = await response.text();
+        console.error('API Error Status:', response.status);
         console.error('API Error Response:', errorText);
         throw new Error(`API Error: ${response.status} ${response.statusText}`);
       }
 
       const data = await response.json();
-      console.log('Files found:', data.files?.length || 0);
+      console.log('API Response:', {
+        filesCount: data.files?.length || 0,
+        hasFiles: !!data.files
+      });
 
       if (data.files && data.files.length > 0) {
-        const mapsData = data.files
-          .map(file => ({
-            id: file.id,
-            name: file.name,
-            embedUrl: `https://drive.google.com/file/d/${file.id}/preview`,
-            thumbnailUrl: `https://drive.google.com/thumbnail?id=${file.id}&sz=w1000`,
-            viewUrl: `https://drive.google.com/file/d/${file.id}/view?usp=sharing`,
-            downloadUrl: `https://drive.google.com/uc?export=download&id=${file.id}`,
-            size: formatFileSize(file.size),
-            modifiedDate: new Date(file.modifiedTime).toLocaleDateString('bn-BD'),
-          }))
-          .sort((a, b) => a.name.localeCompare(b.name)); // Sort by name
+        const mapsData = data.files.map(file => ({
+          id: file.id,
+          name: file.name,
+          embedUrl: `https://drive.google.com/file/d/${file.id}/preview`,
+          thumbnailUrl: `https://drive.google.com/thumbnail?id=${file.id}&sz=w1000`,
+          viewUrl: `https://drive.google.com/file/d/${file.id}/view?usp=sharing`,
+          downloadUrl: `https://drive.google.com/uc?export=download&id=${file.id}`,
+          size: formatFileSize(file.size),
+          modifiedDate: new Date(file.modifiedTime).toLocaleDateString('bn-BD'),
+        }));
 
         setMaps(mapsData);
         setApiStatus({ loading: false, error: null, success: true });
-        setError(''); // Clear any existing errors
+        setError('');
       } else {
-        setError('কোন মৌজা ম্যাপ পাওয়া যায়নি।');
+        setError('কোন মৌজা ম্যাপ পাওয���া যায়নি।');
         setApiStatus({ loading: false, error: 'No files found', success: false });
       }
     } catch (err) {
-      console.error('Error details:', err);
-      setError('মৌজা ম্যাপ লোড করতে সমস্যা হচ্ছে। পরে আবার চেষ্টা করুন।');
+      console.error('Fetch Error:', {
+        message: err.message,
+        stack: err.stack,
+        origin: window.location.origin
+      });
+      
+      let errorMessage = 'মৌজা ম্যাপ লোড করতে সমস্যা হচ্ছে।';
+      if (err.message.includes('API key')) {
+        errorMessage = 'API কী সমস্যা। অনুগ্রহ করে অ্যাডমিনের সাথে যোগাযোগ করুন।';
+      }
+      
+      setError(errorMessage);
       setApiStatus({ loading: false, error: err.message, success: false });
     } finally {
       setLoading(false);
@@ -178,7 +204,7 @@ const Office = () => {
       window.open(map.downloadUrl, '_blank');
     } catch (error) {
       console.error('Download error:', error);
-      setError('ডাউনলোড করতে সমস্যা হচ্ছে। অনুগ্রহ করে পরে আবার চেষ্টা করুন।');
+      setError('ডাউনলোড করতে সমস্যা হচ্ছে। অনুগ্রহ করে পরে আবার চেষ���টা করুন।');
     }
   };
 

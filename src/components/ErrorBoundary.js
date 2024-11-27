@@ -1,13 +1,30 @@
 import React from 'react';
 
-const ErrorFallback = ({ error, resetErrorBoundary }) => {
-  return (
-    <div className="error-container">
-      <h2>কিছু একটা ভুল হয়েছে</h2>
-      <pre>{error.message}</pre>
-      <button onClick={resetErrorBoundary}>আবার চেষ্টা করুন</button>
-    </div>
-  );
-};
+class ErrorBoundary extends React.Component {
+  state = { hasError: false, error: null };
 
-export default ErrorFallback; 
+  static getDerivedStateFromError(error) {
+    return { hasError: true, error };
+  }
+
+  componentDidCatch(error, errorInfo) {
+    console.error('Error caught by boundary:', error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="error-boundary">
+          <h2>কিছু একটা ভুল হয়েছে</h2>
+          <button onClick={() => window.location.reload()}>
+            পুনরায় লোড করুন
+          </button>
+        </div>
+      );
+    }
+
+    return this.props.children;
+  }
+}
+
+export default ErrorBoundary; 

@@ -149,71 +149,73 @@ function App() {
   usePreloadRoutes(location.pathname);
 
   return (
-    <ParallaxProvider>
-      <GoogleOAuthProvider 
-        clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID || "523803568624-4k11ovb16jneppjaclsksjcr52umh7jh.apps.googleusercontent.com"}
-      >
-        <div className="App">
-          <ErrorBoundary 
-            FallbackComponent={ErrorFallback}
-            onReset={() => {
-              sessionStorage.clear();
-              window.location.reload();
-            }}
-            onError={(error) => {
-              console.error('App Error:', error);
-            }}
-          >
-            <NavBar />
-            <main className="main-content">
-              <AnimatePresence mode="wait" initial={false}>
-                <motion.div
-                  key={location.pathname}
-                  {...pageTransition}
-                  className="page-container"
-                >
-                  <Suspense fallback={<DelayedLoading />}>
-                    <Routes location={location}>
-                      {routes.map(({ path, element: Element }) => (
-                        <Route
-                          key={path}
-                          path={path}
-                          element={
-                            <ErrorBoundary 
-                              FallbackComponent={ErrorFallback}
-                              onReset={() => window.location.reload()}
-                              onError={(error) => {
-                                console.error('Route Error:', error);
-                              }}
-                            >
-                              <Element />
-                            </ErrorBoundary>
-                          }
-                        />
-                      ))}
-                      <Route path="*" element={<Navigate to="/" replace />} />
-                    </Routes>
-                  </Suspense>
-                </motion.div>
-              </AnimatePresence>
-            </main>
-            <Footer />
-            <ToastContainer
-              position="top-right"
-              autoClose={5000}
-              hideProgressBar={false}
-              newestOnTop
-              closeOnClick
-              rtl={false}
-              pauseOnFocusLoss
-              draggable
-              pauseOnHover
-              theme="light"
-            />
-          </ErrorBoundary>
-        </div>
-      </GoogleOAuthProvider>
-    </ParallaxProvider>
+    <ErrorBoundary>
+      <ParallaxProvider>
+        <GoogleOAuthProvider 
+          clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID || "523803568624-4k11ovb16jneppjaclsksjcr52umh7jh.apps.googleusercontent.com"}
+        >
+          <div className="App">
+            <ErrorBoundary 
+              FallbackComponent={ErrorFallback}
+              onReset={() => {
+                sessionStorage.clear();
+                window.location.reload();
+              }}
+              onError={(error) => {
+                console.error('App Error:', error);
+              }}
+            >
+              <NavBar />
+              <main className="main-content">
+                <AnimatePresence mode="wait" initial={false}>
+                  <motion.div
+                    key={location.pathname}
+                    {...pageTransition}
+                    className="page-container"
+                  >
+                    <Suspense fallback={<DelayedLoading />}>
+                      <Routes location={location}>
+                        {routes.map(({ path, element: Element }) => (
+                          <Route
+                            key={path}
+                            path={path}
+                            element={
+                              <ErrorBoundary 
+                                FallbackComponent={ErrorFallback}
+                                onReset={() => window.location.reload()}
+                                onError={(error) => {
+                                  console.error('Route Error:', error);
+                                }}
+                              >
+                                <Element />
+                              </ErrorBoundary>
+                            }
+                          />
+                        ))}
+                        <Route path="*" element={<Navigate to="/" replace />} />
+                      </Routes>
+                    </Suspense>
+                  </motion.div>
+                </AnimatePresence>
+              </main>
+              <Footer />
+              <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+              />
+            </ErrorBoundary>
+          </div>
+        </GoogleOAuthProvider>
+      </ParallaxProvider>
+    </ErrorBoundary>
   );
 }
 

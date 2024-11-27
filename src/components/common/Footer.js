@@ -80,7 +80,7 @@ const Footer = () => {
                    rel="noopener noreferrer"
                    className="contact-link">
                   <i className="fab fa-whatsapp"></i>
-                  <span>+৮৮০ ১২১২-৬১৭২২৬</span>
+                  <span>+৮৮০১৭১২-৬১৭২২৬</span>
                 </a>
               </li>
               <li>

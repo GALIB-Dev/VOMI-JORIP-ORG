@@ -1,5 +1,10 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
-import { FiSearch, FiDownload, FiEye, FiLoader, FiMaximize, FiX } from 'react-icons/fi';
+import { FiSearch } from 'react-icons/fi/index.js';
+import { FiDownload } from 'react-icons/fi/index.js';
+import { FiEye } from 'react-icons/fi/index.js';
+import { FiLoader } from 'react-icons/fi/index.js';
+import { FiMaximize } from 'react-icons/fi/index.js';
+import { FiX } from 'react-icons/fi/index.js';
 import { motion, AnimatePresence } from 'framer-motion'; // Install framer-motion
 import '../styles/office.css';
 

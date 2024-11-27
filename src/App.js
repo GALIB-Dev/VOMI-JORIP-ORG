@@ -18,34 +18,39 @@ import ErrorFallback from './components/common/ErrorFallback';
 // Styles
 import './styles/App.css';
 
-// Enhanced page transitions
+// Enhanced page transitions with reduced motion preference
 const pageTransition = {
-  initial: { opacity: 0, y: 20 },
-  animate: { opacity: 1, y: 0 },
-  exit: { opacity: 0, y: -20 },
+  initial: { opacity: 0 },
+  animate: { opacity: 1 },
+  exit: { opacity: 0 },
   transition: { 
-    duration: 0.4, 
-    ease: [0.645, 0.045, 0.355, 1.000],
-    staggerChildren: 0.1
+    duration: 0.3,
+    ease: 'easeInOut'
   }
 };
 
-// Lazy loaded pages with enhanced loading strategy
-const lazyLoadWithPreload = (factory) => {
-  const Component = lazy(factory);
+// Improved lazy loading with error handling
+const lazyLoadWithRetry = (factory) => {
+  const Component = lazy(() => 
+    factory().catch(error => {
+      console.error('Lazy load error:', error);
+      return import('./components/common/ErrorFallback');
+    })
+  );
   Component.preload = factory;
   return Component;
 };
 
-const Home = lazyLoadWithPreload(() => import('./pages/Home'));
-const Market = lazyLoadWithPreload(() => import('./pages/market'));
-const About = lazyLoadWithPreload(() => import('./pages/About'));
-const Contact = lazyLoadWithPreload(() => import('./pages/Contact'));
-const Office = lazyLoadWithPreload(() => import('./pages/office'));
-const PropertyForm = lazyLoadWithPreload(() => import('./pages/PropertyForm'));
-const GoogleCallback = lazyLoadWithPreload(() => import('./pages/GoogleCallback'));
+// Lazy loaded components with retry
+const Home = lazyLoadWithRetry(() => import('./pages/Home'));
+const Market = lazyLoadWithRetry(() => import('./pages/market'));
+const About = lazyLoadWithRetry(() => import('./pages/About'));
+const Contact = lazyLoadWithRetry(() => import('./pages/Contact'));
+const Office = lazyLoadWithRetry(() => import('./pages/office'));
+const PropertyForm = lazyLoadWithRetry(() => import('./pages/PropertyForm'));
+const GoogleCallback = lazyLoadWithRetry(() => import('./pages/GoogleCallback'));
 
-// Enhanced route configuration with meta data
+// Route configuration with metadata
 const routes = [
   { 
     path: '/', 
@@ -86,48 +91,53 @@ const routes = [
   }
 ];
 
-// Enhanced loading component with progress bar
+// Enhanced loading component with error handling
 const DelayedLoading = () => {
   useEffect(() => {
-    NProgress.start();
-    return () => NProgress.done();
+    const timeout = setTimeout(() => NProgress.start(), 300);
+    return () => {
+      clearTimeout(timeout);
+      NProgress.done();
+    };
   }, []);
 
-  return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.2 }}
-    >
-      <Loading />
-    </motion.div>
-  );
+  return <Loading />;
 };
 
-// Preload adjacent routes
+// Optimized route preloading
 const usePreloadRoutes = (currentPath) => {
   useEffect(() => {
-    const currentIndex = routes.findIndex(route => route.path === currentPath);
-    const adjacentRoutes = routes
-      .slice(Math.max(0, currentIndex - 1), currentIndex + 2)
-      .filter(route => route.path !== currentPath);
+    const preloadTimeout = setTimeout(() => {
+      const currentIndex = routes.findIndex(route => route.path === currentPath);
+      const adjacentRoutes = routes
+        .slice(Math.max(0, currentIndex - 1), currentIndex + 2)
+        .filter(route => route.path !== currentPath);
 
-    adjacentRoutes.forEach(route => {
-      route.element.preload?.();
-    });
+      adjacentRoutes.forEach(route => {
+        if (route.element.preload) {
+          route.element.preload().catch(console.error);
+        }
+      });
+    }, 1000);
+
+    return () => clearTimeout(preloadTimeout);
   }, [currentPath]);
 };
 
+// Main App component with improved error handling
 function App() {
   const location = useLocation();
 
-  // Enhanced scroll behavior
   useEffect(() => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
+    // Smooth scroll with fallback
+    try {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    } catch (e) {
+      window.scrollTo(0, 0);
+    }
 
     // Update page title
     const currentRoute = routes.find(route => route.path === location.pathname);
@@ -136,37 +146,35 @@ function App() {
     }
   }, [location.pathname]);
 
-  // Preload adjacent routes
   usePreloadRoutes(location.pathname);
-
-  // Scroll to top on route change
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [location.pathname]);
 
   return (
     <ParallaxProvider>
       <GoogleOAuthProvider 
-        clientId="523803568624-4k11ovb16jneppjaclsksjcr52umh7jh.apps.googleusercontent.com"
+        clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID || "523803568624-4k11ovb16jneppjaclsksjcr52umh7jh.apps.googleusercontent.com"}
       >
         <div className="App">
           <ErrorBoundary 
             FallbackComponent={ErrorFallback}
-            onReset={() => window.location.reload()}
+            onReset={() => {
+              sessionStorage.clear();
+              window.location.reload();
+            }}
+            onError={(error) => {
+              console.error('App Error:', error);
+            }}
           >
             <NavBar />
             <main className="main-content">
               <AnimatePresence mode="wait" initial={false}>
                 <motion.div
                   key={location.pathname}
-                  {...(routes.find(r => r.path === location.pathname)?.skipAnimation 
-                    ? {} 
-                    : pageTransition)}
+                  {...pageTransition}
                   className="page-container"
                 >
                   <Suspense fallback={<DelayedLoading />}>
                     <Routes location={location}>
-                      {routes.map(({ path, element: Element, meta }) => (
+                      {routes.map(({ path, element: Element }) => (
                         <Route
                           key={path}
                           path={path}
@@ -174,16 +182,16 @@ function App() {
                             <ErrorBoundary 
                               FallbackComponent={ErrorFallback}
                               onReset={() => window.location.reload()}
+                              onError={(error) => {
+                                console.error('Route Error:', error);
+                              }}
                             >
                               <Element />
                             </ErrorBoundary>
                           }
                         />
                       ))}
-                      <Route 
-                        path="*" 
-                        element={<Navigate to="/" replace />} 
-                      />
+                      <Route path="*" element={<Navigate to="/" replace />} />
                     </Routes>
                   </Suspense>
                 </motion.div>
@@ -209,12 +217,18 @@ function App() {
   );
 }
 
-// Enhanced error boundary wrapper
-function AppWithErrorBoundary() {
+// Root component with error boundary
+function AppWithRouter() {
   return (
     <ErrorBoundary 
       FallbackComponent={ErrorFallback}
-      onReset={() => window.location.reload()}
+      onReset={() => {
+        sessionStorage.clear();
+        window.location.reload();
+      }}
+      onError={(error) => {
+        console.error('Root Error:', error);
+      }}
     >
       <Router>
         <App />
@@ -223,4 +237,4 @@ function AppWithErrorBoundary() {
   );
 }
 
-export default AppWithErrorBoundary;
+export default AppWithRouter;

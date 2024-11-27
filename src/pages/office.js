@@ -47,6 +47,11 @@ const Office = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedMap, setSelectedMap] = useState(null);
   const [loadingProgress, setLoadingProgress] = useState({ loaded: 0, total: 0 });
+  const [apiStatus, setApiStatus] = useState({
+    loading: false,
+    error: null,
+    success: false
+  });
 
   // Enhanced filtering with search optimization
   const filteredMaps = useMemo(() => {
@@ -61,44 +66,78 @@ const Office = () => {
 
   const correctPassword = process.env.REACT_APP_MAP_PASSWORD || 'rouf24';
 
+  // 1. Define utility functions first
+  const fetchWithRetry = useMemo(() => async (url, options, retries = 3) => {
+    try {
+      const response = await fetch(url, options);
+      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+      return response;
+    } catch (error) {
+      if (retries > 0) {
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        return fetchWithRetry(url, options, retries - 1);
+      }
+      throw error;
+    }
+  }, []);
+
+  // 2. Define error handler
+  const handleApiError = useCallback((error) => {
+    let errorMessage = 'মৌজা ম্যাপ লোড করতে সমস্যা হচ্ছে। পরে আবার চেষ্টা করুন।';
+    
+    if (error.status === 403) {
+      errorMessage = 'API কী সমস্যা। অনুগ্রহ করে অ্যাডমিনের সাথে যোগাযোগ করুন।';
+    } else if (error.status === 404) {
+      errorMessage = 'ফোল্ডার খুঁজে পাওয়া যায়নি।';
+    }
+    
+    setError(errorMessage);
+    setApiStatus({ loading: false, error: errorMessage, success: false });
+  }, [setError, setApiStatus]);
+
+  // 3. Define main fetch function
   const fetchMapsFromDrive = useCallback(async (folderId) => {
+    setApiStatus({ loading: true, error: null, success: false });
     setLoading(true);
-    setLoadingProgress({ loaded: 0, total: 0 }); // Reset progress
     
     try {
       let allFiles = [];
       let pageToken = null;
-      
-      // First, get total count
-      const initialResponse = await fetch(
-        `https://www.googleapis.com/drive/v3/files?q='${folderId}'+in+parents+and+mimeType='application/pdf'&key=${process.env.REACT_APP_GOOGLE_API_KEY}&fields=nextPageToken,files(id)`
-      );
-      
-      const initialData = await initialResponse.json();
-      const totalFiles = initialData.files.length;
-      setLoadingProgress({ loaded: 0, total: totalFiles });
+      const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;
       
       do {
-        const response = await fetch(
-          `https://www.googleapis.com/drive/v3/files?q='${folderId}'+in+parents+and+mimeType='application/pdf'&key=${process.env.REACT_APP_GOOGLE_API_KEY}&fields=nextPageToken,files(id,name,size,modifiedTime,webViewLink,thumbnailLink,webContentLink)&pageSize=1000${pageToken ? `&pageToken=${pageToken}` : ''}`
-        );
-        
-        if (!response.ok) throw new Error('Network response was not ok');
-        
-        const data = await response.json();
-        
-        if (data.files) {
-          const updatedFiles = [...allFiles, ...data.files];
-          allFiles = updatedFiles;
-          
-          setLoadingProgress(prevState => ({
-            ...prevState,
-            loaded: updatedFiles.length
-          }));
+        const baseUrl = 'https://www.googleapis.com/drive/v3/files';
+        const params = new URLSearchParams({
+          q: `'${folderId}' in parents and mimeType='application/pdf'`,
+          key: apiKey,
+          fields: 'nextPageToken,files(id,name,size,modifiedTime,webViewLink,thumbnailLink,webContentLink)',
+          pageSize: '1000',
+          ...(pageToken && { pageToken })
+        });
+
+        const response = await fetchWithRetry(`${baseUrl}?${params}`, {
+          method: 'GET',
+          headers: {
+            'Accept': 'application/json',
+            'Origin': window.location.origin,
+            'Referer': window.location.origin
+          }
+        });
+
+        if (!response.ok) {
+          handleApiError(response);
+          return;
         }
-        
+
+        const data = await response.json();
+        allFiles = [...allFiles, ...data.files];
         pageToken = data.nextPageToken;
         
+        setLoadingProgress({ 
+          loaded: allFiles.length,
+          total: data.files ? data.files.length : 0 
+        });
+
       } while (pageToken);
 
       if (allFiles.length > 0) {
@@ -108,26 +147,26 @@ const Office = () => {
           embedUrl: `https://drive.google.com/file/d/${file.id}/preview`,
           thumbnailUrl: `https://drive.google.com/thumbnail?id=${file.id}&sz=w1000`,
           viewUrl: `https://drive.google.com/file/d/${file.id}/view?usp=sharing`,
-          downloadUrl: `https://www.googleapis.com/drive/v3/files/${file.id}?alt=media&key=${process.env.REACT_APP_GOOGLE_API_KEY}`,
+          downloadUrl: `https://www.googleapis.com/drive/v3/files/${file.id}?alt=media&key=${apiKey}`,
           fallbackDownloadUrl: `https://drive.google.com/uc?export=download&id=${file.id}`,
           size: formatFileSize(file.size),
           modifiedDate: new Date(file.modifiedTime).toLocaleDateString('bn-BD'),
         }));
-        
-        // Sort files by name
-        mapsData.sort((a, b) => a.name.localeCompare(b.name));
-        
+
         setMaps(mapsData);
-        console.log(`Total files fetched: ${mapsData.length}`);
+        setApiStatus({ loading: false, error: null, success: true });
+      } else {
+        setError('কোন মৌজা ম্যাপ পাওয়া যায়নি।');
+        setApiStatus({ loading: false, error: 'No files found', success: false });
       }
     } catch (err) {
-      setError('মৌজা ম্যাপ লোড করতে সমস্যা হচ্ছে। পরে আবার চেষ্টা করুন।');
       console.error('Error fetching maps:', err);
+      handleApiError(err);
     } finally {
       setLoading(false);
-      setLoadingProgress({ loaded: 0, total: 0 }); // Reset progress when done
+      setLoadingProgress({ loaded: 0, total: 0 });
     }
-  }, []);
+  }, [fetchWithRetry, handleApiError, setError, setLoading, setLoadingProgress, setMaps, setApiStatus]);
 
   // File size formatter
   const formatFileSize = (bytes) => {
@@ -226,7 +265,7 @@ const Office = () => {
           <h3>{map.name}</h3>
           <div className="map-metadata">
             <span>সাইজ: {map.size}</span>
-            <span>আপডেট: {map.modifiedDate}</span>
+            <span>আপেট: {map.modifiedDate}</span>
           </div>
           <div className="map-actions">
             <a 
@@ -315,7 +354,7 @@ const Office = () => {
                   setSearchQuery('');
                 }}
               >
-                <option value="">জেলা ির্বাচন করুন</option>
+                <option value="">জেলা ির্বান করুন</option>
                 <option value="joypurhat">জয়পুরহাট</option>
               </select>
             </div>
@@ -354,7 +393,7 @@ const Office = () => {
             )}
           </div>
 
-          {loading && (
+          {apiStatus.loading && (
             <div className="loading">
               <FiLoader className="spinner" />
               <p>মৌজা ম্যাপ লোড হচ্ছে... {loadingProgress.loaded > 0 && 

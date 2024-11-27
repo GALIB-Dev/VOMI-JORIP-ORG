@@ -124,7 +124,23 @@ const usePreloadRoutes = (currentPath) => {
   }, [currentPath]);
 };
 
-// Main App component with improved error handling
+// Enhanced error fallback component
+const CustomErrorFallback = ({ error, resetErrorBoundary }) => {
+  useEffect(() => {
+    console.error('Error caught by boundary:', error);
+  }, [error]);
+
+  return (
+    <div className="error-boundary">
+      <ErrorFallback 
+        error={error} 
+        resetErrorBoundary={resetErrorBoundary}
+      />
+    </div>
+  );
+};
+
+// Main App component with single error boundary
 function App() {
   const location = useLocation();
 
@@ -149,69 +165,68 @@ function App() {
   usePreloadRoutes(location.pathname);
 
   return (
-    <ErrorBoundary>
+    <ErrorBoundary
+      FallbackComponent={CustomErrorFallback}
+      onReset={() => {
+        sessionStorage.clear();
+        window.location.reload();
+      }}
+      onError={(error, errorInfo) => {
+        console.error('Application Error:', error);
+        console.error('Error Info:', errorInfo);
+      }}
+    >
       <ParallaxProvider>
         <GoogleOAuthProvider 
-          clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID || "523803568624-4k11ovb16jneppjaclsksjcr52umh7jh.apps.googleusercontent.com"}
+          clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
         >
           <div className="App">
-            <ErrorBoundary 
-              FallbackComponent={ErrorFallback}
-              onReset={() => {
-                sessionStorage.clear();
-                window.location.reload();
-              }}
-              onError={(error) => {
-                console.error('App Error:', error);
-              }}
-            >
-              <NavBar />
-              <main className="main-content">
-                <AnimatePresence mode="wait" initial={false}>
-                  <motion.div
-                    key={location.pathname}
-                    {...pageTransition}
-                    className="page-container"
-                  >
-                    <Suspense fallback={<DelayedLoading />}>
-                      <Routes location={location}>
-                        {routes.map(({ path, element: Element }) => (
-                          <Route
-                            key={path}
-                            path={path}
-                            element={
-                              <ErrorBoundary 
-                                FallbackComponent={ErrorFallback}
-                                onReset={() => window.location.reload()}
-                                onError={(error) => {
-                                  console.error('Route Error:', error);
-                                }}
-                              >
-                                <Element />
-                              </ErrorBoundary>
-                            }
-                          />
-                        ))}
-                        <Route path="*" element={<Navigate to="/" replace />} />
-                      </Routes>
-                    </Suspense>
-                  </motion.div>
-                </AnimatePresence>
-              </main>
-              <Footer />
-              <ToastContainer
-                position="top-right"
-                autoClose={5000}
-                hideProgressBar={false}
-                newestOnTop
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="light"
-              />
-            </ErrorBoundary>
+            <NavBar />
+            <main className="main-content">
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.div
+                  key={location.pathname}
+                  {...pageTransition}
+                  className="page-container"
+                >
+                  <Suspense fallback={<DelayedLoading />}>
+                    <Routes location={location}>
+                      {routes.map(({ path, element: Element }) => (
+                        <Route
+                          key={path}
+                          path={path}
+                          element={
+                            <ErrorBoundary
+                              FallbackComponent={CustomErrorFallback}
+                              onReset={() => window.location.reload()}
+                              onError={(error) => {
+                                console.error('Route Error:', path, error);
+                              }}
+                            >
+                              <Element />
+                            </ErrorBoundary>
+                          }
+                        />
+                      ))}
+                      <Route path="*" element={<Navigate to="/" replace />} />
+                    </Routes>
+                  </Suspense>
+                </motion.div>
+              </AnimatePresence>
+            </main>
+            <Footer />
+            <ToastContainer
+              position="top-right"
+              autoClose={5000}
+              hideProgressBar={false}
+              newestOnTop
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="light"
+            />
           </div>
         </GoogleOAuthProvider>
       </ParallaxProvider>
@@ -219,23 +234,23 @@ function App() {
   );
 }
 
-// Root component with error boundary
+// Root component with single error boundary
 function AppWithRouter() {
   return (
-    <ErrorBoundary 
-      FallbackComponent={ErrorFallback}
-      onReset={() => {
-        sessionStorage.clear();
-        window.location.reload();
-      }}
-      onError={(error) => {
-        console.error('Root Error:', error);
-      }}
-    >
-      <Router>
+    <Router>
+      <ErrorBoundary
+        FallbackComponent={CustomErrorFallback}
+        onReset={() => {
+          sessionStorage.clear();
+          window.location.reload();
+        }}
+        onError={(error) => {
+          console.error('Root Error:', error);
+        }}
+      >
         <App />
-      </Router>
-    </ErrorBoundary>
+      </ErrorBoundary>
+    </Router>
   );
 }
 

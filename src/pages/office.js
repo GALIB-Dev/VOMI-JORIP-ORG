@@ -47,11 +47,6 @@ const Office = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedMap, setSelectedMap] = useState(null);
   const [loadingProgress, setLoadingProgress] = useState({ loaded: 0, total: 0 });
-  const [apiStatus, setApiStatus] = useState({
-    loading: false,
-    error: null,
-    success: false
-  });
 
   // Enhanced filtering with search optimization
   const filteredMaps = useMemo(() => {
@@ -92,10 +87,9 @@ const Office = () => {
     }
     
     setError(errorMessage);
-    setApiStatus({ loading: false, error: errorMessage, success: false });
-  }, [setError, setApiStatus]);
+  }, [setError]);
 
-  const retryFetch = async (fn, retries = 3) => {
+  const retryFetch = useCallback(async (fn, retries = 3) => {
     try {
       return await fn();
     } catch (error) {
@@ -105,19 +99,17 @@ const Office = () => {
       }
       throw error;
     }
-  };
+  }, []);
 
   // 3. Define main fetch function
   const fetchMapsFromDrive = useCallback(async (folderId) => {
-    setApiStatus({ loading: true, error: null, success: false });
     setLoading(true);
+    setError(null);
     
     try {
       const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;
-      console.log('API Key exists:', !!apiKey); // Debug log
-      
       if (!apiKey) {
-        throw new Error('Google API key is missing');
+        throw new Error('API_KEY_MISSING');
       }
 
       const baseUrl = 'https://www.googleapis.com/drive/v3/files';
@@ -125,36 +117,37 @@ const Office = () => {
         q: `'${folderId}' in parents and mimeType='application/pdf'`,
         key: apiKey,
         fields: 'files(id,name,size,modifiedTime,webViewLink,thumbnailLink,webContentLink)',
-        pageSize: '1000'
-      }).toString();
+        pageSize: '1000',
+        orderBy: 'name'
+      });
 
-      const url = `${baseUrl}?${params}`;
-      console.log('Fetching URL:', url.replace(apiKey, 'HIDDEN')); // Safe logging
-
-      const response = await retryFetch(() => fetch(url, {
+      const response = await fetch(`${baseUrl}?${params}`, {
         method: 'GET',
         headers: {
           'Accept': 'application/json',
           'Origin': window.location.origin,
           'Referer': window.location.origin
         }
-      }));
+      });
 
       if (!response.ok) {
-        const errorText = await response.text();
-        console.error('API Error Status:', response.status);
-        console.error('API Error Response:', errorText);
-        throw new Error(`API Error: ${response.status} ${response.statusText}`);
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(JSON.stringify({
+          status: response.status,
+          statusText: response.statusText,
+          error: errorData
+        }));
       }
 
       const data = await response.json();
-      console.log('API Response:', {
-        filesCount: data.files?.length || 0,
-        hasFiles: !!data.files
-      });
+      
+      if (!data.files || !Array.isArray(data.files)) {
+        throw new Error('INVALID_RESPONSE_FORMAT');
+      }
 
-      if (data.files && data.files.length > 0) {
-        const mapsData = data.files.map(file => ({
+      const mapsData = data.files
+        .filter(file => file.id && file.name)
+        .map(file => ({
           id: file.id,
           name: file.name,
           embedUrl: `https://drive.google.com/file/d/${file.id}/preview`,
@@ -163,29 +156,38 @@ const Office = () => {
           downloadUrl: `https://drive.google.com/uc?export=download&id=${file.id}`,
           size: formatFileSize(file.size),
           modifiedDate: new Date(file.modifiedTime).toLocaleDateString('bn-BD'),
-        }));
+        }))
+        .sort((a, b) => a.name.localeCompare(b.name, 'bn'));
 
-        setMaps(mapsData);
-        setApiStatus({ loading: false, error: null, success: true });
-        setError('');
-      } else {
-        setError('কোন মৌজা ম্যাপ পাওয���া যায়নি।');
-        setApiStatus({ loading: false, error: 'No files found', success: false });
-      }
+      setMaps(mapsData);
+      setLoadingProgress({ loaded: mapsData.length, total: mapsData.length });
+      
     } catch (err) {
-      console.error('Fetch Error:', {
-        message: err.message,
-        stack: err.stack,
-        origin: window.location.origin
-      });
+      console.error('Fetch Error:', err);
       
-      let errorMessage = 'মৌজা ম্যাপ লোড করতে সমস্যা হচ্ছে।';
-      if (err.message.includes('API key')) {
-        errorMessage = 'API কী সমস্যা। অনুগ্রহ করে অ্যাডমিনের সাথে যোগাযোগ করুন।';
-      }
-      
+      const errorMessage = (() => {
+        if (err.message === 'API_KEY_MISSING') {
+          return 'API কী সমস্যা। অনুগ্রহ করে অ্যাডমিনের সাথে যোগাযোগ করুন।';
+        }
+        if (err.message === 'INVALID_RESPONSE_FORMAT') {
+          return 'অবৈধ ডেটা ফরম্যাট। পরে আবার চেষ্টা করুন।';
+        }
+        try {
+          const parsedError = JSON.parse(err.message);
+          if (parsedError.status === 403) {
+            return 'API কী সমস্যা। অনুগ্রহ করে অ্যাডমিনের সাথে যোগাযোগ করুন।';
+          }
+          if (parsedError.status === 404) {
+            return 'ফোল্ডার খুঁজে পাওয়া যায়নি।';
+          }
+        } catch {
+          // Parse error, use default message
+        }
+        return 'মৌজা ম্যাপ লোড করতে সমস্যা হচ্ছে। পরে আবার চেষ্টা করুন।';
+      })();
+
       setError(errorMessage);
-      setApiStatus({ loading: false, error: err.message, success: false });
+      setLoadingProgress({ loaded: 0, total: 0 });
     } finally {
       setLoading(false);
     }
@@ -204,7 +206,7 @@ const Office = () => {
       window.open(map.downloadUrl, '_blank');
     } catch (error) {
       console.error('Download error:', error);
-      setError('ডাউনলোড করতে সমস্যা হচ্ছে। অনুগ্রহ করে পরে আবার চেষ���টা করুন।');
+      setError('ডাউনলোড করতে সমস্যা হচ্ছে। অনুগ্রহ করে পরে আবার চেষ্টা করুন।');
     }
   };
 
@@ -406,12 +408,20 @@ const Office = () => {
             )}
           </div>
 
-          {apiStatus.loading && (
-            <div className="loading">
-              <FiLoader className="spinner" />
-              <p>মৌজা ম্যাপ লোড হচ্ছে... {loadingProgress.loaded > 0 && 
-                `(${loadingProgress.loaded} / ${loadingProgress.total})`
-              }</p>
+          {loading && (
+            <div className="loading-overlay">
+              <div className="loading-content">
+                <FiLoader className="spinner" />
+                <p>মৌজা মযাপ লোড হচ্ছে...</p>
+                {loadingProgress.total > 0 && (
+                  <div className="progress-bar">
+                    <div 
+                      className="progress-fill"
+                      style={{ width: `${(loadingProgress.loaded / loadingProgress.total) * 100}%` }}
+                    />
+                  </div>
+                )}
+              </div>
             </div>
           )}
 

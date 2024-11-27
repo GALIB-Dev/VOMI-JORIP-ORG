@@ -361,7 +361,7 @@ const Office = () => {
                   setSearchQuery('');
                 }}
               >
-                <option value="">জেলা ির্বান করুন</option>
+                <option value="">জেলা নির্বাচন করুন</option>
                 <option value="joypurhat">জয়পুরহাট</option>
               </select>
             </div>
@@ -404,7 +404,7 @@ const Office = () => {
             <div className="loading-overlay">
               <div className="loading-content">
                 <FiLoader className="spinner" />
-                <p>মৌজা মযাপ লোড হচ্ছে...</p>
+                <p>মৌজা ম্যাপ লোড হচ্ছে...</p>
                 {loadingProgress.total > 0 && (
                   <div className="progress-bar">
                     <div 

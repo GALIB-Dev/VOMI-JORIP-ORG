@@ -77,17 +77,18 @@ const Office = () => {
   }, []);
 
   // 2. Define error handler
-  const retryFetch = useCallback(async (fn, retries = 3) => {
+  const retryFetch = async (fn, retries = 3) => {
     try {
       return await fn();
     } catch (error) {
       if (retries > 0) {
+        console.log(`Retrying... ${retries} attempts left`);
         await new Promise(resolve => setTimeout(resolve, 1000));
         return retryFetch(fn, retries - 1);
       }
       throw error;
     }
-  }, []);
+  };
 
   // 3. Define main fetch function
   const fetchMapsFromDrive = useCallback(async (folderId) => {
@@ -96,6 +97,8 @@ const Office = () => {
     
     try {
       const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;
+      console.log('API Key exists:', !!apiKey); // Debug log
+      
       if (!apiKey) {
         throw new Error('API_KEY_MISSING');
       }
@@ -105,21 +108,29 @@ const Office = () => {
         q: `'${folderId}' in parents and mimeType='application/pdf'`,
         key: apiKey,
         fields: 'files(id,name,size,modifiedTime,webViewLink,thumbnailLink,webContentLink)',
-        pageSize: '1000',
-        orderBy: 'name'
-      });
+        pageSize: '1000'
+      }).toString();
 
-      const response = await fetch(`${baseUrl}?${params}`, {
-        method: 'GET',
-        headers: {
-          'Accept': 'application/json',
-          'Origin': window.location.origin,
-          'Referer': window.location.origin
-        }
-      });
+      console.log('Request URL:', baseUrl + '?' + params.replace(apiKey, 'HIDDEN')); // Safe logging
+
+      const response = await retryFetch(() => 
+        fetch(`${baseUrl}?${params}`, {
+          method: 'GET',
+          headers: {
+            'Accept': 'application/json',
+            'Origin': window.location.origin,
+            'Referer': window.location.origin
+          }
+        })
+      );
 
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}));
+        console.error('API Error:', {
+          status: response.status,
+          statusText: response.statusText,
+          error: errorData
+        });
         throw new Error(JSON.stringify({
           status: response.status,
           statusText: response.statusText,
@@ -153,28 +164,23 @@ const Office = () => {
       
     } catch (err) {
       console.error('Fetch Error:', err);
+      let errorMessage = 'মৌজা ম্যাপ লোড করতে সমস্যা হচ্ছে। পরে আবার চেষ্টা করুন।';
       
-      const errorMessage = (() => {
-        if (err.message === 'API_KEY_MISSING') {
-          return 'API কী সমস্যা। অনুগ্রহ করে অ্যাডমিনের সাথে যোগাযোগ করুন।';
-        }
-        if (err.message === 'INVALID_RESPONSE_FORMAT') {
-          return 'অবৈধ ডেটা ফরম্যাট। পরে আবার চেষ্টা করুন।';
-        }
+      if (err.message === 'API_KEY_MISSING') {
+        errorMessage = 'API কী সমস্যা। অনুগ্রহ করে অ্যাডমিনের সাথে যোগাযোগ করুন।';
+        console.error('API Key Missing');
+      } else {
         try {
           const parsedError = JSON.parse(err.message);
           if (parsedError.status === 403) {
-            return 'API কী সমস্যা। অনুগ্রহ করে অ্যাডমিনের সাথে যোগাযোগ করুন।';
-          }
-          if (parsedError.status === 404) {
-            return 'ফোল্ডার খুঁজে পাওয়া যায়নি।';
+            errorMessage = 'API Key সমস্যা। অনুগ্রহ করে অ্যাডমিনের সাথে যোগাযোগ করুন।';
+            console.error('API Key Permission Error');
           }
         } catch {
           // Parse error, use default message
         }
-        return 'মৌজা ম্যাপ লোড করতে সমস্যা হচ্ছে। পরে আবার চেষ্টা করুন।';
-      })();
-
+      }
+      
       setError(errorMessage);
       setLoadingProgress({ loaded: 0, total: 0 });
     } finally {

@@ -271,8 +271,8 @@ const Office = () => {
         <div className="map-info">
           <h3>{map.name}</h3>
           <div className="map-metadata">
-            <span>size: {map.size}</span>
-            <span>Updated: {map.modifiedDate}</span>
+            <span>Size: {map.size}</span>
+            <span>‎ Updated: {map.modifiedDate}</span>
           </div>
           <div className="map-actions">
             <a 

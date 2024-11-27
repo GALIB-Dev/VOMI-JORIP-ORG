@@ -20,7 +20,7 @@ const Footer = () => {
         {/* Main Info */}
         <div className="footer-main">
           <h3>ভূমি জরিপ উন্নয়ন সংস্থা</h3>
-          <p className="tagline">Transforming land survey since 2010</p>
+          <p className="tagline">Transforming land survey since 2000</p>
           <div className="social-links">
             <a href={contactInfo.facebook} 
                target="_blank" 

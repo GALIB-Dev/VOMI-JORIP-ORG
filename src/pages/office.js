@@ -10,12 +10,12 @@ import '../styles/office.css';
 
 const mapLinks = {
   akkelpur: {
-    folderId: '1NBPk3FWm3TR-ZRHEvSbt-6pgRyIypdFt',
+    folderId: 'your-folder-id',
     name: "আক্কেলপুর উপজেলা মৌজা ম্যাপ",
     totalMouzas: "১২৩",
   },
   khetlal: {
-    folderId: '1NBPk3FWm3TR-ZRHEvSbt-6pgRyIypdFt',
+    folderId: 'your-folder-id',
     name: "ক্ষেতলাল উপজেলা মৌজা ম্যাপ",
     totalMouzas: "৯৮",
   },
@@ -61,43 +61,26 @@ const Office = () => {
 
   const correctPassword = process.env.REACT_APP_MAP_PASSWORD || 'rouf24';
 
-  // 1. Define utility functions first
-  const fetchWithRetry = useMemo(() => async (url, options, retries = 3) => {
-    try {
-      const response = await fetch(url, options);
-      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-      return response;
-    } catch (error) {
-      if (retries > 0) {
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        return fetchWithRetry(url, options, retries - 1);
-      }
-      throw error;
-    }
-  }, []);
-
-  // 2. Define error handler
-  const retryFetch = async (fn, retries = 3) => {
+  // Keep only the callback version
+  const retryFetchCallback = useCallback(async (fn, retries = 3) => {
     try {
       return await fn();
     } catch (error) {
       if (retries > 0) {
         console.log(`Retrying... ${retries} attempts left`);
         await new Promise(resolve => setTimeout(resolve, 1000));
-        return retryFetch(fn, retries - 1);
+        return retryFetchCallback(fn, retries - 1);
       }
       throw error;
     }
-  };
+  }, []);
 
-  // 3. Define main fetch function
   const fetchMapsFromDrive = useCallback(async (folderId) => {
     setLoading(true);
     setError(null);
     
     try {
       const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;
-      console.log('API Key exists:', !!apiKey); // Debug log
       
       if (!apiKey) {
         throw new Error('API_KEY_MISSING');
@@ -107,36 +90,29 @@ const Office = () => {
       const params = new URLSearchParams({
         q: `'${folderId}' in parents and mimeType='application/pdf'`,
         key: apiKey,
-        fields: 'files(id,name,size,modifiedTime,webViewLink,thumbnailLink,webContentLink)',
-        pageSize: '1000'
-      }).toString();
+        fields: 'files(id,name,size,modifiedTime,webViewLink,thumbnailLink,webContentLink),nextPageToken',
+        pageSize: '1000',
+        orderBy: 'name'
+      });
 
-      console.log('Request URL:', baseUrl + '?' + params.replace(apiKey, 'HIDDEN')); // Safe logging
-
-      const response = await retryFetch(() => 
-        fetch(`${baseUrl}?${params}`, {
+      const response = await retryFetchCallback(async () => {
+        const res = await fetch(`${baseUrl}?${params}`, {
           method: 'GET',
           headers: {
             'Accept': 'application/json',
             'Origin': window.location.origin,
-            'Referer': window.location.origin
+            'Referer': `${window.location.origin}/`
           }
-        })
-      );
-
-      if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
-        console.error('API Error:', {
-          status: response.status,
-          statusText: response.statusText,
-          error: errorData
         });
-        throw new Error(JSON.stringify({
-          status: response.status,
-          statusText: response.statusText,
-          error: errorData
-        }));
-      }
+        
+        if (!res.ok) {
+          throw new Error(JSON.stringify({
+            status: res.status,
+            statusText: res.statusText
+          }));
+        }
+        return res;
+      });
 
       const data = await response.json();
       
@@ -144,49 +120,70 @@ const Office = () => {
         throw new Error('INVALID_RESPONSE_FORMAT');
       }
 
+      // Process map names to extract numbers and sort correctly
       const mapsData = data.files
         .filter(file => file.id && file.name)
-        .map(file => ({
-          id: file.id,
-          name: file.name,
-          embedUrl: `https://drive.google.com/file/d/${file.id}/preview`,
-          thumbnailUrl: `https://drive.google.com/thumbnail?id=${file.id}&sz=w1000`,
-          viewUrl: `https://drive.google.com/file/d/${file.id}/view?usp=sharing`,
-          downloadUrl: `https://drive.google.com/uc?export=download&id=${file.id}`,
-          size: formatFileSize(file.size),
-          modifiedDate: new Date(file.modifiedTime).toLocaleDateString('bn-BD'),
-        }))
-        .sort((a, b) => a.name.localeCompare(b.name, 'bn'));
+        .map(file => {
+          // Extract number from name (if exists)
+          const numberMatch = file.name.match(/(\d+)/);
+          const number = numberMatch ? parseInt(numberMatch[1], 10) : 0;
+          
+          return {
+            id: file.id,
+            name: file.name,
+            number: number, // Store number for sorting
+            embedUrl: `https://drive.google.com/file/d/${file.id}/preview`,
+            thumbnailUrl: `https://drive.google.com/thumbnail?id=${file.id}&sz=w1000`,
+            viewUrl: `https://drive.google.com/file/d/${file.id}/view?usp=sharing`,
+            downloadUrl: `https://drive.google.com/uc?export=download&id=${file.id}`,
+            size: formatFileSize(file.size || 0),
+            modifiedDate: new Date(file.modifiedTime).toLocaleDateString('bn-BD'),
+          };
+        })
+        .sort((a, b) => {
+          // First sort by number
+          if (a.number !== b.number) {
+            return a.number - b.number;
+          }
+          // If numbers are same or don't exist, sort by name
+          return a.name.localeCompare(b.name, 'bn');
+        });
 
+      console.log(`Loaded ${mapsData.length} maps successfully`);
       setMaps(mapsData);
       setLoadingProgress({ loaded: mapsData.length, total: mapsData.length });
       setError('');
       
     } catch (err) {
       console.error('Fetch Error:', err);
-      let errorMessage = 'মৌজা ম্যাপ লোড করতে সমস্যা হচ্ছে। পরে আবার চেষ্টা করুন।';
       
-      if (err.message === 'API_KEY_MISSING') {
-        errorMessage = 'API কী সমস্যা। অনুগ্রহ করে অ্যাডমিনের সাথে যোগাযোগ করুন।';
-        console.error('API Key Missing');
-      } else {
+      const errorMessage = (() => {
+        if (err.message === 'API_KEY_MISSING') {
+          return 'API কী সমস্যা। অনুগ্রহ করে অ্যাডমিনের সাথে যোগাযোগ করুন।';
+        }
+        if (err.message === 'INVALID_RESPONSE_FORMAT') {
+          return 'অবৈধ ডেটা ফরম্যাট। পরে আবার চেষ্টা করুন।';
+        }
         try {
           const parsedError = JSON.parse(err.message);
           if (parsedError.status === 403) {
-            errorMessage = 'API Key সমস্যা। অনুগ্রহ করে অ্যাডমিনের সাথে যোগাযোগ করুন।';
-            console.error('API Key Permission Error');
+            return 'API কী সমস্যা। অনুগ্রহ করে অ্যাডমিনের সাথে যোগাযোগ করুন।';
+          }
+          if (parsedError.status === 404) {
+            return 'ফোল্ডার খুঁজে পাওয়া যায়নি।';
           }
         } catch {
           // Parse error, use default message
         }
-      }
-      
+        return 'মৌজা ম্যাপ লোড করতে সমস্যা হচ্ছে। পরে আবার চেষ্টা করুন।';
+      })();
+
       setError(errorMessage);
       setLoadingProgress({ loaded: 0, total: 0 });
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [retryFetchCallback]);
 
   // File size formatter
   const formatFileSize = (bytes) => {

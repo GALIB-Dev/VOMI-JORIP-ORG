@@ -15,9 +15,9 @@ const mapLinks = {
     totalMouzas: "১২৩",
   },
   khetlal: {
-    folderId: 'your-folder-id',
+    folderId: '1mJqxmOej6KVG02Xhk9izbduUjEhHiLkK',
     name: "ক্ষেতলাল উপজেলা মৌজা ম্যাপ",
-    totalMouzas: "৯৮",
+    totalMouzas: "115",
   },
   kalai: {
     folderId: '1AnXT_x0_jKYby-JJZEKdWg2WYZ1DNYFi',
@@ -27,7 +27,7 @@ const mapLinks = {
   "joypurhat-sadar": {
     folderId: '1NBPk3FWm3TR-ZRHEvSbt-6pgRyIypdFt',
     name: "জয়পুরহাট সদর উপজেলা মৌজা ম্যাপ",
-    totalMouzas: "১৬৭",
+    totalMouzas: "232",
   },
   panchbibi: {
     folderId: 'your-folder-id',

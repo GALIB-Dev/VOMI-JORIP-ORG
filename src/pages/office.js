@@ -10,12 +10,12 @@ import '../styles/office.css';
 
 const mapLinks = {
   akkelpur: {
-    folderId: 'your-folder-id',
+    folderId: '1NBPk3FWm3TR-ZRHEvSbt-6pgRyIypdFt',
     name: "আক্কেলপুর উপজেলা মৌজা ম্যাপ",
     totalMouzas: "১২৩",
   },
   khetlal: {
-    folderId: 'your-folder-id',
+    folderId: '1NBPk3FWm3TR-ZRHEvSbt-6pgRyIypdFt',
     name: "ক্ষেতলাল উপজেলা মৌজা ম্যাপ",
     totalMouzas: "৯৮",
   },
@@ -101,72 +101,69 @@ const Office = () => {
     setLoading(true);
     
     try {
-      let allFiles = [];
-      let pageToken = null;
       const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;
+      if (!apiKey) {
+        throw new Error('Google API key is missing');
+      }
+
+      console.log('Fetching maps from folder:', folderId);
       
-      do {
-        const baseUrl = 'https://www.googleapis.com/drive/v3/files';
-        const params = new URLSearchParams({
-          q: `'${folderId}' in parents and mimeType='application/pdf'`,
-          key: apiKey,
-          fields: 'nextPageToken,files(id,name,size,modifiedTime,webViewLink,thumbnailLink,webContentLink)',
-          pageSize: '1000',
-          ...(pageToken && { pageToken })
-        });
+      const baseUrl = 'https://www.googleapis.com/drive/v3/files';
+      const params = new URLSearchParams({
+        q: `'${folderId}' in parents and mimeType='application/pdf'`,
+        key: apiKey,
+        fields: 'files(id,name,size,modifiedTime,webViewLink,thumbnailLink,webContentLink)',
+        pageSize: '1000',
+        orderBy: 'name'  // Add sorting by name
+      });
 
-        const response = await fetchWithRetry(`${baseUrl}?${params}`, {
-          method: 'GET',
-          headers: {
-            'Accept': 'application/json',
-            'Origin': window.location.origin,
-            'Referer': window.location.origin
-          }
-        });
-
-        if (!response.ok) {
-          handleApiError(response);
-          return;
+      const response = await fetch(`${baseUrl}?${params}`, {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Origin': window.location.origin,
+          'Referer': window.location.origin
         }
+      });
 
-        const data = await response.json();
-        allFiles = [...allFiles, ...data.files];
-        pageToken = data.nextPageToken;
-        
-        setLoadingProgress({ 
-          loaded: allFiles.length,
-          total: data.files ? data.files.length : 0 
-        });
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error('API Error Response:', errorText);
+        throw new Error(`API Error: ${response.status} ${response.statusText}`);
+      }
 
-      } while (pageToken);
+      const data = await response.json();
+      console.log('Files found:', data.files?.length || 0);
 
-      if (allFiles.length > 0) {
-        const mapsData = allFiles.map(file => ({
-          id: file.id,
-          name: file.name,
-          embedUrl: `https://drive.google.com/file/d/${file.id}/preview`,
-          thumbnailUrl: `https://drive.google.com/thumbnail?id=${file.id}&sz=w1000`,
-          viewUrl: `https://drive.google.com/file/d/${file.id}/view?usp=sharing`,
-          downloadUrl: `https://www.googleapis.com/drive/v3/files/${file.id}?alt=media&key=${apiKey}`,
-          fallbackDownloadUrl: `https://drive.google.com/uc?export=download&id=${file.id}`,
-          size: formatFileSize(file.size),
-          modifiedDate: new Date(file.modifiedTime).toLocaleDateString('bn-BD'),
-        }));
+      if (data.files && data.files.length > 0) {
+        const mapsData = data.files
+          .map(file => ({
+            id: file.id,
+            name: file.name,
+            embedUrl: `https://drive.google.com/file/d/${file.id}/preview`,
+            thumbnailUrl: `https://drive.google.com/thumbnail?id=${file.id}&sz=w1000`,
+            viewUrl: `https://drive.google.com/file/d/${file.id}/view?usp=sharing`,
+            downloadUrl: `https://drive.google.com/uc?export=download&id=${file.id}`,
+            size: formatFileSize(file.size),
+            modifiedDate: new Date(file.modifiedTime).toLocaleDateString('bn-BD'),
+          }))
+          .sort((a, b) => a.name.localeCompare(b.name)); // Sort by name
 
         setMaps(mapsData);
         setApiStatus({ loading: false, error: null, success: true });
+        setError(''); // Clear any existing errors
       } else {
         setError('কোন মৌজা ম্যাপ পাওয়া যায়নি।');
         setApiStatus({ loading: false, error: 'No files found', success: false });
       }
     } catch (err) {
-      console.error('Error fetching maps:', err);
-      handleApiError(err);
+      console.error('Error details:', err);
+      setError('মৌজা ম্যাপ লোড করতে সমস্যা হচ্ছে। পরে আবার চেষ্টা করুন।');
+      setApiStatus({ loading: false, error: err.message, success: false });
     } finally {
       setLoading(false);
-      setLoadingProgress({ loaded: 0, total: 0 });
     }
-  }, [fetchWithRetry, handleApiError, setError, setLoading, setLoadingProgress, setMaps, setApiStatus]);
+  }, []);
 
   // File size formatter
   const formatFileSize = (bytes) => {
@@ -178,17 +175,7 @@ const Office = () => {
   // Enhanced download handler
   const handleDownload = async (map) => {
     try {
-      // Create a temporary link element
-      const link = document.createElement('a');
-      link.href = `https://drive.google.com/uc?export=download&id=${map.id}`;
-      link.target = '_blank';
-      link.setAttribute('download', `${map.name}.pdf`);
-      
-      // Append to document, click, and remove
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      
+      window.open(map.downloadUrl, '_blank');
     } catch (error) {
       console.error('Download error:', error);
       setError('ডাউনলোড করতে সমস্যা হচ্ছে। অনুগ্রহ করে পরে আবার চেষ্টা করুন।');
@@ -405,6 +392,17 @@ const Office = () => {
           {error && (
             <div className="error-message">
               <p>{error}</p>
+              <button 
+                onClick={() => {
+                  setError(null);
+                  if (উপজেলা) {
+                    fetchMapsFromDrive(mapLinks[উপজেলা].folderId);
+                  }
+                }}
+                className="retry-button"
+              >
+                আবার চেষ্টা করুন
+              </button>
             </div>
           )}
 

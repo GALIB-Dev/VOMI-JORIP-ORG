@@ -49,6 +49,7 @@ const Contact = lazyLoadWithRetry(() => import('./pages/Contact'));
 const Office = lazyLoadWithRetry(() => import('./pages/office'));
 const PropertyForm = lazyLoadWithRetry(() => import('./pages/PropertyForm'));
 const GoogleCallback = lazyLoadWithRetry(() => import('./pages/GoogleCallback'));
+const MouzaPrice = lazyLoadWithRetry(() => import('./pages/MouzaPrice'));
 
 // Route configuration with metadata
 const routes = [
@@ -57,6 +58,11 @@ const routes = [
     element: Home,
     preload: true,
     meta: { title: 'Home - ভূমি জরিপ উন্নয়ন সংস্থা' }
+  },
+  { 
+    path: '/mouza-price', 
+    element: MouzaPrice,
+    meta: { title: 'মৌজা মূল্যমান - ভূমি জরিপ উন্নয়ন সংস্থা' }
   },
   { 
     path: '/market', 

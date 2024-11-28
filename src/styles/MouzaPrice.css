@@ -1,0 +1,248 @@
+.mouza-price-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem 1rem;
+  font-family: 'Hind Siliguri', sans-serif;
+  background-color: var(--white);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-md);
+}
+
+.main-title {
+  text-align: center;
+  color: var(--primary-color);
+  margin-bottom: 2.5rem;
+  font-size: 2.2rem;
+  font-weight: 700;
+  position: relative;
+}
+
+.main-title::after {
+  content: '';
+  position: absolute;
+  bottom: -0.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background-color: var(--primary-color);
+  border-radius: 2px;
+}
+
+.selection-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.select-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.select-group label {
+  font-weight: 600;
+  color: var(--text-color);
+  font-size: 1.1rem;
+}
+
+.select-input {
+  padding: 1rem;
+  border: 2px solid #e0e0e0;
+  border-radius: var(--border-radius-md);
+  font-family: 'Hind Siliguri', sans-serif;
+  font-size: 1.1rem;
+  background-color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath fill='%23666' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  padding-right: 3rem;
+}
+
+.select-input:hover {
+  border-color: var(--primary-color);
+  background-color: var(--primary-light);
+}
+
+.select-input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px var(--primary-light);
+}
+
+.pdf-links-container {
+  background-color: white;
+  padding: 2rem;
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-md);
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.pdf-links-container h2 {
+  color: var(--text-color);
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--primary-light);
+}
+
+.pdf-links {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.pdf-link {
+  display: block;
+  padding: 1.25rem;
+  background-color: var(--primary-light);
+  color: var(--primary-color);
+  text-decoration: none;
+  border-radius: var(--border-radius-md);
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+}
+
+.pdf-link:hover {
+  background-color: var(--primary-color);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.pdf-info {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.pdf-icon {
+  font-size: 2.25rem;
+  color: #e53935;
+  transition: transform 0.3s ease;
+}
+
+.pdf-link:hover .pdf-icon {
+  transform: scale(1.1);
+}
+
+.download-icon {
+  margin-left: auto;
+  font-size: 1.5rem;
+  transition: transform 0.3s ease;
+}
+
+.pdf-link:hover .download-icon {
+  transform: translateY(-2px);
+  color: white;
+}
+
+.pdf-details {
+  flex: 1;
+}
+
+.pdf-details h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.file-year {
+  margin: 0.35rem 0 0;
+  font-size: 0.95rem;
+  color: var(--text-light);
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .mouza-price-container {
+    margin: 1rem;
+    padding: 1.5rem 1rem;
+  }
+
+  .main-title {
+    font-size: 1.75rem;
+    margin-bottom: 2rem;
+  }
+
+  .selection-container {
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .select-group label {
+    font-size: 1rem;
+  }
+
+  .select-input {
+    padding: 0.875rem;
+    font-size: 1rem;
+  }
+
+  .pdf-links-container {
+    padding: 1.25rem;
+  }
+
+  .pdf-link {
+    padding: 1rem;
+  }
+
+  .pdf-icon {
+    font-size: 1.75rem;
+  }
+
+  .pdf-details h3 {
+    font-size: 0.95rem;
+  }
+
+  .file-year {
+    font-size: 0.85rem;
+  }
+
+  .download-icon {
+    font-size: 1.25rem;
+  }
+}
+
+/* Small screens */
+@media (max-width: 360px) {
+  .mouza-price-container {
+    margin: 0.5rem;
+    padding: 1rem;
+  }
+
+  .main-title {
+    font-size: 1.5rem;
+  }
+
+  .pdf-info {
+    gap: 0.75rem;
+  }
+
+  .pdf-icon {
+    font-size: 1.5rem;
+  }
+
+  .pdf-details h3 {
+    font-size: 0.9rem;
+  }
+} 

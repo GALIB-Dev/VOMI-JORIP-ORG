@@ -1,68 +1,1172 @@
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import { FaFilePdf, FaDownload } from 'react-icons/fa';
 import '../styles/MouzaPrice.css';
 
 const MouzaPrice = () => {
   const [selectedBhag, setSelectedBhag] = useState('');
   const [selectedJela, setSelectedJela] = useState('');
-  const [jelas, setJelas] = useState([]);
-  const [pdfLinks, setPdfLinks] = useState([]);
 
-  // Bhag (Division) data
-  const bhagList = [
-    { id: 1, name: 'ঢাকা' },
-    { id: 2, name: 'চট্টগ্রাম' },
-    { id: 3, name: 'খুলনা' },
-    { id: 4, name: 'রাজশাহী' },
-    { id: 5, name: 'বরিশাল' },
-    { id: 6, name: 'সিলেট' },
-    { id: 7, name: 'রংপুর' },
-    { id: 8, name: 'ময়মনসিংহ' },
-  ];
+  // District data with files mapping
+  const districtData = {
+    'বরিশাল': {
+      districts: ['বরগুনা', 'বরিশাল', 'ভোলা', 'ঝালকাঠি', 'পটুয়াখালী', 'পিরোজপুর'],
+      files: {
+        'বরগুনা': [
+          {
+            name: 'বরগুনা মৌজা মূল্য তালিকা ২০২৩-২৪',
+            url: 'https://drive.google.com/file/d/1301/view',
+            year: '২০২৩-২৪'
+          },
+          {
+            name: 'বরগুনা মৌজা মূল্য তালিকা ২০২২-২৩',
+            url: 'https://drive.google.com/file/d/1302/view',
+            year: '২০২২-২৩'
+          },
+          {
+            name: 'বরগুনা মৌজা মূল্য তালিকা ২০২১-২২',
+            url: 'https://drive.google.com/file/d/1303/view',
+            year: '২০২১-২২'
+          }
+        ],
+        'বরিশাল': [
+          {
+            name: 'বরিশাল মৌজা মূল্য তালিকা ২০২৩-২৪',
+            url: 'https://drive.google.com/file/d/1304/view',
+            year: '২০২৩-২৪'
+          },
+          {
+            name: 'বরিশাল মৌজা মূল্য তালিকা ২০২২-২৩',
+            url: 'https://drive.google.com/file/d/1305/view',
+            year: '২০২২-২৩'
+          },
+          {
+            name: 'বরিশাল মৌজা মূল্য তালিকা ২০২১-২২',
+            url: 'https://drive.google.com/file/d/1306/view',
+            year: '২০২১-২২'
+          }
+        ],
+        'ভোলা': [
+          {
+            name: 'ভোলা মৌজা মূল্য তালিকা ২০২৩-২৪',
+            url: 'https://drive.google.com/file/d/1307/view',
+            year: '২০২৩-২৪'
+          },
+          {
+            name: 'ভোলা মৌজা মূল্য তালিকা ২০২২-২৩',
+            url: 'https://drive.google.com/file/d/1308/view',
+            year: '২০২২-২৩'
+          },
+          {
+            name: 'ভোলা মৌজা মূল্য তালিকা ২০২১-২২',
+            url: 'https://drive.google.com/file/d/1309/view',
+            year: '২০২১-২২'
+          }
+        ],
+        'ঝালকাঠি': [
+          {
+            name: 'ঝালকাঠি মৌজা মূল্য তালিকা ২০২৩-২৪',
+            url: 'https://drive.google.com/file/d/1310/view',
+            year: '২০২৩-২৪'
+          },
+          {
+            name: 'ঝালকাঠি মৌজা মূল্য তালিকা ২০২২-২৩',
+            url: 'https://drive.google.com/file/d/1311/view',
+            year: '২০২২-২৩'
+          },
+          {
+            name: 'ঝালকাঠি মৌজা মূল্য তালিকা ২০২১-২২',
+            url: 'https://drive.google.com/file/d/1312/view',
+            year: '২০২১-২২'
+          }
+        ],
+        'পটুয়াখালী': [
+          {
+            name: 'পটুয়াখালী মৌজা মূল্য তালিকা ২০২৩-২৪',
+            url: 'https://drive.google.com/file/d/1313/view',
+            year: '২০২৩-২৪'
+          },
+          {
+            name: 'পটুয়াখালী মৌজা মূল্য তালিকা ২০২২-২৩',
+            url: 'https://drive.google.com/file/d/1314/view',
+            year: '২০২২-২৩'
+          },
+          {
+            name: 'পটুয়াখালী মৌজা মূল্য তালিকা ২০২১-২২',
+            url: 'https://drive.google.com/file/d/1315/view',
+            year: '২০২১-২২'
+          }
+        ],
+        'পিরোজপুর': [
+          {
+            name: 'পিরোজপুর মৌজা মূল্য তালিকা ২০২৩-২৪',
+            url: 'https://drive.google.com/file/d/1316/view',
+            year: '২০২৩-২৪'
+          },
+          {
+            name: 'পিরোজপুর মৌজা মূল্য তালিকা ২০২২-২৩',
+            url: 'https://drive.google.com/file/d/1317/view',
+            year: '২০২২-২৩'
+          },
+          {
+            name: 'পিরোজপুর মৌজা মূল্য তালিকা ২০২১-২২',
+            url: 'https://drive.google.com/file/d/1318/view',
+            year: '২০২১-২২'
+          }
+        ]
+      }
+    },
 
-  // Jela (District) data mapping
-  const jelaMapping = {
-    'ঢাকা': ['ঢাকা', 'গাজীপুর', 'নারায়ণগঞ্জ', 'মানিকগঞ্জ', 'মুন্সিগঞ্জ', 'নরসিংদী', 'কিশোরগঞ্জ', 'টাঙ্গাইল', 'ফরিদপুর'],
-    'চট্টগ্রাম': ['চট্টগ্রাম', 'কক্সবাজার', 'রাঙ্গামাটি', 'বান্দরবান', 'খাগড়াছড়ি', 'ফেনী', 'লক্ষ্মীপুর', 'নোয়াখালী'],
-    // Add other divisions and their districts
+
+
+
+
+    
+    'চট্টগ্রাম': {
+      districts: ['বান্দরবান', 'ব্রাহ্মণবাড়িয়া', 'চাঁদপুর', 'চট্টগ্রাম', 'কুমিল্লা', 'কক্সবাজার', 'ফেনী', 'খাগড়াছড়ি', 'লক্ষ্মীপুর', 'নোয়াখালী', 'রাঙ্গামাটি'],
+      files: {
+        'চান্দরবান': [
+          {
+            name: 'বান্দরবান মৌজা মূল্য তালিকা ২০২৩-২৪',
+            url: 'https://drive.google.com/file/d/1331/view',
+            year: '২০২৩-২৪'
+          },
+          {
+            name: 'বান্দরবান মৌজা মূল্য তালিকা ২০২২-২৩',
+            url: 'https://drive.google.com/file/d/1332/view',
+            year: '২০২২-২৩'
+          },
+          {
+            name: 'বান্দরবান মৌজা মূল্য তালিকা ২০২১-২২',
+            url: 'https://drive.google.com/file/d/1333/view',
+            year: '২০২১-২২'
+          }
+        ],
+        'ব্রাহ্মণবাড়িয়া': [
+          {
+            name: 'ব্রাহ্মণবাড়িয়া মৌজা মূল্য তালিকা ২০২৩-২৪',
+            url: 'https://drive.google.com/file/d/1334/view',
+            year: '২০২৩-২৪'
+          },
+          {
+            name: 'ব্রাহ্মণবাড়িয়া মৌজা মূল্য তালিকা ২০২২-২৩',
+            url: 'https://drive.google.com/file/d/1335/view',
+            year: '২০২২-২৩'
+          },
+          {
+            name: 'ব্রাহ্মণবাড়িয়া মৌজা মূল্য তালিকা ২০২১-২২',
+            url: 'https://drive.google.com/file/d/1336/view',
+            year: '২০২১-২২'
+          }
+        ],
+        'চাঁদপুর': [
+          {
+            name: 'চাঁদপুর মৌজা মূল্য তালিকা ২০২৩-২৪',
+            url: 'https://drive.google.com/file/d/1337/view',
+            year: '২০২৩-২৪'
+          },
+          {
+            name: 'চাঁদপুর মৌজা মূল্য তালিকা ২০২২-২৩',
+            url: 'https://drive.google.com/file/d/1338/view',
+            year: '২০২২-২৩'
+          },
+          {
+            name: 'চাঁদপুর মৌজা মূল্য তালি����া ২০২১-২২',
+            url: 'https://drive.google.com/file/d/1339/view',
+            year: '২০২১-২২'
+          }
+        ],
+        'চট্টগ্রাম': [
+          {
+            name: 'চট্টগ্রাম মৌজা মূল্য তালিকা ২০২৩-২৪',
+            url: 'https://drive.google.com/file/d/1340/view',
+            year: '২০২৩-২৪'
+          },
+          {
+            name: 'চট্টগ্রাম মৌজা মূল্য তালিকা ২০২২-২৩',
+            url: 'https://drive.google.com/file/d/1341/view',
+            year: '২০২২-২৩'
+          },
+          {
+            name: 'চট্টগ্রাম মৌজা মূল্য তালিকা ২০২১-২২',
+            url: 'https://drive.google.com/file/d/1342/view',
+            year: '২০২১-২২'
+          }
+        ],
+        'কুমিল্লা': [
+          {
+            name: 'কুমিল্লা মৌজা মূল্য তালিকা ২০২৩-২৪',
+            url: 'https://drive.google.com/file/d/1343/view',
+            year: '২০২৩-২৪'
+          },
+          {
+            name: 'কুমিল্লা মৌজা মূল্য তালিকা ২০২২-২৩',
+            url: 'https://drive.google.com/file/d/1344/view',
+            year: '২০২২-২৩'
+          },
+          {
+            name: 'কুমিল্লা মৌজা মূল্য তালিকা ২০২১-২২',
+            url: 'https://drive.google.com/file/d/1345/view',
+            year: '২০২১-২২'
+          }
+        ],
+        'কক্সবাজার': [
+          {
+            name: 'কক্সবাজার মৌজা মূল্য তালিকা ২০২৩-২৪',
+            url: 'https://drive.google.com/file/d/1346/view',
+            year: '২০২৩-২৪'
+          },
+          {
+            name: 'কক্সবাজার মৌজা মূল্য তালিকা ২০২২-২৩',
+            url: 'https://drive.google.com/file/d/1347/view',
+            year: '২০২২-২৩'
+          },
+          {
+            name: 'কক্সবাজার মৌজা মূল্য তালিকা ২০২১-২২',
+            url: 'https://drive.google.com/file/d/1348/view',
+            year: '২০২১-২২'
+          }
+        ],
+        'ফেনী': [
+          {
+            name: 'ফেনী মৌজা মূল্য তালিকা ২০২৩-২৪',
+            url: 'https://drive.google.com/file/d/1349/view',
+            year: '২০২৩-২৪'
+          },
+          {
+            name: 'ফেনী মৌজা মূল্য তালিকা ২০২২-২৩',
+            url: 'https://drive.google.com/file/d/1350/view',
+            year: '২০২২-২৩'
+          },
+          {
+            name: 'ফেনী মৌজা মূল্য তালিকা ২০২১-২২',
+            url: 'https://drive.google.com/file/d/1351/view',
+            year: '২০২১-২২'
+          }
+        ],
+        'খাগড়াছড়ি': [
+          {
+            name: 'খাগড়াছড়ি মৌজা মূল্য তালিকা ২০২৩-২৪',
+            url: 'https://drive.google.com/file/d/1352/view',
+            year: '২০২৩-২৪'
+          },
+          {
+            name: 'খাগড়াছড়ি মৌজা মূল্য তালিকা ২০২২-২৩',
+            url: 'https://drive.google.com/file/d/1353/view',
+            year: '২০২২-২৩'
+          },
+          {
+            name: 'খাগড়াছড়ি মৌজা মূল্য তালিকা ২০২১-২২',
+            url: 'https://drive.google.com/file/d/1354/view',
+            year: '২০২১-২২'
+          }
+        ],
+        'লক্ষ্মীপুর': [
+          {
+            name: 'লক্ষ্মীপুর মৌজা মূল্য তালিকা ২০২৩-২৪',
+            url: 'https://drive.google.com/file/d/1355/view',
+            year: '২০২৩-২৪'
+          },
+          {
+            name: 'লক্ষ্মীপুর মৌজা মূল্য তালিকা ২০২২-২৩',
+            url: 'https://drive.google.com/file/d/1356/view',
+            year: '২০২২-২৩'
+          },
+          {
+            name: 'লক্ষ্মীপুর মৌজা মূল্য তালিকা ২০২১-২২',
+            url: 'https://drive.google.com/file/d/1357/view',
+            year: '২০২১-২২'
+          }
+        ],
+        'নোয়াখালী': [
+          {
+            name: 'নোয়াখালী মৌজা মূল্য তালিকা ২০২৩-২৪',
+            url: 'https://drive.google.com/file/d/1358/view',
+            year: '২০২৩-২৪'
+          },
+          {
+            name: 'নোয়াখালী মৌজা মূল্য তালিকা ২০২২-২৩',
+            url: 'https://drive.google.com/file/d/1359/view',
+            year: '২০২২-২৩'
+          },
+          {
+            name: 'নোয়াখালী মৌজা মূল্য তালিকা ২০২১-২২',
+            url: 'https://drive.google.com/file/d/1360/view',
+            year: '২০২১-২২'
+          }
+        ],
+        'রাঙ্গামাটি': [
+          {
+            name: 'রাঙ্গামাটি মৌজা মূল্য তালিকা ২০২৩-২৪',
+            url: 'https://drive.google.com/file/d/1361/view',
+            year: '২০২৩-২৪'
+          },
+          {
+            name: 'রাঙ্গামাটি মৌজা মূল্য তালিকা ২০২২-২৩',
+            url: 'https://drive.google.com/file/d/1362/view',
+            year: '২০২২-২৩'
+          },
+          {
+            name: 'রাঙ্গামাটি মৌজা মূল্য তালিকা ২০২১-২২',
+            url: 'https://drive.google.com/file/d/1363/view',
+            year: '২০২১-২২'
+          }
+        ]
+      }
+    },
+    'ঢাকা': {
+      districts: ['ঢাকা', 'ফরিদপুর', 'গাজীপুর', 'গোপালগঞ্জ', 'কিশোরগঞ্জ', 'মাদারীপুর', 'মানিকগঞ্জ', 'মুন্সিগঞ্জ', 'নারায়ণগঞ্জ', 'নরসিংদী', 'রাজবাড়ী', 'শরীয়তপুর', 'টাঙ্গাইল'],
+      files: {
+        'ঢাকা': [
+          {
+            name: 'ঢাকা মৌজা মূল্য তালিকা ২০২৩-২৪',
+            url: 'https://drive.google.com/file/d/1401/view',
+            year: '২০২৩-২৪'
+          },
+          {
+            name: 'ঢাকা মৌজা মূল্য তালিকা ২০২২-২৩',
+            url: 'https://drive.google.com/file/d/1402/view',
+            year: '২০২২-২৩'
+          },
+          {
+            name: 'ঢাকা মৌজা মূল্য তালিকা ২০২১-২২',
+            url: 'https://drive.google.com/file/d/1403/view',
+            year: '২০২১-২২'
+          }
+        ],
+        'ফরিদপুর': [
+          {
+            name: 'ফরিদপুর মৌজা মূল্য তালিকা ২০২৩-২৪',
+            url: 'https://drive.google.com/file/d/1404/view',
+            year: '২০২৩-২৪'
+          },
+          {
+            name: 'ফরিদপুর মৌজা মূল্য তালিকা ২০২২-২৩',
+            url: 'https://drive.google.com/file/d/1405/view',
+            year: '২০২২-২৩'
+          },
+          {
+            name: 'ফরিদপুর মৌজা মূল্য তালিকা ২০২১-২২',
+            url: 'https://drive.google.com/file/d/1406/view',
+            year: '২০২১-২২'
+          }
+        ],
+        'গাজীপুর': [
+          {
+            name: 'গাজীপুর মৌজা মূল্য তালিকা ২০২৩-২৪',
+            url: 'https://drive.google.com/file/d/1407/view',
+            year: '২০২৩-২৪'
+          },
+          {
+            name: 'গাজীপুর মৌজা মূল্য তালিকা ২০২২-২৩',
+            url: 'https://drive.google.com/file/d/1408/view',
+            year: '২০২২-২৩'
+          },
+          {
+            name: 'গাজীপুর মৌজা মূল্য তালিকা ২০২১-২২',
+            url: 'https://drive.google.com/file/d/1409/view',
+            year: '২০২১-২২'
+          }
+        ],
+        'গোপালগঞ্জ': [
+          {
+            name: 'গোপালগঞ্জ মৌজা মূল্য তালিকা ২০২৩-২৪',
+            url: 'https://drive.google.com/file/d/1410/view',
+            year: '২০২৩-২৪'
+          },
+          {
+            name: 'গোপালগঞ্জ মৌজা মূল্য তালিকা ২০২২-২৩',
+            url: 'https://drive.google.com/file/d/1411/view',
+            year: '২০২২-২৩'
+          },
+          {
+            name: 'গোপালগঞ্জ মৌজা মূল্য তালিকা ২০২১-২২',
+            url: 'https://drive.google.com/file/d/1412/view',
+            year: '২০২১-২২'
+          }
+        ],
+        'কিশোরগঞ্জ': [
+          {
+            name: 'কিশোরগঞ্জ মৌজা মূল্য তালিকা ২০২৩-২৪',
+            url: 'https://drive.google.com/file/d/1413/view',
+            year: '২০২৩-২৪'
+          },
+          {
+            name: 'কিশোরগঞ্জ মৌজা মূল্য তালিকা ২০২২-২৩',
+            url: 'https://drive.google.com/file/d/1414/view',
+            year: '২০২২-২৩'
+          },
+          {
+            name: 'কিশোরগঞ্জ মৌজা মূল্য তালিকা ২০২১-২২',
+            url: 'https://drive.google.com/file/d/1415/view',
+            year: '২০২১-২২'
+          }
+        ],
+        'মাদারীপুর': [
+          {
+            name: 'মাদারীপুর মৌজা মূল্য তালিকা ২০২৩-২৪',
+            url: 'https://drive.google.com/file/d/1416/view',
+            year: '২০২৩-২৪'
+          },
+          {
+            name: 'মাদারীপুর মৌজা মূল্য তালিকা ২০২২-২৩',
+            url: 'https://drive.google.com/file/d/1417/view',
+            year: '২০২২-২৩'
+          },
+          {
+            name: 'মাদারীপুর মৌজা মূল্য তালিকা ২০২১-২২',
+            url: 'https://drive.google.com/file/d/1418/view',
+            year: '২০২১-২২'
+          }
+        ],
+        'মানিকগঞ্জ': [
+          {
+            name: 'মানিকগঞ্জ মৌজা মূল্য তালিকা ২০২৩-২৪',
+            url: 'https://drive.google.com/file/d/1419/view',
+            year: '২০২৩-২৪'
+          },
+          {
+            name: 'মানিকগঞ্জ মৌজা মূল্য তালিকা ২০২২-২৩',
+            url: 'https://drive.google.com/file/d/1420/view',
+            year: '২০২২-২৩'
+          },
+          {
+            name: 'মানিকগঞ্জ মৌজা মূল্য তালিকা ২০২১-২২',
+            url: 'https://drive.google.com/file/d/1421/view',
+            year: '২০২১-২২'
+          }
+        ],
+        'মুন্সিগঞ্জ': [
+          {
+            name: 'মুন্সিগঞ্জ মৌজা মূল্য তালিকা ২০২৩-২৪',
+            url: 'https://drive.google.com/file/d/1422/view',
+            year: '২০২৩-২৪'
+          },
+          {
+            name: 'মুন্সিগঞ্জ মৌজা মূল্য তালিকা ২০২২-২৩',
+            url: 'https://drive.google.com/file/d/1423/view',
+            year: '২০২২-২৩'
+          },
+          {
+            name: 'মুন্সিগঞ্জ মৌজা মূল্য তালিকা ২০২১-২২',
+            url: 'https://drive.google.com/file/d/1424/view',
+            year: '২০২১-২২'
+          }
+        ],
+        'নারায়ণগঞ্জ': [
+          {
+            name: 'নারায়ণগঞ্জ মৌজা মূল্য তালিকা ২০২৩-২৪',
+            url: 'https://drive.google.com/file/d/1425/view',
+            year: '২০২৩-২৪'
+          },
+          {
+            name: 'নারায়ণগঞ্জ মৌজা মূল্য তালিকা ২০২২-২৩',
+            url: 'https://drive.google.com/file/d/1426/view',
+            year: '২০২২-২৩'
+          },
+          {
+            name: 'নারায়ণগঞ্জ মৌজা মূল্য তালিকা ২০২১-২২',
+            url: 'https://drive.google.com/file/d/1427/view',
+            year: '২০২১-২২'
+          }
+        ],
+        'নরসিংদী': [
+          {
+            name: 'নরসিংদী মৌজা মূল্য তালিকা ২০২৩-২৪',
+            url: 'https://drive.google.com/file/d/1428/view',
+            year: '২০২৩-২৪'
+          },
+          {
+            name: 'নরসিংদী মৌজা মূল্য তালিকা ২০২২-২৩',
+            url: 'https://drive.google.com/file/d/1429/view',
+            year: '২০২২-২৩'
+          },
+          {
+            name: 'নরসিংদী মৌজা মূল্য তালিকা ২০২১-২২',
+            url: 'https://drive.google.com/file/d/1430/view',
+            year: '২০২১-২২'
+          }
+        ],
+        'রাজবাড়ী': [
+          {
+            name: 'রাজবাড়ী মৌজা মূল্য তালিকা ২০২৩-২৪',
+            url: 'https://drive.google.com/file/d/1431/view',
+            year: '২০২৩-২৪'
+          },
+          {
+            name: 'রাজবাড়ী মৌজা মূল্য তালিকা ২০২২-২৩',
+            url: 'https://drive.google.com/file/d/1432/view',
+            year: '২০২২-২৩'
+          },
+          {
+            name: 'রাজবাড়ী মৌজা মূল্য তালিকা ২০২১-২২',
+            url: 'https://drive.google.com/file/d/1433/view',
+            year: '২০২১-২২'
+          }
+        ],
+        'শরীয়তপুর': [
+          {
+            name: 'শরীয়তপুর মৌজা মূল্য তালিকা ২০২৩-২৪',
+            url: 'https://drive.google.com/file/d/1434/view',
+            year: '২০২৩-২৪'
+          },
+          {
+            name: 'শরীয়তপুর মৌজা মূল্য তালিকা ২০২২-২৩',
+            url: 'https://drive.google.com/file/d/1435/view',
+            year: '২০২২-২৩'
+          },
+          {
+            name: 'শরীয়তপুর মৌজা মূল্য তালিকা ২০২১-২২',
+            url: 'https://drive.google.com/file/d/1436/view',
+            year: '২০২১-২২'
+          }
+        ],
+        'টাঙ্গাইল': [
+          {
+            name: 'টাঙ্গাইল মৌজা মূল্য তালিকা ২০২৩-২৪',
+            url: 'https://drive.google.com/file/d/1437/view',
+            year: '২০২৩-২৪'
+          },
+          {
+            name: 'টাঙ্গাইল মৌজা মূল্য তালিকা ২০২২-২৩',
+            url: 'https://drive.google.com/file/d/1438/view',
+            year: '২০২২-২৩'
+          },
+          {
+            name: 'টাঙ্গাইল মৌজা মূল্য তালিকা ২০২১-২২',
+            url: 'https://drive.google.com/file/d/1439/view',
+            year: '২০২১-২২'
+          }
+        ]
+      }
+    },
+    'খুলনা': {
+      districts: ['বাগেরহাট', 'চুয়াডাঙ্গা', 'যশোর', 'ঝিনাইদহ', 'খুলনা', 'কুষ্টিয়া', 'মাগুরা', 'মেহেরপুর', 'নড়াইল', 'সাতক্ষীরা'],
+      files: {
+        'বাগেরহাট': [
+          {
+            name: 'বাগেরহাট মৌজা মূল্য তালিকা ২০২৩-২৪',
+            url: 'https://drive.google.com/file/d/1440/view',
+            year: '২০২৩-২৪'
+          },
+          {
+            name: 'বাগেরহাট মৌজা মূল্য তালিকা ২০২২-২৩',
+            url: 'https://drive.google.com/file/d/1441/view',
+            year: '২০২২-২৩'
+          },
+          {
+            name: 'বাগেরহাট মৌজা মূল্য তালিকা ২০২১-২২',
+            url: 'https://drive.google.com/file/d/1442/view',
+            year: '২০২১-২২'
+          }
+        ],
+        'চুয়াডাঙ্গা': [
+          {
+            name: 'চুয়াডাঙ্গা মৌজা মূল্য তালিকা ২০২৩-২৪',
+            url: 'https://drive.google.com/file/d/1443/view',
+            year: '২০২৩-২৪'
+          },
+          {
+            name: 'চুয়াডাঙ্গা মৌজা মূল্য তালিকা ২০২২-২৩',
+            url: 'https://drive.google.com/file/d/1444/view',
+            year: '২০২২-২৩'
+          },
+          {
+            name: 'চুয়াডাঙ্গা মৌজা মূল্য তালিকা ২০২১-২২',
+            url: 'https://drive.google.com/file/d/1445/view',
+            year: '২০২১-২২'
+          }
+        ],
+        'যশোর': [
+          {
+            name: 'যশোর মৌজা মূল্য তালিকা ২০২৩-২৪',
+            url: 'https://drive.google.com/file/d/1446/view',
+            year: '২০২৩-২৪'
+          },
+          {
+            name: 'যশোর মৌজা মূল্য তালিকা ২০২২-২৩',
+            url: 'https://drive.google.com/file/d/1447/view',
+            year: '২০২২-২৩'
+          },
+          {
+            name: 'যশোর মৌজা মূল্য তালিকা ২০২১-২২',
+            url: 'https://drive.google.com/file/d/1448/view',
+            year: '২০২১-২২'
+          }
+        ],
+        'ঝিনাইদহ': [
+          {
+            name: 'ঝিনাইদহ মৌজা মূল্য তালিকা ২০২৩-২৪',
+            url: 'https://drive.google.com/file/d/1449/view',
+            year: '২০২৩-২৪'
+          },
+          {
+            name: 'ঝিনাইদহ মৌজা মূল্য তালিকা ২০২২-২৩',
+            url: 'https://drive.google.com/file/d/1450/view',
+            year: '২০২২-২৩'
+          },
+          {
+            name: 'ঝিনাইদহ মৌজা মূল্য তালিকা ২০২১-২২',
+            url: 'https://drive.google.com/file/d/1451/view',
+            year: '২০২১-২২'
+          }
+        ],
+        'খুলনা': [
+          {
+            name: 'খুলনা মৌজা মূল্য তালিকা ২০২৩-২৪',
+            url: 'https://drive.google.com/file/d/1452/view',
+            year: '২০২৩-২৪'
+          },
+          {
+            name: 'খুলনা মৌজা মূল্য তালিকা ২০২২-২৩',
+            url: 'https://drive.google.com/file/d/1453/view',
+            year: '২০২২-২৩'
+          },
+          {
+            name: 'খুলনা মৌজা মূল্য তালিকা ২০২১-২২',
+            url: 'https://drive.google.com/file/d/1454/view',
+            year: '২০২১-২২'
+          }
+        ],
+        'কুষ্টিয়া': [
+          {
+            name: 'কুষ্টিয়া মৌজা মূল্য তালিকা ২০২৩-২৪',
+            url: 'https://drive.google.com/file/d/1455/view',
+            year: '২০২৩-২৪'
+          },
+          {
+            name: 'কুষ্টিয়া মৌজা মূল্য তালিকা ২০২২-২৩',
+            url: 'https://drive.google.com/file/d/1456/view',
+            year: '২০২২-২৩'
+          },
+          {
+            name: 'কুষ্টিয়া মৌজা মূল্য তালিকা ২০২১-২২',
+            url: 'https://drive.google.com/file/d/1457/view',
+            year: '২০২১-২২'
+          }
+        ],
+        'মাগুরা': [
+          {
+            name: 'মাগুরা মৌজা মূল্য তালিকা ২০২৩-২৪',
+            url: 'https://drive.google.com/file/d/1458/view',
+            year: '২০২৩-২৪'
+          },
+          {
+            name: 'মাগুরা মৌজা মূল্য তালিকা ২০২২-২৩',
+            url: 'https://drive.google.com/file/d/1459/view',
+            year: '২০২২-২৩'
+          },
+          {
+            name: 'মাগুরা মৌজা মূল্য তালিকা ২০২১-২২',
+            url: 'https://drive.google.com/file/d/1460/view',
+            year: '২০২১-২২'
+          }
+        ],
+        'মেহেরপুর': [
+          {
+            name: 'মেহেরপুর মৌজা মূল্য তালিকা ২০২৩-২৪',
+            url: 'https://drive.google.com/file/d/1461/view',
+            year: '২০২৩-২৪'
+          },
+          {
+            name: 'মেহেরপুর মৌজা মূল্য তালিকা ২০২২-২৩',
+            url: 'https://drive.google.com/file/d/1462/view',
+            year: '২০২২-২৩'
+          },
+          {
+            name: 'মেহেরপুর মৌজা মূল্য তালিকা ২০২১-২২',
+            url: 'https://drive.google.com/file/d/1463/view',
+            year: '২০২১-২২'
+          }
+        ],
+        'নড়াইল': [
+          {
+            name: 'নড়াইল মৌজা মূল্য তালিকা ২০২৩-২৪',
+            url: 'https://drive.google.com/file/d/1464/view',
+            year: '২০২৩-২৪'
+          },
+          {
+            name: 'নড়াইল মৌজা মূল্য তালিকা ২০২২-২৩',
+            url: 'https://drive.google.com/file/d/1465/view',
+            year: '২০২২-২৩'
+          },
+          {
+            name: 'নড়াইল মৌজা মূল্য তালিকা ২০২১-২২',
+            url: 'https://drive.google.com/file/d/1466/view',
+            year: '২০২১-২২'
+          }
+        ],
+        'সাতক্ষীরা': [
+          {
+            name: 'সাতক্ষীরা মৌজা মূল্য তালিকা ২০২৩-২৪',
+            url: 'https://drive.google.com/file/d/1467/view',
+            year: '২০২৩-২৪'
+          },
+          {
+            name: 'সাতক্ষীরা মৌজা মূল্য তালিকা ২০২২-২৩',
+            url: 'https://drive.google.com/file/d/1468/view',
+            year: '২০২২-২৩'
+          },
+          {
+            name: 'সাতক্ষীরা মৌজা মূল্য তালিকা ২০২১-২২',
+            url: 'https://drive.google.com/file/d/1469/view',
+            year: '২০২১-২২'
+          }
+        ]
+      }
+    },
+    'ময়মনসিংহ': {
+      districts: ['জামালপুর', 'ময়মনসিংহ', 'নেত্রকোণা', 'শেরপুর'],
+      files: {
+        'জামালপুর': [
+          {
+            name: 'জামালপুর মৌজা মূল্য তালিকা ২০২৩-২৪',
+            url: 'https://drive.google.com/file/d/1470/view',
+            year: '২০২৩-২৪'
+          },
+          {
+            name: 'জামালপুর মৌজা মূল্য তালিকা ২০২২-২৩',
+            url: 'https://drive.google.com/file/d/1471/view',
+            year: '২০২২-২৩'
+          },
+          {
+            name: 'জামালপুর মৌজা মূল্য তালিকা ২০২১-২২',
+            url: 'https://drive.google.com/file/d/1472/view',
+            year: '২০২১-২২'
+          }
+        ],
+        'ময়মনসিংহ': [
+          {
+            name: 'ময়মনসিংহ মৌজা মূল্য তালিকা ২০২৩-২৪',
+            url: 'https://drive.google.com/file/d/1473/view',
+            year: '২০২৩-২৪'
+          },
+          {
+            name: 'ময়মনসিংহ মৌজা মূল্য তালিকা ২০২২-২৩',
+            url: 'https://drive.google.com/file/d/1474/view',
+            year: '২০২২-২৩'
+          },
+          {
+            name: 'ময়মনসিংহ মৌজা মূল্য তালিকা ২০২১-২২',
+            url: 'https://drive.google.com/file/d/1475/view',
+            year: '২০২১-২২'
+          }
+        ],
+        'নেত্রকোণা': [
+          {
+            name: 'নেত্রকোণা মৌজা মূল্য তালিকা ২০২৩-২৪',
+            url: 'https://drive.google.com/file/d/1476/view',
+            year: '২০২৩-২৪'
+          },
+          {
+            name: 'নেত্রকোণা মৌজা মূল্য তালিকা ২০২২-২৩',
+            url: 'https://drive.google.com/file/d/1477/view',
+            year: '২০২২-২৩'
+          },
+          {
+            name: 'নেত্রকোণা মৌজা মূল্য তালিকা ২০২১-২২',
+            url: 'https://drive.google.com/file/d/1478/view',
+            year: '২০২১-২২'
+          }
+        ],
+        'শেরপুর': [
+          {
+            name: 'শেরপুর মৌজা মূল্য তালিকা ২০২৩-২৪',
+            url: 'https://drive.google.com/file/d/1479/view',
+            year: '২০২৩-২৪'
+          },
+          {
+            name: 'শেরপুর মৌজা মূল্য তালিকা ২০২২-২৩',
+            url: 'https://drive.google.com/file/d/1480/view',
+            year: '২০২২-২৩'
+          },
+          {
+            name: 'শেরপুর মৌজা মূল্য তালিকা ২০২১-২২',
+            url: 'https://drive.google.com/file/d/1481/view',
+            year: '২০২১-২২'
+          }
+        ]
+      }
+    },
+    'রাজশাহী': {
+      districts: ['বগুড়া', 'জয়পুরহাট', 'নওগাঁ', 'নাটোর', 'চাঁপাইনবাবগঞ্জ', 'পাবনা', 'রাজশাহী', 'সিরাজগঞ্জ'],
+      files: {
+        'বগুড়া': [
+          {
+            name: 'বগুড়া মৌজা মূল্য তালিকা ২০২৩-২৪',
+            url: 'https://drive.google.com/file/d/1482/view',
+            year: '২০২৩-২৪'
+          },
+          {
+            name: 'বগুড়া মৌজা মূল্য তালিকা ২০২২-২৩',
+            url: 'https://drive.google.com/file/d/1483/view',
+            year: '২০২২-২৩'
+          },
+          {
+            name: 'বগুড়া মৌজা মূল্য তালিকা ২০২১-২২',
+            url: 'https://drive.google.com/file/d/1484/view',
+            year: '২০২১-২২'
+          }
+        ],
+        'জয়পুরহাট': [
+          {
+            name: 'জয়পুরহাট  সদর',
+            url: 'https://drive.google.com/file/d/1XAA_d7D3XjC2Pjqotzu2vpFtwGs1Xocd/view?usp=drive_link',
+            upozila: 'সদর'
+          },
+          {
+            name: 'আক্কেলপুর',
+            url: 'https://drive.google.com/file/d/1z33iJmf8e8P9JTO0DE3gWmBhupETFEp7/view?usp=drive_link',
+            upozila: 'আক্কেলপুর'
+          },
+          {
+            name: 'কালাই',
+            url: 'https://drive.google.com/file/d/1LpOy8oPwUe4fURhnYB1SzEElzJCW5jN1/view?usp=sharing',
+            upozila: 'কালাই'
+          },
+          {
+            name: 'ক্ষেতলাল',
+            url: 'https://drive.google.com/file/d/1AciE3lZcZnElieozXL0t1asQpkdC2zDm/view?usp=drive_link',
+            upozila: 'ক্ষেতলাল'
+          },
+          {
+            name: 'পাঁচবিবি',
+            url: 'https://drive.google.com/file/d/1lb17lCLqiICioUOgN8t_11NLKNsSA_hc/view?usp=drive_link',
+            upozila: 'পাঁচবিবি'
+          }
+        ],
+        'নওগাঁ': [
+          {
+            name: 'নওগাঁ মৌজা মূল্য তালিকা ২০২৩-২৪',
+            url: 'https://drive.google.com/file/d/1488/view',
+            year: '২০২৩-২৪'
+          },
+          {
+            name: 'নওগাঁ মৌজা মূল্য তালিকা ২০২২-২৩',
+            url: 'https://drive.google.com/file/d/1489/view',
+            year: '২০২২-২৩'
+          },
+          {
+            name: 'নওগাঁ মৌজা মূল্য তালিকা ২০২১-২২',
+            url: 'https://drive.google.com/file/d/1490/view',
+            year: '২০২১-২২'
+          }
+        ],
+        'নাটোর': [
+          {
+            name: 'নাটোর মৌজা মূল্য তালিকা ২০২৩-২৪',
+            url: 'https://drive.google.com/file/d/1491/view',
+            year: '২০২৩-২৪'
+          },
+          {
+            name: 'নাটোর মৌজা মূল্য তালিকা ২০২২-২৩',
+            url: 'https://drive.google.com/file/d/1492/view',
+            year: '২০২২-২৩'
+          },
+          {
+            name: 'নাটোর মৌজা মূল্য তালিকা ২০২১-২২',
+            url: 'https://drive.google.com/file/d/1493/view',
+            year: '২০২১-২২'
+          }
+        ],
+        'চাঁপাইনবাবগঞ্জ': [
+          {
+            name: 'চাঁপাইনবাবগঞ্জ মৌজা মূল্য তালিকা ২০২৩-২৪',
+            url: 'https://drive.google.com/file/d/1494/view',
+            year: '২০২৩-২৪'
+          },
+          {
+            name: 'চাঁপাইনবাবগঞ্জ মৌজা মূল্য তালিকা ২০২২-২৩',
+            url: 'https://drive.google.com/file/d/1495/view',
+            year: '২০২২-২৩'
+          },
+          {
+            name: 'চাঁপাইনবাবগঞ্জ মৌজা মূল্য তালিকা ২০২১-২২',
+            url: 'https://drive.google.com/file/d/1496/view',
+            year: '২০২১-২২'
+          }
+        ],
+        'পাবনা': [
+          {
+            name: 'পাবনা মৌজা মূল্য তালিকা ২০২৩-২৪',
+            url: 'https://drive.google.com/file/d/1497/view',
+            year: '২০২৩-২৪'
+          },
+          {
+            name: 'পাবনা মৌজা মূল্য তালিকা ২০২২-২৩',
+            url: 'https://drive.google.com/file/d/1498/view',
+            year: '২০২২-২৩'
+          },
+          {
+            name: 'পাবনা মৌজা মূল্য তালিকা ২০২১-২২',
+            url: 'https://drive.google.com/file/d/1499/view',
+            year: '২০২১-২২'
+          }
+        ],
+        'রাজশাহী': [
+          {
+            name: 'রাজশাহী মৌজা মূল্য তালিকা ২০২৩-২৪',
+            url: 'https://drive.google.com/file/d/1500/view',
+            year: '২০২৩-২৪'
+          },
+          {
+            name: 'রাজশাহী মৌজা মূল্য তালিকা ২০২২-২৩',
+            url: 'https://drive.google.com/file/d/1501/view',
+            year: '২০২২-২৩'
+          },
+          {
+            name: 'রাজশাহী মৌজা মূল্য তালিকা ২০২১-২২',
+            url: 'https://drive.google.com/file/d/1502/view',
+            year: '২০২১-২২'
+          }
+        ],
+        'সিরাজগঞ্জ': [
+          {
+            name: 'সিরাজগঞ্জ মৌজা মূল্য তালিকা ২০২৩-২৪',
+            url: 'https://drive.google.com/file/d/1503/view',
+            year: '২০২৩-২৪'
+          },
+          {
+            name: 'সিরাজগঞ্জ মৌজা মূল্য তালিকা ২০২২-২৩',
+            url: 'https://drive.google.com/file/d/1504/view',
+            year: '২০২২-২৩'
+          },
+          {
+            name: 'সিরাজগঞ্জ মৌজা মূল্য তালিকা ২০২১-২২',
+            url: 'https://drive.google.com/file/d/1505/view',
+            year: '২০২১-২২'
+          }
+        ]
+      }
+    },
+    'রংপুর': {
+      districts: ['দিনাজপুর', 'গাইবান্ধা', 'কুড়িগ্রাম', 'লালমনিরহাট', 'নীলফামারী', 'পঞ্চগড়', 'রংপুর', 'ঠাকুরগাঁও'],
+      files: {
+        'দিনাজপুর': [
+          {
+            name: 'দিনাজপুর মৌজা মূল্য তালিকা ২০২৩-২৪',
+            url: 'https://drive.google.com/file/d/1506/view',
+            year: '২০২৩-২৪'
+          },
+          {
+            name: 'দিনাজপুর মৌজা মূল্য তালিকা ২০২২-২৩',
+            url: 'https://drive.google.com/file/d/1507/view',
+            year: '২০২২-২৩'
+          },
+          {
+            name: 'দিনাজপুর মৌজা মূল্য তালিকা ২০২১-২২',
+            url: 'https://drive.google.com/file/d/1508/view',
+            year: '২০২১-২২'
+          }
+        ],
+        'গাইবান্ধা': [
+          {
+            name: 'গাইবান্ধা মৌজা মূল্য তালিকা ২০২৩-২৪',
+            url: 'https://drive.google.com/file/d/1509/view',
+            year: '২০২৩-২৪'
+          },
+          {
+            name: 'গাইবান্ধা মৌজা মূল্য তালিকা ২০২২-২৩',
+            url: 'https://drive.google.com/file/d/1510/view',
+            year: '২০২২-২৩'
+          },
+          {
+            name: 'গাইবান্ধা মৌজা মূল্য তালিকা ২০২১-২২',
+            url: 'https://drive.google.com/file/d/1511/view',
+            year: '২০২১-২২'
+          }
+        ],
+        'কুড়িগ্রাম': [
+          {
+            name: 'কুড়িগ্রাম মৌজা মূল্য তালিকা ২০২৩-২৪',
+            url: 'https://drive.google.com/file/d/1512/view',
+            year: '২০২৩-২৪'
+          },
+          {
+            name: 'কুড়িগ্রাম মৌজা মূল্য তালিকা ২০২২-২৩',
+            url: 'https://drive.google.com/file/d/1513/view',
+            year: '২০২২-২৩'
+          },
+          {
+            name: 'কুড়িগ্রাম মৌজা মূল্য তালিকা ২০২১-২২',
+            url: 'https://drive.google.com/file/d/1514/view',
+            year: '২০২১-২২'
+          }
+        ],
+        'লালমনিরহাট': [
+          {
+            name: 'লালমনিরহাট মৌজা মূল্য তালিকা ২০২৩-২৪',
+            url: 'https://drive.google.com/file/d/1515/view',
+            year: '২০২৩-২৪'
+          },
+          {
+            name: 'লালমনিরহাট মৌজা মূল্য তালিকা ২০২২-২৩',
+            url: 'https://drive.google.com/file/d/1516/view',
+            year: '২০২২-২৩'
+          },
+          {
+            name: 'লালমনিরহাট মৌজা মূল্য তালিকা ২০২১-২২',
+            url: 'https://drive.google.com/file/d/1517/view',
+            year: '২০২১-২২'
+          }
+        ],
+        'নীলফামারী': [
+          {
+            name: 'নীলফামারী মৌজা মূল্য তালিকা ২০২৩-২৪',
+            url: 'https://drive.google.com/file/d/1518/view',
+            year: '২০২৩-২৪'
+          },
+          {
+            name: 'নীলফামারী মৌজা মূল্য তালিকা ২০২২-২৩',
+            url: 'https://drive.google.com/file/d/1519/view',
+            year: '২০২২-২৩'
+          },
+          {
+            name: 'নীলফামারী মৌজা মূল্য তালিকা ২০২১-২২',
+            url: 'https://drive.google.com/file/d/1520/view',
+            year: '২০২১-২২'
+          }
+        ],
+        'পঞ্চগড়': [
+          {
+            name: 'পঞ্চগড় মৌজা মূল্য তালিকা ২০২৩-২৪',
+            url: 'https://drive.google.com/file/d/1521/view',
+            year: '২০২৩-২৪'
+          },
+          {
+            name: 'পঞ্চগড় মৌজা মূল্য তালিকা ২০২২-২৩',
+            url: 'https://drive.google.com/file/d/1522/view',
+            year: '২০২২-২৩'
+          },
+          {
+            name: 'পঞ্চগড় মৌজা মূল্য তালিকা ২০২১-২২',
+            url: 'https://drive.google.com/file/d/1523/view',
+            year: '২০২১-২২'
+          }
+        ],
+        'রংপুর': [
+          {
+            name: 'রংপুর মৌজা মূল্য তালিকা ২০২৩-২৪',
+            url: 'https://drive.google.com/file/d/1524/view',
+            year: '২০২৩-২৪'
+          },
+          {
+            name: 'রংপুর মৌজা মূল্য তালিকা ২০২২-২৩',
+            url: 'https://drive.google.com/file/d/1525/view',
+            year: '২০২২-২৩'
+          },
+          {
+            name: 'রংপুর মৌজা মূল্য তালিকা ২০২১-২২',
+            url: 'https://drive.google.com/file/d/1526/view',
+            year: '২০২১-২২'
+          }
+        ],
+        'ঠাকুরগাঁও': [
+          {
+            name: 'ঠাকুরগাঁও মৌজা মূল্য তালিকা ২০২৩-২৪',
+            url: 'https://drive.google.com/file/d/1527/view',
+            year: '২০২৩-২৪'
+          },
+          {
+            name: 'ঠাকুরগাঁও মৌজা মূল্য তালিকা ২০২২-২৩',
+            url: 'https://drive.google.com/file/d/1528/view',
+            year: '২০২২-২৩'
+          },
+          {
+            name: 'ঠাকুরগাঁও মৌজা মূল্য তালিকা ২০২১-২২',
+            url: 'https://drive.google.com/file/d/1529/view',
+            year: '২০২১-২২'
+          }
+        ]
+      }
+    },
+    'সিলেট': {
+      districts: ['হবিগঞ্জ', 'মৌলভীবাজার', 'সুনামগঞ্জ', 'সিলেট'],
+      files: {
+        'হবিগঞ্জ': [
+          {
+            name: 'হবিগঞ্জ মৌজা মূল্য তালিকা ২০২৩-২৪',
+            url: 'https://drive.google.com/file/d/1530/view',
+            year: '২০২৩-২৪'
+          },
+          {
+            name: 'হবিগঞ্জ মৌজা মূল্য তালিকা ২০২২-২৩',
+            url: 'https://drive.google.com/file/d/1531/view',
+            year: '২০২২-২৩'
+          },
+          {
+            name: 'হবিগঞ্জ মৌজা মূল্য তালিকা ২০২১-২২',
+            url: 'https://drive.google.com/file/d/1532/view',
+            year: '২০২১-২২'
+          }
+        ],
+        'মৌলভীবাজার': [
+          {
+            name: 'মৌলভীবাজার মৌজা মূল্য তালিকা ২০২৩-২৪',
+            url: 'https://drive.google.com/file/d/1533/view',
+            year: '২০২৩-২৪'
+          },
+          {
+            name: 'মৌলভীবাজার মৌজা মূল্য তালিকা ২০২২-২৩',
+            url: 'https://drive.google.com/file/d/1534/view',
+            year: '২০২২-২৩'
+          },
+          {
+            name: 'মৌলভীবাজার মৌজা মূল্য তালিকা ২০২১-২২',
+            url: 'https://drive.google.com/file/d/1535/view',
+            year: '২০২১-২২'
+          }
+        ],
+        'সুনামগঞ্জ': [
+          {
+            name: 'সুনামগঞ্জ মৌজা মূল্য তালিকা ২০২৩-২৪',
+            url: 'https://drive.google.com/file/d/1536/view',
+            year: '২০২৩-২৪'
+          },
+          {
+            name: 'সুনামগঞ্জ মৌজা মূল্য তালিকা ২০২২-২৩',
+            url: 'https://drive.google.com/file/d/1537/view',
+            year: '২০২২-২৩'
+          },
+          {
+            name: 'সুনামগঞ্জ মৌজা মূল্য তালিকা ২০২১-২২',
+            url: 'https://drive.google.com/file/d/1538/view',
+            year: '২০২১-২২'
+          }
+        ],
+        'সিলেট': [
+          {
+            name: 'সিলেট মৌজা মূল্য তালিকা ২০২৩-২৪',
+            url: 'https://drive.google.com/file/d/1539/view',
+            year: '২০২৩-২৪'
+          },
+          {
+            name: 'সিলেট মৌজা মূল্য তালিকা ২০২২-২৩',
+            url: 'https://drive.google.com/file/d/1540/view',
+            year: '২০২২-২৩'
+          },
+          {
+            name: 'সিলেট মৌজা মূল্য তালিকা ২০২১-২২',
+            url: 'https://drive.google.com/file/d/1541/view',
+            year: '২০২১-২২'
+          }
+        ]
+      }
+    }
   };
 
-  // PDF links mapping (example)
-  const pdfMapping = {
-    'ঢাকা': [
-      { name: 'ঢাকা মৌজা মূল্য তালিকা ২০২৩-২৪', url: 'https://drive.google.com/file/d/xxx1' },
-      { name: 'ঢাকা মৌজা মূল্য তালিকা ২০২২-২৩', url: 'https://drive.google.com/file/d/xxx2' },
-    ],
-    'গাজীপুর': [
-      { name: 'গাজীপুর মৌজা মূল্য তালিকা ২০২৩-২৪', url: 'https://drive.google.com/file/d/xxx3' },
-    ],
-    // Add other districts and their PDF links
-  };
-
-  // Handle Bhag selection
   const handleBhagChange = (e) => {
-    const selectedBhag = e.target.value;
-    setSelectedBhag(selectedBhag);
+    setSelectedBhag(e.target.value);
     setSelectedJela('');
-    setPdfLinks([]);
-    
-    if (selectedBhag) {
-      setJelas(jelaMapping[selectedBhag] || []);
-    } else {
-      setJelas([]);
-    }
   };
 
-  // Handle Jela selection
   const handleJelaChange = (e) => {
-    const selectedJela = e.target.value;
-    setSelectedJela(selectedJela);
-    
-    if (selectedJela) {
-      setPdfLinks(pdfMapping[selectedJela] || []);
-    } else {
-      setPdfLinks([]);
-    }
+    setSelectedJela(e.target.value);
+  };
+
+  const getFilesForDistrict = () => {
+    if (!selectedBhag || !selectedJela) return [];
+    return districtData[selectedBhag]?.files[selectedJela] || [];
   };
 
   return (
@@ -71,66 +1175,73 @@ const MouzaPrice = () => {
       
       <div className="selection-container">
         <div className="select-group">
-          <label htmlFor="bhag">বিভাগ নির্বাচন করুন:</label>
+          <label htmlFor="bhag-select">বিভাগ নির্বাচন করুন:</label>
           <select 
-            id="bhag"
+            id="bhag-select"
             value={selectedBhag}
             onChange={handleBhagChange}
             className="select-input"
           >
             <option value="">বিভাগ নির্বাচন করুন</option>
-            {bhagList.map(bhag => (
-              <option key={bhag.id} value={bhag.name}>
-                {bhag.name}
-              </option>
+            {Object.keys(districtData).map(bhag => (
+              <option key={bhag} value={bhag}>{bhag}</option>
             ))}
           </select>
         </div>
 
         {selectedBhag && (
-          <div className="select-group">
-            <label htmlFor="jela">জেলা নির্বাচন করুন:</label>
+          <motion.div 
+            className="select-group"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+          >
+            <label htmlFor="jela-select">জেলা নির্বাচন করুন:</label>
             <select
-              id="jela"
+              id="jela-select"
               value={selectedJela}
               onChange={handleJelaChange}
               className="select-input"
             >
               <option value="">জেলা নির্বাচন করুন</option>
-              {jelas.map(jela => (
-                <option key={jela} value={jela}>
-                  {jela}
-                </option>
+              {districtData[selectedBhag]?.districts.map(jela => (
+                <option key={jela} value={jela}>{jela}</option>
               ))}
             </select>
-          </div>
+          </motion.div>
         )}
       </div>
 
-      {pdfLinks.length > 0 && (
-        <div className="pdf-links-container">
-          <h2>পিডিএফ ফাইল সমূহ:</h2>
+      {selectedJela && getFilesForDistrict().length > 0 && (
+        <motion.div 
+          className="pdf-links-container"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+        >
+          <h2>{selectedJela} জেলার মৌজা মূল্য তালিকা</h2>
           <div className="pdf-links">
-            {pdfLinks.map((pdf, index) => (
-              <a 
+            {getFilesForDistrict().map((file, index) => (
+              <motion.a
                 key={index}
-                href={pdf.url}
+                href={file.url}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="pdf-link"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: index * 0.1 }}
               >
                 <div className="pdf-info">
                   <FaFilePdf className="pdf-icon" />
                   <div className="pdf-details">
-                    <h3>{pdf.name}</h3>
-                    <p className="file-year">{pdf.year}</p>
+                    <h3>{file.name}</h3>
+                    <p className="file-year">{file.year}</p>
                   </div>
                   <FaDownload className="download-icon" />
                 </div>
-              </a>
+              </motion.a>
             ))}
           </div>
-        </div>
+        </motion.div>
       )}
     </div>
   );

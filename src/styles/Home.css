@@ -481,7 +481,7 @@ body {
   }
 }
 
-.hero-section {
+.Home-hero-section {
   /* ... existing styles ... */
   background-color: var(--primary-dark); /* Fallback color while image loads */
   background-image: linear-gradient(

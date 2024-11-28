@@ -6,22 +6,28 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEyeSlash } from '@fortawesome/free-regular-svg-icons';
 import '../styles/Home.css';
 import logo from "../assets/images/land survey.png"
+import { useNavigate, Link } from 'react-router-dom';
 
 const NewsHeader = () => {
-  const news = [
-    "নতুন ভূমি আইন ২০২৪ প্রকাশিত হয়েছে",
-    "আগামী মাসে নতুন ডিজিটাল জরিপ শুরু হবে",
-    "জমি রেজিস্ট্রেশন ফি ১০% কমেছে"
+  const newsItems = [
+    "ভূমি অপরাধ প্রতিরোধ ও প্রতিকার আইন, ২০২৩ প্রকাশিত হয়েছে",
+    "ভূমি সংস্কার আইন, ২০২৩ এর নতুন সংস্করণ জারি করা হয়েছে",
+    "বালুমহাল ও মাটি ব্যবস্থাপনা (সংশোধন) আইন, ২০২৩ কার্যকর হয়েছে",
+    "হাট ও বাজার (স্থাপন ও ব্যবস্থাপনা) আইন, ২০২৩ অনুমোদিত হয়েছে",
+    "স্থাবর সম্পত্তি অধিগ্রহণ ও হুকুমদখল আইন, ২০১৭ এর সংশোধনী প্রস্তাবিত",
+    "পরিপত্র-৬৬৮: ভূমি কর্মকর্তাদের জন্য নতুন নির্দেশনা জারি",
+    "অর্পিত সম্পত্তি প্রত্যর্পণ (দ্বিতীয় সংশোধন) আইন সংক্রান্ত গুরুত্বপূর্ণ বিজ্ঞপ্তি",
+    "উন্নয়ন প্রকল্পে জলমহাল ইজারা প্রক্রিয়ার নতুন নীতিমালা প্রকাশিত"
   ];
 
   const [currentNews, setCurrentNews] = useState(0);
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentNews(prev => (prev + 1) % news.length);
+      setCurrentNews(prev => (prev + 1) % newsItems.length);
     }, 5000);
     return () => clearInterval(timer);
-  }, [news.length]);
+  }, [newsItems.length]);
 
   return (
     <div className="news-ticker">
@@ -37,7 +43,7 @@ const NewsHeader = () => {
             exit={{ opacity: 0, y: -20 }}
             className="news-text"
           >
-            {news[currentNews]}
+            {newsItems[currentNews]}
           </motion.div>
         </AnimatePresence>
       </div>
@@ -70,14 +76,14 @@ const Navigation = () => {
     {
       title: 'সেবাসমূহ',
       dropdown: [
-        { title: 'জমি জরিপ', link: '/services/survey' },
+        { title: 'জমি জরিপ', link: '/Contact' },
         { title: 'আইনি পরামর্শ', link: '/services/legal' },
         { title: 'প্রপার্টি লিস্টিং', link: '/services/listing' },
         { title: 'মৌজা মূল্যমান', link: '/mouza-price' }
       ]
     },
-    { title: 'আমাদের সম্পর্কে', link: '/about' },
-    { title: 'যোগাযোগ', link: '/contact' },
+    { title: 'আমাদের সম্পর্কে', link: '/About' },
+    { title: 'যোগাযোগ', link: '/Contact' },
     { title: 'মার্কেট', link: '/market' }
   ];
 
@@ -166,22 +172,73 @@ const Navigation = () => {
   );
 };
 
-const ServiceCard = ({ icon: Icon, title, description }) => (
-  <motion.div 
-    className="service-card"
-    whileHover={{ y: -5 }}
-    transition={{ type: "spring", stiffness: 300 }}
-  >
-    <div className="service-icon">
-      <Icon />
-    </div>
-    <h3>{title}</h3>
-    <p>{description}</p>
-    <button className="service-button">আরও জানুন</button>
-  </motion.div>
-);
+const ServiceCard = ({ icon: Icon, title, description, onClick }) => {
+  return (
+    <motion.div 
+      className="service-card"
+      onClick={onClick}
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+    >
+      <Icon className="service-icon" />
+      <h3>{title}</h3>
+      <p>{description}</p>
+    </motion.div>
+  );
+};
 
 const Home = () => {
+  const navigate = useNavigate();
+
+  const handleServiceClick = (serviceType) => {
+    navigate('/contact', { 
+      state: { 
+        serviceType,
+        serviceDetails: getServiceDetails(serviceType)
+      } 
+    });
+  };
+
+  const getServiceDetails = (type) => {
+    switch(type) {
+      case 'survey':
+        return {
+          title: 'জমি জরিপ সেবা',
+          description: 'আধুনিক প্রযুক্তি ব্যবহার করে নির্ভুল জমি জরিপ সেবা',
+          requirements: [
+            'জমির দলিল',
+            'জমির খতিয়ান',
+            'হাল নাগাদ ভূমি উন্নয়ন কর',
+            'জাতীয় পরিচয়পত্র'
+          ]
+        };
+      case 'legal':
+        return {
+          title: 'আইনি পরামর্শ সেবা',
+          description: 'অভিজ্ঞ আইনজীবীদের মাধ্যমে ভূমি সংক্রান্ত আইনি পরামর্শ',
+          requirements: [
+            'বিস্তারিত স��স্যার বিবরণ',
+            'সংশ্লিষ্ট কাগজপত্র',
+            'পূর্ববর্তী আইনি পদক্ষেপ (যদি থাকে)',
+            'জাতীয় পরিচয়পত্র'
+          ]
+        };
+      case 'property':
+        return {
+          title: 'প্রপার্টি বিক্রয় সেবা',
+          description: 'নিরাপদ ও বিশ্বস্ত প্রপার্টি কেনা-বেচার মাধ্যম',
+          requirements: [
+            'প্রপার্টির বিস্তারিত তথ্য',
+            'মূল্য প্রত্যাশা',
+            'দলিল-দস্তাবেজ',
+            'জাতীয় পরিচয়পত্র'
+          ]
+        };
+      default:
+        return {};
+    }
+  };
+
   return (
     <div className="home-page">
       <NewsHeader />
@@ -191,7 +248,7 @@ const Home = () => {
         <div className="hero-content">
           <h1>আপনার জমি, আমাদের দায়িত্ব</h1>
           <p>বিশ্বস্ত ভূমি সেবা প্রদানকারী প্রতিষ্ঠান</p>
-          <button className="cta-button">যোগাযোগ করুন</button>
+          <Link to="/contact" className="cta-button">যোগাযোগ করুন</Link>
         </div>
       </header>
 
@@ -202,16 +259,19 @@ const Home = () => {
             icon={FaRuler}
             title="জমি জরিপ"
             description="আধুনিক প্রযুক্তি ব্যবহার করে নির্ভুল জমি জরিপ সেবা"
+            onClick={() => handleServiceClick('survey')}
           />
           <ServiceCard 
             icon={FaFileContract}
             title="আইনি পরামর্শ"
             description="অভিজ্ঞ আইনজীবীদের মাধ্যমে ভূমি সংক্রান্ত আইনি পরামর্শ"
+            onClick={() => handleServiceClick('legal')}
           />
           <ServiceCard 
             icon={FaHandshake}
             title="প্রপার্টি বিক্রয়"
             description="নিরাপদ ও বিশ্বস্ত প্রপার্টি কেনা-বেচার মাধ্যম"
+            onClick={() => handleServiceClick('property')}
           />
         </div>
       </section>

@@ -11,7 +11,7 @@ const About = () => {
 
   const stats = [
     { number: "২০+", label: "বছরের অভিজ্ঞতা" },
-    { number: "১০০০+", label: "সন্তুষ্ট গ্রাহক" },
+    { number: "১০০০০০০+", label: "সন্তুষ্ট গ্রাহক" },
     { number: "৬৪", label: "জেলায় সেবা" },
     { number: "৫০+", label: "বিশেষজ্ঞ সদস্য" }
   ];

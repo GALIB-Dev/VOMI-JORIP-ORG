@@ -171,7 +171,7 @@ const MouzaPrice = () => {
             year: '২০২২-২৩'
           },
           {
-            name: 'চাঁদপুর মৌজা মূল্য তালি����া ২০২১-২২',
+            name: 'চাঁদপুর মৌজা মূল্য তালি���া ২০২১-২২',
             url: 'https://drive.google.com/file/d/1339/view',
             year: '২০২১-২২'
           }
@@ -399,7 +399,7 @@ const MouzaPrice = () => {
           {
             name: 'কিশোরগঞ্জ মৌজা মূল্য তালিকা ২০২১-২২',
             url: 'https://drive.google.com/file/d/1415/view',
-            year: '২০২১-২২'
+            year: '২০২১-২��'
           }
         ],
         'মাদারীপুর': [
@@ -516,7 +516,7 @@ const MouzaPrice = () => {
             year: '২০২২-২৩'
           },
           {
-            name: 'শরীয়তপুর মৌজা মূল্য তালিকা ২০২১-২২',
+            name: 'শরীয়তপুর মৌজা মূল্য তালিকা ২০২��-২২',
             url: 'https://drive.google.com/file/d/1436/view',
             year: '২০২১-২২'
           }
@@ -693,7 +693,7 @@ const MouzaPrice = () => {
           {
             name: 'নড়াইল মৌজা মূল্য তালিকা ২০২১-২২',
             url: 'https://drive.google.com/file/d/1466/view',
-            year: '২০২১-২২'
+            year: '��০২১-২��'
           }
         ],
         'সাতক্ষীরা': [
@@ -754,7 +754,7 @@ const MouzaPrice = () => {
         ],
         'নেত্রকোণা': [
           {
-            name: 'নেত্রকোণা মৌজা মূল্য তালিকা ২০২৩-২৪',
+            name: 'ন��ত্রকোণা মৌজা মূল্য তালিকা ২০২৩-২৪',
             url: 'https://drive.google.com/file/d/1476/view',
             year: '২০২৩-২৪'
           },
@@ -793,19 +793,64 @@ const MouzaPrice = () => {
       files: {
         'বগুড়া': [
           {
-            name: 'বগুড়া মৌজা মূল্য তালিকা ২০২৩-২৪',
-            url: 'https://drive.google.com/file/d/1482/view',
-            year: '২০২৩-২৪'
+            name: 'বগুড়া মদর',
+            url: 'https://drive.google.com/file/d/1bP-bpJF3YY_nRpe7MGniFs093JJJRB9m/view?usp=drive_link',
+            upozila: 'সদর'
           },
           {
-            name: 'বগুড়া মৌজা মূল্য তালিকা ২০২২-২৩',
-            url: 'https://drive.google.com/file/d/1483/view',
-            year: '২০২২-২৩'
+            name: 'আদমদিঘি',
+            url: 'https://drive.google.com/file/d/1b2Qj11N8XgIl10_WmJQbCN6qB_uKnVer/view?usp=sharing',
+            upozila: 'আদমদিঘি'
           },
           {
-            name: 'বগুড়া মৌজা মূল্য তালিকা ২০২১-২২',
-            url: 'https://drive.google.com/file/d/1484/view',
-            year: '২০২১-২২'
+            name: 'দুপচাঁচিয়া',
+            url: 'https://drive.google.com/file/d/1bEgsyTueStyYIazStl25aOJxeNRrU7mc/view?usp=drive_link',
+            upozila: 'দুপচাঁচিয়া'
+          },
+          {
+            name: 'গাবতলী',
+            url: 'https://drive.google.com/file/d/1bFdIPXBLSirL1FJGg7-QJGi-gJDAX14v/view?usp=drive_link',
+            upozila: 'গাবতলী'
+          },
+          {
+            name: 'কাহালু',
+            url: 'https://drive.google.com/file/d/1bICkxd9Pmwh7bcAtus5cP3bqPL6D8MM4/view?usp=drive_link',
+            upozila: 'কাহালু'
+          },
+          {
+            name: 'নন্দিগ্রাম',
+            url: 'https://drive.google.com/file/d/1bG_cToq_T97b3xPJ1ryiCpW5NfVKfBwP/view?usp=drive_link',
+            upozila: 'নন্দিগ্রাম'
+          },
+          {
+            name: 'শাজাহানপুর',
+            url: 'https://drive.google.com/file/d/1bV0rJkIihqcVhG3YnoYQSof7upH03DJO/view?usp=drive_link',
+            upozila: 'শাজাহানপুর'
+          },
+          {
+            name: 'শেরপুর',
+            url: 'https://drive.google.com/file/d/1bVcH9IW7WbSmpk-MViaEKbQY24MmM2iM/view?usp=drive_link',
+            upozila: 'শেরপুর'
+          },
+          {
+            name: 'শিবগঞ্জ',
+            url: 'https://drive.google.com/file/d/1bXIYu_ylyVowzpNn5TtM-7OkTnZqlCJM/view?usp=drive_link',
+            upozila: 'শিবগঞ্জ'
+          },
+          {
+            name: 'সারিয়াকান্দি',
+            url: 'https://drive.google.com/file/d/1bJ7BsLQQckw9kmJrImxbwhKd-RFPcWgD/view?usp=drive_link',
+            upozila: 'সারিয়াকান্দি'
+          },
+          {
+            name: 'সোনাতলা',
+            url: 'https://drive.google.com/file/d/1bVu-MqMT52jqqhQ6xCSP3U37Ye6MSHum/view?usp=drive_link',
+            upozila: 'সোনাতলা'
+          },
+          {
+            name: 'ধুনট',
+            url: 'https://drive.google.com/file/d/1bD8RLKNwb-CXTxMKF3_zJjSKwferzqzG/view?usp=drive_link',
+            upozila: 'ধুনট'
           }
         ],
         'জয়পুরহাট': [
@@ -837,37 +882,94 @@ const MouzaPrice = () => {
         ],
         'নওগাঁ': [
           {
-            name: 'নওগাঁ মৌজা মূল্য তালিকা ২০২৩-২৪',
-            url: 'https://drive.google.com/file/d/1488/view',
-            year: '২০২৩-২৪'
+            name: 'নওগাঁ মদর',
+            url: 'https://drive.google.com/file/d/1b0FyJ2fmqvZZW8um5oqVTipIpF_wUJHv/view?usp=drive_link',
+            upozila: 'সদর'
           },
           {
-            name: 'নওগাঁ মৌজা মূল্য তালিকা ২০২২-২৩',
-            url: 'https://drive.google.com/file/d/1489/view',
-            year: '২০২২-২৩'
+            name: 'আত্রাই',
+            url: 'https://drive.google.com/file/d/1asys4X2i0ELqPpo9iV9bbSB6eX6fcAab/view?usp=drive_link',
+            upozila: 'আত্রাই'
           },
           {
-            name: 'নওগাঁ মৌজা মূল্য তালিকা ২০২১-২২',
-            url: 'https://drive.google.com/file/d/1490/view',
-            year: '২০২১-২২'
+            name: 'বদলগাছী',
+            url: 'https://drive.google.com/file/d/1aVXtllHjbmi6vQX9hXXQXOt0cF-NJ9Df/view?usp=drive_link',
+            upozila: 'বদলগাছী'
+          },
+          {
+            name: 'ধামইরহাট',
+            url: 'https://drive.google.com/file/d/1aV7AnM4C_EegRk81dPTGHi2zQM-zM5Wh/view?usp=drive_link',
+            upozila: 'ধামইরহাট'
+          },
+          {
+            name: 'মহাদেবপুর',
+            url: 'https://drive.google.com/file/d/1b0_udFGiACLMOIXVH9mYBu5aiYcRHrEl/view?usp=drive_link',
+            upozila: 'মহাদেবপুর'
+          },
+          {
+            name: 'মান্দা',
+            url: 'https://drive.google.com/file/d/1aaKwl7YflzmghGPvWH1lYGmaPb2PwGm1/view?usp=drive_link',
+            upozila: 'মান্দা'
+          },
+          {
+            name: 'নিয়ামতপুর',
+            url: 'https://drive.google.com/file/d/1ayLuoP8diP67HNVjh63bqguIpvue_fLO/view?usp=drive_link',
+            upozila: 'নিয়ামতপুর'
+          },
+          {
+            name: 'পত্নীতলা',
+            url: 'https://drive.google.com/file/d/1aahR_-syspLwZ1Xpve6vtNAVgD0Dovfd/view?usp=drive_link',
+            upozila: 'পত্নীতলা'
+          },
+          {
+            name: 'পোরশা',
+            url: 'https://drive.google.com/file/d/1aWnMrluSOgHkTDTHGXOOs2xUAoUSzFeJ/view?usp=drive_link',
+            upozila: 'পোরশা'
+          },
+          {
+            name: 'রাণীনগর',
+            url: 'https://drive.google.com/file/d/1ah-YmL-C_B5tX3E4F65iwzYssu3HMoyS/view?usp=drive_link',
+            upozila: 'রাণীনগর'
+          },
+          {
+            name: 'সাপাহার',
+            url: 'https://drive.google.com/file/d/1b-JwiJZiXKMb5wp7X27z-4z0M8Bs0hs1/view?usp=drive_link',
+            upozila: 'সাপাহার'
           }
         ],
         'নাটোর': [
           {
-            name: 'নাটোর মৌজা মূল্য তালিকা ২০২৩-২৪',
-            url: 'https://drive.google.com/file/d/1491/view',
-            year: '২০২৩-২৪'
+            name: 'নাটোর মদর',  // Fixed from 'নাটোর মদর'
+            url: 'https://drive.google.com/file/d/1bfxv5Y59PVK7OT9DjWLq3TZUpw89lk6q/view?usp=drive_link',
+            upozila: 'সদর'
           },
           {
-            name: 'নাটোর মৌজা মূল্য তালিকা ২০২২-২৩',
-            url: 'https://drive.google.com/file/d/1492/view',
-            year: '২০২২-২৩'
+            name: 'বড়াইগ্রাম',
+            url: 'https://drive.google.com/file/d/1bwUz95ocIfGRjAcApCDfMtWPiV2_9jlt/view?usp=drive_link',
+            upozila: 'বড়াইগ্রাম'
           },
           {
-            name: 'নাটোর মৌজা মূল্য তালিকা ২০২১-২২',
-            url: 'https://drive.google.com/file/d/1493/view',
-            year: '২০২১-২২'
+            name: 'বাগাতিপাড়া',
+            url: 'https://drive.google.com/file/d/1bxKSAORjVvmGpOi9lB09Mi1_8XHdEmry/view?usp=drive_link',
+            upozila: 'বাগাতিপাড়া'
+          },
+          {
+            name: 'লালপুর',
+            url: 'https://drive.google.com/file/d/1blR_4bsg4xb2e9cf_hEJNwsCEg1KJkM6/view?usp=drive_link',
+            upozila: 'লালপুর'
+          },
+          // Removed duplicate 'নাটোর' entry since it's redundant with 'নাটোর সদর'
+          {
+            name: 'সিংড়া',
+            url: 'https://drive.google.com/file/d/1bgYjBAutAqHVoMaDYMuqMUzx8WBz4Erz/view?usp=drive_link',
+            upozila: 'সিংড়া'
+          },
+          {
+            name: 'গুরুদাসপুর',
+            url: 'https://drive.google.com/file/d/1bdpuhDpSQc6uD9yiNtaD3q-f6xPF9Et2/view?usp=drive_link',
+            upozila: 'গুরুদাসপুর'
           }
+          // Removed 'নলডাঙ্গা' as it's not an upazila of Natore
         ],
         'চাঁপাইনবাবগঞ্জ': [
           {

@@ -2,6 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import '../../styles/Footer.css';
 import twelveBasesLogo from '../../assets/images/12Bases.png';
+import { 
+  FaFacebookF, 
+  FaWhatsapp, 
+  FaEnvelope, 
+  FaMapMarkerAlt 
+} from 'react-icons/fa';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -27,19 +33,19 @@ const Footer = () => {
                rel="noopener noreferrer" 
                aria-label="Facebook"
                className="social-link facebook">
-              <i className="fab fa-facebook-f"></i>
+              <FaFacebookF />
             </a>
             <a href={contactInfo.whatsapp}
                target="_blank" 
                rel="noopener noreferrer" 
                aria-label="WhatsApp"
                className="social-link whatsapp">
-              <i className="fab fa-whatsapp"></i>
+              <FaWhatsapp />
             </a>
             <a href={`mailto:${contactInfo.email}`}
                aria-label="Email"
                className="social-link email">
-              <i className="fas fa-envelope"></i>
+              <FaEnvelope />
             </a>
           </div>
         </div>
@@ -71,7 +77,7 @@ const Footer = () => {
             <h4>যোগাযোগ</h4>
             <ul>
               <li>
-                <i className="fas fa-location-dot"></i>
+                <FaMapMarkerAlt />
                 <span>{contactInfo.address}</span>
               </li>
               <li>
@@ -79,14 +85,14 @@ const Footer = () => {
                    target="_blank" 
                    rel="noopener noreferrer"
                    className="contact-link">
-                  <i className="fab fa-whatsapp"></i>
+                  <FaWhatsapp />
                   <span>+৮৮০১৭১২-৬১৭২২৬</span>
                 </a>
               </li>
               <li>
                 <a href={`mailto:${contactInfo.email}`} 
                    className="contact-link">
-                  <i className="fas fa-envelope"></i>
+                  <FaEnvelope />
                   <span>{contactInfo.email}</span>
                 </a>
               </li>

@@ -1,7 +1,7 @@
 import React, { lazy, Suspense, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, useLocation, Navigate } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
-import { ErrorBoundary } from 'react-error-boundary';
+import ErrorBoundary from './components/ErrorBoundary';
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
 import { GoogleOAuthProvider } from '@react-oauth/google';
@@ -14,6 +14,7 @@ import NavBar from './components/common/NavBar';
 import Footer from './components/common/Footer';
 import Loading from './components/common/Loading';
 import ErrorFallback from './components/common/ErrorFallback';
+import AuthorBio from './components/AuthorBio';
 
 // Styles
 import './styles/App.css';
@@ -34,10 +35,9 @@ const lazyLoadWithRetry = (factory) => {
   const Component = lazy(() => 
     factory().catch(error => {
       console.error('Lazy load error:', error);
-      return import('./components/common/ErrorFallback');
+      throw error;
     })
   );
-  Component.preload = factory;
   return Component;
 };
 
@@ -94,6 +94,11 @@ const routes = [
     element: GoogleCallback,
     meta: { title: 'Authentication - ভূমি জরিপ উন্নয়ন সংস্থা' },
     skipAnimation: true
+  },
+  { 
+    path: '/about-author', 
+    element: AuthorBio,
+    meta: { title: 'আমাদের সম্পর্কে - ভূমি জরিপ উন্নয়ন সংস্থা' }
   }
 ];
 
@@ -131,19 +136,12 @@ const usePreloadRoutes = (currentPath) => {
 };
 
 // Enhanced error fallback component
-const CustomErrorFallback = ({ error, resetErrorBoundary }) => {
+const CustomErrorFallback = ({ error }) => {
   useEffect(() => {
-    console.error('Error caught by boundary:', error);
+    console.error('Error details:', error);
   }, [error]);
 
-  return (
-    <div className="error-boundary">
-      <ErrorFallback 
-        error={error} 
-        resetErrorBoundary={resetErrorBoundary}
-      />
-    </div>
-  );
+  return <ErrorFallback error={error} resetErrorBoundary={() => window.location.reload()} />;
 };
 
 // Main App component with single error boundary

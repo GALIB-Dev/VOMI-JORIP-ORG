@@ -1,87 +1,201 @@
 /* Contact Page Container */
 .contact-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.contact-hero {
+  text-align: center;
+  margin-bottom: 3rem;
+  padding: 3rem 1rem;
+  background: linear-gradient(135deg, rgba(27, 94, 32, 0.05) 0%, rgba(46, 125, 50, 0.1) 100%);
+  border-radius: 20px;
+}
+
+.contact-hero h1 {
+  font-size: 2.5rem;
+  color: #1b5e20;
+  margin-bottom: 1rem;
+}
+
+.contact-hero p {
+  font-size: 1.2rem;
+  color: #666;
+}
+
+.contact-content {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 3rem;
+}
+
+.contact-info {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  background-color: #f5f5f5; /* Soft classic background */
-  color: #333;
-  padding: 20px;
-  font-family: 'Georgia', serif; /* A more classic font */
+  gap: 2rem;
 }
 
-/* Header Section */
-.contact-header h1 {
-  font-size: 2.5rem;
-  color: #006400; /* Dark green */
-  margin-bottom: 10px;
-  border-bottom: 2px solid #8b0000; /* Red underline */
-  padding-bottom: 5px;
+.info-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
 }
 
-.contact-header p {
-  font-size: 1.3rem;
-  color: #4f4f4f;
-  margin-bottom: 15px;
+.info-card:hover {
+  transform: translateY(-5px);
 }
 
-.contact-header h3 {
-  font-size: 1.4rem;
-  color: #006400; /* Dark green */
-  margin-bottom: 20px;
+.info-icon {
+  font-size: 2rem;
+  color: #2e7d32;
+  margin-bottom: 1rem;
 }
 
-.contact-header h3 a {
-  color: #8b0000; /* Dark red */
+.info-card h3 {
+  margin-bottom: 0.5rem;
+  color: #1b5e20;
+}
+
+.info-card a {
+  color: #2e7d32;
   text-decoration: none;
-  border-bottom: 1px solid transparent;
+  transition: color 0.3s ease;
+}
+
+.info-card a:hover {
+  color: #1b5e20;
+}
+
+.contact-hours {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.contact-hours h3 {
+  color: #1b5e20;
+  margin-bottom: 1rem;
+}
+
+.contact-form {
+  background: white;
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group.full-width {
+  grid-column: 1 / -1;
+}
+
+.form-group label {
+  margin-bottom: 0.5rem;
+  color: #333;
+  font-weight: 500;
+}
+
+.form-group input,
+.form-group textarea {
+  padding: 0.8rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 1rem;
   transition: border-color 0.3s ease;
 }
 
-.contact-header h3 a:hover {
-  border-bottom: 1px solid #8b0000; /* Red underline on hover */
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: #2e7d32;
+  outline: none;
 }
 
-/* Form Container */
-.form-container {
-  width: 109%;
-  max-width: 800px;
+.submit-button {
+  display: flex;
+  align-items: center;
   justify-content: center;
-  background-color: #ffffff;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border: 2px solid #006400; /* Green border */
-  border-radius: 10px;
-
-  overflow: hidden;
-}
-
-.form-container iframe {
+  gap: 0.5rem;
+  width: 100%;
+  padding: 1rem;
+  margin-top: 1.5rem;
+  background: #2e7d32;
+  color: white;
   border: none;
-  border-radius: 10px;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-/* Add padding and spacing for classic look */
-.contact-container, .form-container {
-  padding: 20px;
+.submit-button:hover {
+  background: #1b5e20;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-  .contact-header h1 {
+.submit-button.sending {
+  background: #999;
+  cursor: not-allowed;
+}
+
+.button-icon {
+  font-size: 1.2rem;
+}
+
+.success-message,
+.error-message {
+  margin-top: 1rem;
+  padding: 1rem;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.success-message {
+  background: #e8f5e9;
+  color: #1b5e20;
+}
+
+.error-message {
+  background: #ffebee;
+  color: #c62828;
+}
+
+@media (max-width: 968px) {
+  .contact-content {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-info {
+    order: 2;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 576px) {
+  .contact-container {
+    padding: 1rem;
+  }
+
+  .contact-hero {
+    padding: 2rem 1rem;
+  }
+
+  .contact-hero h1 {
     font-size: 2rem;
-  }
-
-  .contact-header p {
-    font-size: 1.1rem;
-  }
-
-  .contact-header h3 {
-    font-size: 1.2rem;
-  }
-
-  .form-container iframe {
-    height: 500px;
-    width: 100%;
   }
 }

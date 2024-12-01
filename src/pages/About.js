@@ -11,7 +11,7 @@ const About = () => {
 
   const stats = [
     { number: "২০+", label: "বছরের অভিজ্ঞতা" },
-    { number: "১০০০০০০+", label: "সন্তুষ্ট গ্রাহক" },
+    { number: "১০০০০০+", label: "সন্তুষ্ট গ্রাহক" },
     { number: "৬৪", label: "জেলায় সেবা" },
     { number: "৫০+", label: "বিশেষজ্ঞ সদস্য" }
   ];
@@ -22,7 +22,8 @@ const About = () => {
       role: "প্রতিষ্ঠাতা এবং CEO",
       image: roufImage,
       whatsapp: "tel:+8801712617226",
-      email: "vjusrouf1980@gmail.com"
+      email: "vjusrouf1980@gmail.com",
+      about: "/about-author"
     },
     // Add other team members...
   ];
@@ -82,6 +83,16 @@ const About = () => {
                     <FaWhatsapp />
                   </a>
                   <a href={`mailto:${member.email}`}><FaEnvelope /></a>
+                  {member.about && (
+                    <motion.button
+                      className="about-author-btn"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      onClick={() => navigate(member.about)}
+                    >
+                      বিস্তারিত
+                    </motion.button>
+                  )}
                 </div>
               </div>
             </motion.div>

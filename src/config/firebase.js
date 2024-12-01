@@ -1,22 +1,38 @@
-import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
-import { getStorage } from "firebase/storage";
+import { initializeApp } from 'firebase/app';
+import { getFirestore, connectFirestoreEmulator } from 'firebase/firestore';
+import { getAuth, connectAuthEmulator } from 'firebase/auth';
+import { getStorage, connectStorageEmulator } from 'firebase/storage';
 
-// Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyA89Z9wx2Mc5cgLRotCGljfxL9LnGauhek",
-  authDomain: "vjus-property.firebaseapp.com",
-  projectId: "vjus-property",
-  storageBucket: "vjus-property.appspot.com",
-  messagingSenderId: "860837755070",
-  appId: "1:860837755070:web:e329c13519e4913d01c6ef",
-  measurementId: "G-XV6MCM1XN3"
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+
+// Initialize Firestore
 const db = getFirestore(app);
+
+// Initialize Auth
+const auth = getAuth(app);
+
+// Initialize Storage
 const storage = getStorage(app);
 
-// Export initialized services
-export { db, storage };
+// If you're in development, you might want to use the emulators
+if (process.env.NODE_ENV === 'development') {
+  try {
+    connectFirestoreEmulator(db, 'localhost', 8080);
+    connectAuthEmulator(auth, 'http://localhost:9099');
+    connectStorageEmulator(storage, 'localhost', 9199);
+  } catch (error) {
+    console.error("Error connecting to emulators:", error);
+  }
+}
+
+export { db, auth, storage };

@@ -1,55 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { FaBars, FaTimes, FaRuler, FaFileContract, FaHandshake, FaNewspaper } from 'react-icons/fa';
+import { motion } from 'framer-motion';
+import { FaBars, FaTimes, FaRuler, FaFileContract, FaHandshake } from 'react-icons/fa';
 import { BiChevronDown } from 'react-icons/bi';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEyeSlash } from '@fortawesome/free-regular-svg-icons';
 import '../styles/Home.css';
 import logo from "../assets/images/land survey.png"
 import { useNavigate, Link } from 'react-router-dom';
-
-const NewsHeader = () => {
-  const newsItems = [
-    "ভূমি অপরাধ প্রতিরোধ ও প্রতিকার আইন, ২০২৩ প্রকাশিত হয়েছে",
-    "ভূমি সংস্কার আইন, ২০২৩ এর নতুন সংস্করণ জারি করা হয়েছে",
-    "বালুমহাল ও মাটি ব্যবস্থাপনা (সংশোধন) আইন, ২০২৩ কার্যকর হয়েছে",
-    "হাট ও বাজার (স্থাপন ও ব্যবস্থাপনা) আইন, ২০২৩ অনুমোদিত হয়েছে",
-    "স্থাবর সম্পত্তি অধিগ্রহণ ও হুকুমদখল আইন, ২০১৭ এর সংশোধনী প্রস্তাবিত",
-    "পরিপত্র-৬৬৮: ভূমি কর্মকর্তাদের জন্য নতুন নির্দেশনা জারি",
-    "অর্পিত সম্পত্তি প্রত্যর্পণ (দ্বিতীয় সংশোধন) আইন সংক্রান্ত গুরুত্বপূর্ণ বিজ্ঞপ্তি",
-    "উন্নয়ন প্রকল্পে জলমহাল ইজারা প্রক্রিয়ার নতুন নীতিমালা প্রকাশিত"
-  ];
-
-  const [currentNews, setCurrentNews] = useState(0);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentNews(prev => (prev + 1) % newsItems.length);
-    }, 5000);
-    return () => clearInterval(timer);
-  }, [newsItems.length]);
-
-  return (
-    <div className="news-ticker">
-      <div className="news-container">
-        <div className="news-icon">
-          <FaNewspaper />
-        </div>
-        <AnimatePresence mode='wait'>
-          <motion.div
-            key={currentNews}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="news-text"
-          >
-            {newsItems[currentNews]}
-          </motion.div>
-        </AnimatePresence>
-      </div>
-    </div>
-  );
-};
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -78,8 +35,7 @@ const Navigation = () => {
       dropdown: [
         { title: 'জমি জরিপ', link: '/Contact' },
         { title: 'আইনি পরামর্শ', link: '/services/legal' },
-        { title: 'প্রপার্টি লিস্টিং', link: '/services/listing' },
-        { title: 'মৌজা মূল্যমান', link: '/mouza-price' }
+        { title: 'পৌজা মূল্যমান', link: '/mouza-price' }
       ]
     },
     { title: 'আমাদের সম্পর্কে', link: '/About' },
@@ -217,7 +173,7 @@ const Home = () => {
           title: 'আইনি পরামর্শ সেবা',
           description: 'অভিজ্ঞ আইনজীবীদের মাধ্যমে ভূমি সংক্রান্ত আইনি পরামর্শ',
           requirements: [
-            'বিস্তারিত স��স্যার বিবরণ',
+            'বিস্তারিত সস্যার বিবরণ',
             'সংশ্লিষ্ট কাগজপত্র',
             'পূর্ববর্তী আইনি পদক্ষেপ (যদি থাকে)',
             'জাতীয় পরিচয়পত্র'
@@ -241,7 +197,6 @@ const Home = () => {
 
   return (
     <div className="home-page">
-      <NewsHeader />
       <Navigation />
       
       <header className="hero-section">

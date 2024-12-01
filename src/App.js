@@ -15,6 +15,7 @@ import Footer from './components/common/Footer';
 import Loading from './components/common/Loading';
 import ErrorFallback from './components/common/ErrorFallback';
 import AuthorBio from './components/AuthorBio';
+import Legal from './pages/Legal';
 
 // Styles
 import './styles/App.css';
@@ -99,6 +100,11 @@ const routes = [
     path: '/about-author', 
     element: AuthorBio,
     meta: { title: 'আমাদের সম্পর্কে - ভূমি জরিপ উন্নয়ন সংস্থা' }
+  },
+  { 
+    path: '/services/legal', 
+    element: Legal,
+    meta: { title: 'Legal Services - ভূমি জরিপ উন্নয়ন সংস্থা' }
   }
 ];
 

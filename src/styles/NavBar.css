@@ -246,3 +246,104 @@
     margin-left: 15px; /* Reduced spacing for small screens */
   }
 }
+
+/* Add these styles to your existing NavBar.css */
+.news-ticker {
+  background: linear-gradient(90deg, #1b5e20, #2e7d32);
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.news-container {
+  display: flex;
+  align-items: center;
+  padding: 12px 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.news-icon {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-right: 20px;
+  color: #fff;
+}
+
+.news-icon-svg {
+  font-size: 1.2rem;
+  color: #fff;
+}
+
+.pause-button {
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s;
+}
+
+.pause-button:hover {
+  background-color: rgba(76, 175, 80, 0.3);
+}
+
+.news-text {
+  color: #fff;
+  font-size: 0.95rem;
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.news-indicators {
+  display: flex;
+  gap: 4px;
+  margin-left: 20px;
+}
+
+.indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.indicator.active {
+  background-color: #4CAF50;
+}
+
+.progress-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.progress {
+  height: 100%;
+  background-color: #81c784;
+  transform-origin: left;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .news-container {
+    padding: 0 15px;
+  }
+  
+  .news-text {
+    font-size: 0.8rem;
+  }
+}

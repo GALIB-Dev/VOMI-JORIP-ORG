@@ -1,10 +1,10 @@
 /* ====== Main Navbar Container ====== */
 .navbar {
   position: fixed;
-  top: 0;
+  top: 40px;
   left: 0;
   right: 0;
-  height: 80px;
+  height: 70px;
   background: #ffffff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
   z-index: 1000;
@@ -249,10 +249,13 @@
 
 /* Add these styles to your existing NavBar.css */
 .news-ticker {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1001;
   background: linear-gradient(90deg, #1b5e20, #2e7d32);
-  padding: 0;
-  position: relative;
-  overflow: hidden;
+  height: 40px;
 }
 
 .news-container {
@@ -345,5 +348,104 @@
   
   .news-text {
     font-size: 0.8rem;
+  }
+}
+
+/* Adjust mobile styles */
+@media (max-width: 768px) {
+  /* Adjust navbar position to account for news ticker */
+  .navbar {
+    top: 44px; /* Height of news ticker */
+  }
+
+  /* Adjust mobile menu position */
+  .nav-links {
+    top: 70px; /* Reduced from 80px to match scrolled navbar height */
+  }
+
+  /* News ticker mobile adjustments */
+  .news-container {
+    padding: 8px 15px;
+  }
+  
+  .news-text {
+    font-size: 0.85rem;
+  }
+
+  /* Hide indicators on mobile to save space */
+  .news-indicators {
+    display: none;
+  }
+
+  /* Ensure news icon and pause button are compact */
+  .news-icon {
+    margin-right: 12px;
+  }
+
+  .news-icon-svg {
+    font-size: 1rem;
+  }
+}
+
+/* Extra small device adjustments */
+@media (max-width: 380px) {
+  .navbar {
+    top: 40px; /* Slightly smaller for very small screens */
+  }
+}
+
+/* Adjust main content to account for fixed header */
+#root > div:first-child {
+  padding-top: 110px; /* Combined height of navbar and news ticker */
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .news-ticker {
+    height: 35px;
+  }
+
+  .navbar {
+    top: 35px;
+    height: 60px;
+  }
+
+  .nav-links {
+    top: 95px; /* Combined height of news ticker and navbar */
+    max-height: calc(100vh - 95px); /* Prevent overflow */
+    overflow-y: auto;
+  }
+
+  .news-container {
+    padding: 0 12px;
+  }
+
+  .news-text {
+    font-size: 0.8rem;
+  }
+
+  #root > div:first-child {
+    padding-top: 95px;
+  }
+}
+
+/* Extra small screens */
+@media (max-width: 380px) {
+  .news-ticker {
+    height: 30px;
+  }
+
+  .navbar {
+    top: 30px;
+    height: 55px;
+  }
+
+  .nav-links {
+    top: 85px;
+    max-height: calc(100vh - 85px);
+  }
+
+  #root > div:first-child {
+    padding-top: 85px;
   }
 }

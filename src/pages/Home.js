@@ -35,7 +35,7 @@ const Navigation = () => {
       dropdown: [
         { title: 'জমি জরিপ', link: '/Contact' },
         { title: 'আইনি পরামর্শ', link: '/services/legal' },
-        { title: 'পৌজা মূল্যমান', link: '/mouza-price' }
+        { title: 'মৌজা মূল্যমান', link: '/mouza-price' }
       ]
     },
     { title: 'আমাদের সম্পর্কে', link: '/About' },
@@ -163,7 +163,7 @@ const Home = () => {
           description: 'আধুনিক প্রযুক্তি ব্যবহার করে নির্ভুল জমি জরিপ সেবা',
           requirements: [
             'জমির দলিল',
-            'জমির খ���িয়ান',
+            'জমির খিয়ান',
             'হাল নাগাদ ভূমি উন্নয়ন কর',
             'জাতীয় পরিচয়পত্র'
           ]

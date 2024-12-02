@@ -204,7 +204,7 @@ const PropertyForm = () => {
         </div>
 
         <div className="form-group">
-          <label>সম্পত্তির ধিকানা</label>
+          <label>সম্পত্তির ঠিকানা</label>
           <input
             type="text"
             name="propertyAddress"

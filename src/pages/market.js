@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { collection, query, orderBy, getDocs } from 'firebase/firestore';
 import { db } from '../config/firebase';
-import { FaHome, FaPhone, FaMapMarkerAlt, FaMoneyBillWave, FaCalendarAlt, FaSearch } from 'react-icons/fa';
+import { FaHome, FaPhone, FaMapMarkerAlt, FaCalendarAlt, FaSearch, FaTimes } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import '../styles/market.css';
 
@@ -10,6 +10,7 @@ const Market = () => {
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [filter, setFilter] = useState('all');
+  const [selectedImage, setSelectedImage] = useState(null);
 
   useEffect(() => {
     fetchProperties();
@@ -47,6 +48,16 @@ const Market = () => {
 
   const formatPrice = (price) => {
     return `৳ ${new Intl.NumberFormat('bn-BD').format(price)}`;
+  };
+
+  const handleImageClick = (imageUrl) => {
+    setSelectedImage(imageUrl);
+    document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
+  };
+
+  const closeImagePreview = () => {
+    setSelectedImage(null);
+    document.body.style.overflow = 'auto'; // Restore scrolling
   };
 
   if (loading) return <div className="loading">লোড হচ্ছে...</div>;
@@ -91,6 +102,8 @@ const Market = () => {
               <img
                 src={property.propertyImage || "/placeholder.jpg"}
                 alt={property.propertyType}
+                onClick={() => handleImageClick(property.propertyImage || "/placeholder.jpg")}
+                className="clickable-image"
                 onError={(e) => {
                   e.target.src = "/placeholder.jpg";
                 }}
@@ -105,7 +118,6 @@ const Market = () => {
 
             <div className="property-info">
               <div className="price">
-                <FaMoneyBillWave className="price-icon" />
                 <div className="price-details">
                   <span className="total-price">{formatPrice(property.totalPrice)}</span>
                   <span className="unit-price">
@@ -115,9 +127,13 @@ const Market = () => {
               </div>
 
               <div className="details">
+                <p className="owner-name"><strong>মালিক:</strong> {property.ownerName}</p>
                 <p className="address"><FaMapMarkerAlt /> {property.propertyAddress}</p>
-                <p className="size">{property.propertyAmount} {property.landUnit}</p>
+                <p className="size"><strong>আয়তন:</strong> {property.propertyAmount} {property.landUnit}</p>
                 <p className="phone"><FaPhone /> {property.ownerPhone}</p>
+                {property.additionalInfo && property.additionalInfo !== 'কোনো তথ্য নেই' && (
+                  <p className="additional-info"><strong>অতিরিক্ত তথ্য:</strong> {property.additionalInfo}</p>
+                )}
               </div>
 
               <button 
@@ -130,6 +146,18 @@ const Market = () => {
           </div>
         ))}
       </div>
+
+      {/* Image Preview Modal */}
+      {selectedImage && (
+        <div className="image-preview-modal" onClick={closeImagePreview}>
+          <button className="close-button" onClick={closeImagePreview}>
+            <FaTimes />
+          </button>
+          <div className="modal-content" onClick={e => e.stopPropagation()}>
+            <img src={selectedImage} alt="Preview" />
+          </div>
+        </div>
+      )}
     </div>
   );
 };

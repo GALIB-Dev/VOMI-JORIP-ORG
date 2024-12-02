@@ -10,7 +10,8 @@ const Market = () => {
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [filter, setFilter] = useState('all');
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+  const [currentPropertyImages, setCurrentPropertyImages] = useState([]);
 
   useEffect(() => {
     fetchProperties();
@@ -50,14 +51,34 @@ const Market = () => {
     return `৳ ${new Intl.NumberFormat('bn-BD').format(price)}`;
   };
 
-  const handleImageClick = (imageUrl) => {
-    setSelectedImage(imageUrl);
-    document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
+  const handleImageClick = (images, index) => {
+    setCurrentPropertyImages(images);
+    setSelectedImageIndex(index);
+    document.body.style.overflow = 'hidden';
   };
 
   const closeImagePreview = () => {
-    setSelectedImage(null);
-    document.body.style.overflow = 'auto'; // Restore scrolling
+    setCurrentPropertyImages([]);
+    setSelectedImageIndex(0);
+    document.body.style.overflow = 'auto';
+  };
+
+  const handlePrevImage = (e) => {
+    e.stopPropagation();
+    setSelectedImageIndex((prev) => 
+      prev === 0 ? currentPropertyImages.length - 1 : prev - 1
+    );
+  };
+
+  const handleNextImage = (e) => {
+    e.stopPropagation();
+    setSelectedImageIndex((prev) => 
+      prev === currentPropertyImages.length - 1 ? 0 : prev + 1
+    );
+  };
+
+  const formatPhoneNumber = (phone) => {
+    return phone?.toString() || '';
   };
 
   if (loading) return <div className="loading">লোড হচ্ছে...</div>;
@@ -90,6 +111,10 @@ const Market = () => {
               <option value="House">বাড়ি</option>
               <option value="Land">জমি</option>
               <option value="Apartment">ফ্ল্যাট</option>
+              <option value="Shop">দোকান</option>
+              <option value="Office">অফিস</option>
+              <option value="Commercial">কমার্শিয়াল</option>
+              <option value="Industrial">ইন্ডাস্ট্রিয়াল</option>
             </select>
           </div>
         </div>
@@ -99,15 +124,37 @@ const Market = () => {
         {filteredProperties.map(property => (
           <div key={property.id} className="property-card">
             <div className="property-image">
-              <img
-                src={property.propertyImage || "/placeholder.jpg"}
-                alt={property.propertyType}
-                onClick={() => handleImageClick(property.propertyImage || "/placeholder.jpg")}
-                className="clickable-image"
-                onError={(e) => {
-                  e.target.src = "/placeholder.jpg";
-                }}
-              />
+              {property.propertyImages && property.propertyImages.length > 0 ? (
+                <img
+                  src={property.propertyImages[0]}
+                  alt={property.propertyType}
+                  onClick={() => handleImageClick(property.propertyImages, 0)}
+                  className="clickable-image"
+                  onError={(e) => {
+                    e.target.src = "/placeholder.jpg";
+                  }}
+                />
+              ) : (
+                <img
+                  src="/placeholder.jpg"
+                  alt="No image available"
+                  className="placeholder-image"
+                />
+              )}
+              {property.propertyImages && property.propertyImages.length > 1 && (
+                <div className="image-indicators">
+                  {property.propertyImages.map((_, index) => (
+                    <span 
+                      key={index}
+                      className={`indicator-dot ${index === 0 ? 'active' : ''}`}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleImageClick(property.propertyImages, index);
+                      }}
+                    />
+                  ))}
+                </div>
+              )}
               <span className="property-type">
                 <FaHome /> {property.propertyType}
               </span>
@@ -130,7 +177,9 @@ const Market = () => {
                 <p className="owner-name"><strong>মালিক:</strong> {property.ownerName}</p>
                 <p className="address"><FaMapMarkerAlt /> {property.propertyAddress}</p>
                 <p className="size"><strong>আয়তন:</strong> {property.propertyAmount} {property.landUnit}</p>
-                <p className="phone"><FaPhone /> {property.ownerPhone}</p>
+                <p className="phone">
+                  <FaPhone /> {formatPhoneNumber(property.ownerPhone)}
+                </p>
                 {property.additionalInfo && property.additionalInfo !== 'কোনো তথ্য নেই' && (
                   <p className="additional-info"><strong>অতিরিক্ত তথ্য:</strong> {property.additionalInfo}</p>
                 )}
@@ -147,14 +196,44 @@ const Market = () => {
         ))}
       </div>
 
-      {/* Image Preview Modal */}
-      {selectedImage && (
+      {/* Image Preview Modal with Navigation */}
+      {currentPropertyImages.length > 0 && (
         <div className="image-preview-modal" onClick={closeImagePreview}>
           <button className="close-button" onClick={closeImagePreview}>
             <FaTimes />
           </button>
+          
+          {currentPropertyImages.length > 1 && (
+            <>
+              <button className="nav-button prev" onClick={handlePrevImage}>
+                ❮
+              </button>
+              <button className="nav-button next" onClick={handleNextImage}>
+                ❯
+              </button>
+            </>
+          )}
+
           <div className="modal-content" onClick={e => e.stopPropagation()}>
-            <img src={selectedImage} alt="Preview" />
+            <img 
+              src={currentPropertyImages[selectedImageIndex]} 
+              alt={`Preview ${selectedImageIndex + 1}`} 
+            />
+            
+            {currentPropertyImages.length > 1 && (
+              <div className="modal-indicators">
+                {currentPropertyImages.map((_, index) => (
+                  <span
+                    key={index}
+                    className={`indicator-dot ${index === selectedImageIndex ? 'active' : ''}`}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setSelectedImageIndex(index);
+                    }}
+                  />
+                ))}
+              </div>
+            )}
           </div>
         </div>
       )}

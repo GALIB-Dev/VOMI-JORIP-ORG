@@ -200,16 +200,30 @@
 
 @media (max-width: 768px) {
   .market-container {
-    padding: 1rem;
+    padding: 1rem 0.5rem;
+  }
+
+  .property-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 0 0.5rem;
+  }
+
+  .property-card {
+    margin: 0;
+    width: 100%;
+    max-width: 100%;
   }
 
   .market-header h1 {
-    font-size: 2rem;
+    font-size: 1.8rem;
+    padding: 0 1rem;
   }
 
   .filters {
     flex-direction: column;
     align-items: center;
+    padding: 0 1rem;
   }
   
   .search-wrapper,
@@ -218,8 +232,12 @@
     max-width: 100%;
   }
 
-  .property-card {
-    margin: 0 1rem;
+  .property-image {
+    height: 200px;
+  }
+
+  .property-info {
+    padding: 1rem;
   }
 
   .property-type,
@@ -229,7 +247,30 @@
   }
 
   .total-price {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
+  }
+
+  .unit-price {
+    font-size: 0.85rem;
+  }
+}
+
+/* Add specific adjustments for very small screens */
+@media (max-width: 360px) {
+  .market-container {
+    padding: 0.5rem;
+  }
+
+  .property-grid {
+    gap: 0.8rem;
+  }
+
+  .property-image {
+    height: 180px;
+  }
+
+  .market-header h1 {
+    font-size: 1.5rem;
   }
 }
 
@@ -343,4 +384,112 @@
   to {
     opacity: 1;
   }
+}
+
+.image-indicators {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+}
+
+.indicator-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.indicator-dot:hover {
+  background: white;
+  transform: scale(1.2);
+}
+
+.nav-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.3);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: white;
+  font-size: 24px;
+  transition: all 0.3s ease;
+  z-index: 1001;
+}
+
+.nav-button:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.prev {
+  left: 20px;
+}
+
+.next {
+  right: 20px;
+}
+
+.modal-indicators {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 1001;
+}
+
+.indicator-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.indicator-dot.active {
+  background: white;
+  transform: scale(1.2);
+}
+
+/* Mobile optimizations for navigation */
+@media (max-width: 768px) {
+  .nav-button {
+    width: 35px;
+    height: 35px;
+    font-size: 20px;
+  }
+
+  .prev {
+    left: 10px;
+  }
+
+  .next {
+    right: 10px;
+  }
+
+  .modal-indicators {
+    bottom: 15px;
+  }
+}
+
+/* Add touch swipe animation */
+.modal-content img {
+  transition: transform 0.3s ease;
+}
+
+.image-preview-modal {
+  touch-action: pan-y pinch-zoom;
 }

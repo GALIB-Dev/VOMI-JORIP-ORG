@@ -6,6 +6,7 @@ import '../styles/PropertyForm.css';
 
 const MAX_FILE_SIZE = 16 * 1024 * 1024; // 16MB limit
 const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/webp'];
+const MAX_IMAGES = 3;
 
 const initialFormState = {
   additionalInfo: 'কোনো তথ্য নেই',
@@ -31,8 +32,8 @@ const districts = [
 
 const PropertyForm = () => {
   const [formData, setFormData] = useState(initialFormState);
-  const [imageFile, setImageFile] = useState(null);
-  const [imagePreview, setImagePreview] = useState(null);
+  const [imageFiles, setImageFiles] = useState([]);
+  const [imagePreviews, setImagePreviews] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const uploadToImgBB = async (file) => {
@@ -99,70 +100,77 @@ const PropertyForm = () => {
   };
 
   const handleImageChange = (e) => {
-    const file = e.target.files[0];
+    const files = Array.from(e.target.files);
     
-    if (!file) return;
-
-    if (!ALLOWED_TYPES.includes(file.type)) {
-      toast.error('Only JPG, PNG and WebP formats are allowed');
+    if (imageFiles.length + files.length > MAX_IMAGES) {
+      toast.error(`Maximum ${MAX_IMAGES} images allowed`);
       return;
     }
 
-    if (file.size > MAX_FILE_SIZE) {
-      toast.error('File size must not exceed 16MB');
-      return;
-    }
+    const validFiles = files.filter(file => {
+      if (!ALLOWED_TYPES.includes(file.type)) {
+        toast.error('Only JPG, PNG and WebP formats are allowed');
+        return false;
+      }
 
-    setImageFile(file);
+      if (file.size > MAX_FILE_SIZE) {
+        toast.error('File size must not exceed 16MB');
+        return false;
+      }
 
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setImagePreview(reader.result);
-    };
-    reader.readAsDataURL(file);
+      return true;
+    });
+
+    setImageFiles(prev => [...prev, ...validFiles]);
+
+    // Generate previews for valid files
+    validFiles.forEach(file => {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreviews(prev => [...prev, reader.result]);
+      };
+      reader.readAsDataURL(file);
+    });
+  };
+
+  const removeImage = (index) => {
+    setImageFiles(prev => prev.filter((_, i) => i !== index));
+    setImagePreviews(prev => prev.filter((_, i) => i !== index));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    console.log('Starting submission...');
-
+    
     try {
-      let imageUrl = '';
-      if (imageFile) {
-        console.log('Starting image upload...');
-        imageUrl = await uploadToImgBB(imageFile);
-        console.log('Image uploaded:', imageUrl);
-      }
+      // Upload all images to ImgBB
+      const imageUrls = await Promise.all(
+        imageFiles.map(file => uploadToImgBB(file))
+      );
 
       const propertyData = {
         ...formData,
-        ownerPhone: Number(formData.ownerPhone),
+        ownerPhone: formData.ownerPhone,
         price: Number(formData.price),
         propertyAmount: Number(formData.propertyAmount),
         totalPrice: Number(formData.totalPrice),
-        propertyImage: imageUrl,
+        propertyImages: imageUrls, // Array of image URLs
         timestamp: serverTimestamp(),
       };
 
-      console.log('Property data:', propertyData);
-
       const docRef = await addDoc(collection(db, 'properties'), propertyData);
-      console.log('Document written with ID:', docRef.id);
-      
       toast.success('Property submitted successfully!');
       
       // Reset form
       setFormData(initialFormState);
-      setImageFile(null);
-      setImagePreview(null);
+      setImageFiles([]);
+      setImagePreviews([]);
       
     } catch (error) {
       console.error('Submission error:', error);
       toast.error('Failed to submit property: ' + error.message);
     } finally {
       setLoading(false);
-      console.log('Submission process completed');
     }
   };
 
@@ -305,25 +313,33 @@ const PropertyForm = () => {
         </div>
 
         <div className="form-group">
-          <label>সম্পত্তির ছবি</label>
+          <label>সম্পত্তির ছবি (সর্বোচ্চ ৩টি)</label>
           <input
             type="file"
             accept="image/*"
             onChange={handleImageChange}
-            disabled={loading}
-            required
+            disabled={loading || imageFiles.length >= MAX_IMAGES}
+            multiple
           />
-        </div>
-        
-        {imagePreview && (
-          <div className="image-preview">
-            <img 
-              src={imagePreview} 
-              alt="Preview" 
-              style={{ maxWidth: '200px' }} 
-            />
+          <div className="image-preview-container">
+            {imagePreviews.map((preview, index) => (
+              <div key={index} className="preview-wrapper">
+                <img 
+                  src={preview} 
+                  alt={`Preview ${index + 1}`} 
+                  className="preview-image"
+                />
+                <button 
+                  type="button"
+                  className="remove-image"
+                  onClick={() => removeImage(index)}
+                >
+                  ✕
+                </button>
+              </div>
+            ))}
           </div>
-        )}
+        </div>
 
         <div className="form-group">
           <label>জেলা</label>

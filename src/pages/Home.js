@@ -39,7 +39,7 @@ const Navigation = () => {
       ]
     },
     { title: 'আমাদের সম্পর্কে', link: '/About' },
-    { title: 'যোগাযোগ', link: '/Contact' },
+    { title: 'নিয়োগ আবেদন', link: 'https://docs.google.com/forms/d/e/1FAIpQLSdcY-vclaXRo5aa2uNhLYRWe0DMdARDqBI4PKwpvmY7JJ_vtw/viewform?usp=sf_link' },
     { title: 'মার্কেট', link: '/market' }
   ];
 
@@ -163,7 +163,7 @@ const Home = () => {
           description: 'আধুনিক প্রযুক্তি ব্যবহার করে নির্ভুল জমি জরিপ সেবা',
           requirements: [
             'জমির দলিল',
-            'জমির খতিয়ান',
+            'জমির খ���িয়ান',
             'হাল নাগাদ ভূমি উন্নয়ন কর',
             'জাতীয় পরিচয়পত্র'
           ]

@@ -8,16 +8,26 @@ const MAX_FILE_SIZE = 16 * 1024 * 1024; // 16MB limit
 const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/webp'];
 
 const initialFormState = {
-  additionalInfo: 'NA',
+  additionalInfo: 'কোনো তথ্য নেই',
   landUnit: 'শতক',
   ownerName: '',
   ownerPhone: '',
   price: '',
   propertyAddress: '',
   propertyAmount: '',
-  propertyType: 'Land',
+  propertyType: '',
   totalPrice: ''
 };
+
+const districts = [
+  'বাগেরহাট', 'বান্দরবান', 'বরগুনা', 'বরিশাল', 'ভোলা', 'বগুড়া', 'ব্রাহ্মণবাড়িয়া', 'চাঁদপুর', 'চাঁপাইনবাবগঞ্জ',
+  'চট্টগ্রাম', 'চুয়াডাঙ্গা', 'কক্সবাজার', 'কুমিল্লা', 'ঢাকা', 'দিনাজপুর', 'ফরিদপুর', 'ফেনী', 'গাইবান্ধা',
+  'গাজীপু���', 'গোপালগঞ্জ', 'হবিগঞ্জ', 'জামালপুর', 'যশোর', 'ঝালকাঠি', 'ঝিনাইদহ', 'জয়পুরহাট', 'খাগড়াছড়ি',
+  'খুলনা', 'কিশোরগঞ্জ', 'কুড়িগ্রাম', 'কুষ্টিয়া', 'লক্ষ্মীপুর', 'লালমনিরহাট', 'মাদারীপুর', 'মাগুরা', 'মানিকগঞ্জ',
+  'মেহেরপুর', 'মৌলভীবাজার', 'মুন্সিগঞ্জ', 'ময়মনসিংহ', 'নওগাঁ', 'নড়াইল', 'নারায়ণগঞ্জ', 'নরসিংদী', 'নাটোর',
+  'নেত্রকোণা', 'নীলফামারী', 'নোয়াখালী', 'পাবনা', 'পঞ্চগড়', 'পটুয়াখালী', 'পিরোজপুর', 'রাজবাড়ী', 'রাজশাহী',
+  'রাঙ্গামাটি', 'রংপুর', 'সাতক্ষীরা', 'শরীয়তপুর', 'শেরপুর', 'সিরাজগঞ্জ', 'সুনামগঞ্জ', 'সিলেট', 'টাঙ্গাইল', 'ঠাকুরগাঁও'
+];
 
 const PropertyForm = () => {
   const [formData, setFormData] = useState(initialFormState);
@@ -50,15 +60,32 @@ const PropertyForm = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value,
-      // Auto calculate total price when price or propertyAmount changes
-      ...(name === 'price' || name === 'propertyAmount' ? {
-        totalPrice: Number(name === 'price' ? value : prev.price) * 
-                   Number(name === 'propertyAmount' ? value : prev.propertyAmount)
-      } : {})
-    }));
+    
+    // Validate phone number length
+    if (name === 'ownerPhone' && value.length > 11) {
+      toast.error('Phone number must be 11 digits');
+      return;
+    }
+
+    setFormData(prev => {
+      const updates = {
+        ...prev,
+        [name]: value,
+        // Combine district and additional address into propertyAddress
+        ...(name === 'district' || name === 'additionalAddress' ? {
+          propertyAddress: `${prev.district || ''}, ${prev.additionalAddress || ''}`
+        } : {})
+      };
+
+      // Calculate total price when either propertyAmount or price changes
+      if (name === 'propertyAmount' || name === 'price') {
+        const amount = name === 'propertyAmount' ? Number(value) : Number(prev.propertyAmount);
+        const price = name === 'price' ? Number(value) : Number(prev.price);
+        updates.totalPrice = amount * price;
+      }
+
+      return updates;
+    });
   };
 
   const handleImageChange = (e) => {
@@ -130,135 +157,196 @@ const PropertyForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="property-form">
-      <div className="form-group">
-        <label>Owner Name</label>
-        <input
-          type="text"
-          name="ownerName"
-          value={formData.ownerName}
-          onChange={handleInputChange}
-          required
-        />
-      </div>
-
-      <div className="form-group">
-        <label>Owner Phone</label>
-        <input
-          type="tel"
-          name="ownerPhone"
-          value={formData.ownerPhone}
-          onChange={handleInputChange}
-          required
-        />
-      </div>
-
-      <div className="form-group">
-        <label>Property Address</label>
-        <input
-          type="text"
-          name="propertyAddress"
-          value={formData.propertyAddress}
-          onChange={handleInputChange}
-          required
-        />
-      </div>
-
-      <div className="form-group">
-        <label>Property Type</label>
-        <select
-          name="propertyType"
-          value={formData.propertyType}
-          onChange={handleInputChange}
-          required
-        >
-          <option value="Land">Land</option>
-          {/* Add other property types if needed */}
-        </select>
-      </div>
-
-      <div className="form-group">
-        <label>Land Unit</label>
-        <select
-          name="landUnit"
-          value={formData.landUnit}
-          onChange={handleInputChange}
-          required
-        >
-          <option value="শতক">শতক</option>
-          {/* Add other units if needed */}
-        </select>
-      </div>
-
-      <div className="form-group">
-        <label>Property Amount (in {formData.landUnit})</label>
-        <input
-          type="number"
-          name="propertyAmount"
-          value={formData.propertyAmount}
-          onChange={handleInputChange}
-          required
-        />
-      </div>
-
-      <div className="form-group">
-        <label>Price (per {formData.landUnit})</label>
-        <input
-          type="number"
-          name="price"
-          value={formData.price}
-          onChange={handleInputChange}
-          required
-        />
-      </div>
-
-      <div className="form-group">
-        <label>Total Price</label>
-        <input
-          type="number"
-          name="totalPrice"
-          value={formData.totalPrice}
-          readOnly
-        />
-      </div>
-
-      <div className="form-group">
-        <label>Additional Info</label>
-        <textarea
-          name="additionalInfo"
-          value={formData.additionalInfo}
-          onChange={handleInputChange}
-        />
-      </div>
-
-      <div className="form-group">
-        <label>Property Image</label>
-        <input
-          type="file"
-          accept="image/*"
-          onChange={handleImageChange}
-          disabled={loading}
-        />
-      </div>
-      
-      {imagePreview && (
-        <div className="image-preview">
-          <img 
-            src={imagePreview} 
-            alt="Preview" 
-            style={{ maxWidth: '200px' }} 
+    <>
+      <h1 className="form-title">সম্পত্তি বিক্রয়ের ফরম</h1>
+      <form onSubmit={handleSubmit} className="property-form">
+        <div className="form-group">
+          <label>মালিকের নাম</label>
+          <input
+            type="text"
+            name="ownerName"
+            value={formData.ownerName}
+            onChange={handleInputChange}
+            required
           />
         </div>
-      )}
 
-      <button 
-        type="submit" 
-        className={`submit-button ${loading ? 'loading' : ''}`} 
-        disabled={loading}
-      >
-        {loading ? 'Uploading...' : 'Submit'}
-      </button>
-    </form>
+        <div className="form-group">
+          <label>মালিকের ফোন নম্বর</label>
+          <input
+            type="tel"
+            name="ownerPhone"
+            value={formData.ownerPhone}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label>সম্পত্তির ঠিকানা</label>
+          <input
+            type="text"
+            name="propertyAddress"
+            value={formData.propertyAddress}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label>সম্পত্তির ধরন</label>
+          <select
+            name="propertyType"
+            value={formData.propertyType}
+            onChange={handleInputChange}
+            required
+          >
+            <option value="বাড়ি">বাড়ি</option>
+            <option value="ফ্ল্যাট">ফ্ল্যাট</option>
+            <option value="দোকান">দোকান</option>
+            <option value="কারখানা">কারখানা</option>
+            <option value="গুদাম">গুদাম</option>
+            <option value="অফিস">অফিস</option>
+            <option value="বাণিজ্যিক প্লট">বাণিজ্যিক প্লট</option>
+            <option value="আবাসিক প্লট">আবাসিক প্লট</option>
+            <option value="কৃষি জমি">কৃষি জমি</option>
+            <option value="বাগানবাড়ি">বাগানবাড়ি</option>
+            <option value="রিসোর্ট">রিসোর্ট</option>
+            <option value="হোটেল">হোটেল</option>
+            <option value="রেস্টুরেন্ট">রেস্টুরেন্ট</option>
+            <option value="শিক্ষা প্রতিষ্ঠান">শিক্ষা প্রতিষ্ঠান</option>
+            <option value="স্বাস্থ্যকেন্দ্র">স্বাস্থ্যকেন্দ্র</option>
+            <option value="গ্যারেজ">গ্যারেজ</option>
+            <option value="পেট্রোল পাম্প">পেট্রোল পাম্প</option>
+            <option value="শিল্প প্লট">শিল্প প্লট</option>
+            <option value="বাণিজ্যিক ভবন">বাণিজ্যিক ভবন</option>
+            <option value="কনডোমিনিয়াম">কনডোমিনিয়াম</option>
+            <option value="বিল্ডিং">বিল্ডিং</option>
+            <option value="মাঠ">মাঠ</option>
+            <option value="পার্কিং স্পেস">পার্কিং স্পেস</option>
+            <option value="প্লট">প্লট</option>
+            <option value="বাগান">বাগান</option>
+            <option value="পুকুর">পুকুর</option>
+            <option value="বনভূমি">বনভূমি</option>
+            <option value="চাষের জমি">চাষের জমি</option>
+            <option value="বাণিজ্যিক জমি">বাণিজ্যিক জমি</option>
+          </select>
+        </div>
+
+        <div className="form-group">
+          <label>জমির একক</label>
+          <select
+            name="landUnit"
+            value={formData.landUnit}
+            onChange={handleInputChange}
+            required
+          >
+            <option value="শতক">শতক</option>
+            <option value="কাঠা">কাঠা</option>
+            <option value="বিঘা">বিঘা</option>
+            <option value="একর">একর</option>
+            <option value="ছটাক">ছটাক</option>
+            <option value="কানি">কানি</option>
+          </select>
+        </div>
+
+        <div className="form-group">
+          <label>সম্পত্তির পরিমাণ ({formData.landUnit})</label>
+          <input
+            type="number"
+            name="propertyAmount"
+            value={formData.propertyAmount}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label>দাম (প্রতি {formData.landUnit})</label>
+          <input
+            type="number"
+            name="price"
+            value={formData.price}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label>মোট দাম</label>
+          <input
+            type="number"
+            name="totalPrice"
+            value={formData.totalPrice}
+            readOnly
+          />
+        </div>
+
+        <div className="form-group">
+          <label>অতিরিক্ত তথ্য</label>
+          <textarea
+            name="additionalInfo"
+            value={formData.additionalInfo}
+            onChange={handleInputChange}
+          />
+        </div>
+
+        <div className="form-group">
+          <label>সম্পত্তির ছবি</label>
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleImageChange}
+            disabled={loading}
+            required
+          />
+        </div>
+        
+        {imagePreview && (
+          <div className="image-preview">
+            <img 
+              src={imagePreview} 
+              alt="Preview" 
+              style={{ maxWidth: '200px' }} 
+            />
+          </div>
+        )}
+
+        <div className="form-group">
+          <label>জেলা</label>
+          <select
+            name="district"
+            value={formData.district || ''}
+            onChange={handleInputChange}
+            required
+          >
+            <option value="">জেলা নির্বাচন করুন</option>
+            {districts.map(district => (
+              <option key={district} value={district}>{district}</option>
+            ))}
+          </select>
+        </div>
+
+        <div className="form-group">
+          <label>বিস্তারিত ঠিকানা</label>
+          <input
+            type="text"
+            name="additionalAddress"
+            value={formData.additionalAddress || ''}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+
+        <button 
+          type="submit" 
+          className={`submit-button ${loading ? 'loading' : ''}`} 
+          disabled={loading}
+        >
+          {loading ? 'আপলোড হচ্ছে...' : 'জমা দিন'}
+        </button>
+      </form>
+    </>
   );
 };
 

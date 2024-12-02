@@ -22,9 +22,9 @@ const initialFormState = {
 const districts = [
   'বাগেরহাট', 'বান্দরবান', 'বরগুনা', 'বরিশাল', 'ভোলা', 'বগুড়া', 'ব্রাহ্মণবাড়িয়া', 'চাঁদপুর', 'চাঁপাইনবাবগঞ্জ',
   'চট্টগ্রাম', 'চুয়াডাঙ্গা', 'কক্সবাজার', 'কুমিল্লা', 'ঢাকা', 'দিনাজপুর', 'ফরিদপুর', 'ফেনী', 'গাইবান্ধা',
-  'গাজীপু���', 'গোপালগঞ্জ', 'হবিগঞ্জ', 'জামালপুর', 'যশোর', 'ঝালকাঠি', 'ঝিনাইদহ', 'জয়পুরহাট', 'খাগড়াছড়ি',
+  'গাজীপু', 'গোপালগঞ্জ', 'হবিগঞ্জ', 'জামালপুর', 'যশোর', 'ঝালকাঠি', 'ঝিনাইদহ', 'জয়পুরহাট', 'খাগড়াছড়ি',
   'খুলনা', 'কিশোরগঞ্জ', 'কুড়িগ্রাম', 'কুষ্টিয়া', 'লক্ষ্মীপুর', 'লালমনিরহাট', 'মাদারীপুর', 'মাগুরা', 'মানিকগঞ্জ',
-  'মেহেরপুর', 'মৌলভীবাজার', 'মুন্সিগঞ্জ', 'ময়মনসিংহ', 'নওগাঁ', 'নড়াইল', 'নারায়ণগঞ্জ', 'নরসিংদী', 'নাটোর',
+  'মেহেরপুর', 'মৌলভীবাড়িয়া', 'মুন্সিগঞ্জ', 'ময়মনসিংহ', 'নওগাঁ', 'নড়াইল', 'নারায়ণগঞ্জ', 'নরসিংদী', 'নাটোর',
   'নেত্রকোণা', 'নীলফামারী', 'নোয়াখালী', 'পাবনা', 'পঞ্চগড়', 'পটুয়াখালী', 'পিরোজপুর', 'রাজবাড়ী', 'রাজশাহী',
   'রাঙ্গামাটি', 'রংপুর', 'সাতক্ষীরা', 'শরীয়তপুর', 'শেরপুর', 'সিরাজগঞ্জ', 'সুনামগঞ্জ', 'সিলেট', 'টাঙ্গাইল', 'ঠাকুরগাঁও'
 ];
@@ -61,9 +61,19 @@ const PropertyForm = () => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     
-    // Validate phone number length
-    if (name === 'ownerPhone' && value.length > 11) {
-      toast.error('Phone number must be 11 digits');
+    // Validate phone number length and format
+    if (name === 'ownerPhone') {
+      // Remove any non-digit characters
+      const phoneValue = value.replace(/\D/g, '');
+      
+      if (phoneValue.length > 11) {
+        return; // Don't update if longer than 11 digits
+      }
+      
+      setFormData(prev => ({
+        ...prev,
+        [name]: phoneValue
+      }));
       return;
     }
 
@@ -178,12 +188,15 @@ const PropertyForm = () => {
             name="ownerPhone"
             value={formData.ownerPhone}
             onChange={handleInputChange}
+            pattern="01[0-9]{9}"
+            maxLength="11"
+            placeholder="01XXXXXXXXX"
             required
           />
         </div>
 
         <div className="form-group">
-          <label>সম্পত্তির ঠিকানা</label>
+          <label>সম্পত্তির ধিকানা</label>
           <input
             type="text"
             name="propertyAddress"

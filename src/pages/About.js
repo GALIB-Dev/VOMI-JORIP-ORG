@@ -12,10 +12,10 @@ const About = () => {
   const navigate = useNavigate();
 
   const stats = [
-    { number: "20+", label: "বছরের অভিজ্ঞতা" },
+    { number: "24+", label: "বছরের অভিজ্ঞতা" },
     { number: "100000+", label: "সন্তুষ্ট গ্রাহক" },
     { number: "64", label: "জেলায় সেবা" },
-    { number: "50+", label: "বিশেষজ্ঞ সদস্য" }
+    { number: "100+", label: "বিশেষজ্ঞ সদস্য" }
   ];
 
   const team = [
@@ -28,7 +28,7 @@ const About = () => {
       about: "/about-author"
     },
     {
-      name: "হুমায়ূন কবির",
+      name: "মো: হুমায়ুন কবির ",
       role: "সার্ভে কমিশনার",
       image: hkImage,
       whatsapp: "tel:+8801776169929",

@@ -145,7 +145,7 @@ const AuthorBioContent = () => {
               whileHover={{ y: -5 }}
             >
               <BiCertification className="auth-achievement-icon" />
-              <h4>10000+</h4>
+              <h4>100000+</h4>
               <p>সফল প্রকল্প</p>
             </motion.div>
           </div>
@@ -158,7 +158,9 @@ const AuthorBioContent = () => {
         >
           <h3><FaMapMarkedAlt className="auth-section-icon" /> কার্যালয়</h3>
           <div className="auth-office-info">
-            <p>মেইন অফিস: ঢাকা, বাংলাদেশ</p>
+          <p> কার্যালয়: হাতিল সদর রোড, জয়পুরহাট, বাংলাদেশ (হোল্ডিং নং-২৪)</p>
+            <p> কার্যালয়: ১/বি, মেহেরুন টাওয়ার, ২০ নং ডি. এন. সেন. রোড, গেন্ডারিয়া, ঢাকা-১২০৪।</p>
+            
           </div>
         </motion.section>
       </div>

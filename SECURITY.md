@@ -14,7 +14,7 @@ Reporting a Vulnerability
 We take security issues seriously and appreciate your help securing our project. If you discover a vulnerability, please follow the steps below:
 
 Contact
-Send an email to our security team at security@example.com with a detailed description of the issue, including:
+Send an email to our security team at mohammadalgalib71@gmail.com with a detailed description of the issue, including:
 
 Steps to reproduce the vulnerability.
 Affected versions.

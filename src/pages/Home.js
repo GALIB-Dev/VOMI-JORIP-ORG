@@ -146,52 +146,19 @@ const ServiceCard = ({ icon: Icon, title, description, onClick }) => {
 const Home = () => {
   const navigate = useNavigate();
 
-  const handleServiceClick = (serviceType) => {
-    navigate('/contact', { 
-      state: { 
-        serviceType,
-        serviceDetails: getServiceDetails(serviceType)
-      } 
-    });
-  };
-
-  const getServiceDetails = (type) => {
-    switch(type) {
+  const handleServiceClick = (service) => {
+    switch (service) {
       case 'survey':
-        return {
-          title: 'জমি জরিপ সেবা',
-          description: 'আধুনিক প্রযুক্তি ব্যবহার করে নির্ভুল জমি জরিপ সেবা',
-          requirements: [
-            'জমির দলিল',
-            'জমির খিয়ান',
-            'হাল নাগাদ ভূমি উন্নয়ন কর',
-            'জাতীয় পরিচয়পত্র'
-          ]
-        };
+        navigate('/contact');
+        break;
       case 'legal':
-        return {
-          title: 'আইনি পরামর্শ সেবা',
-          description: 'অভিজ্ঞ আইনজীবীদের মাধ্যমে ভূমি সংক্রান্ত আইনি পরামর্শ',
-          requirements: [
-            'বিস্তারিত সস্যার বিবরণ',
-            'সংশ্লিষ্ট কাগজপত্র',
-            'পূর্ববর্তী আইনি পদক্ষেপ (যদি থাকে)',
-            'জাতীয় পরিচয়পত্র'
-          ]
-        };
+        navigate('/services/legal');
+        break;
       case 'property':
-        return {
-          title: 'প্রপার্টি বিক্রয় সেবা',
-          description: 'নিরাপদ ও বিশ্বস্ত প্রপার্টি কেনা-বেচার মাধ্যম',
-          requirements: [
-            'প্রপার্টির বিস্তারিত তথ্য',
-            'মূল্য প্রত্যাশা',
-            'দলিল-দস্তাবেজ',
-            'জাতীয় পরিচয়পত্র'
-          ]
-        };
+        navigate('/propertyform');
+        break;
       default:
-        return {};
+        break;
     }
   };
 

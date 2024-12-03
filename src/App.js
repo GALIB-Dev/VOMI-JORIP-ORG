@@ -16,7 +16,6 @@ import Loading from './components/common/Loading';
 import ErrorFallback from './components/common/ErrorFallback';
 import AuthorBio from './components/AuthorBio';
 import Legal from './pages/Legal';
-
 // Styles
 import './styles/App.css';
 
@@ -58,7 +57,7 @@ const routes = [
     path: '/', 
     element: Home,
     preload: true,
-    meta: { title: 'Home - ভূমি জরিপ উন্নয়ন সংস্থা' }
+    meta: { title: 'ভূমি জরিপ উন্নয়ন সংস্থা' }
   },
   { 
     path: '/mouza-price', 
@@ -68,44 +67,45 @@ const routes = [
   { 
     path: '/market', 
     element: Market,
-    meta: { title: 'Market - ভূমি জরিপ উন্নয়ন সংস্থা' }
+    meta: { title: 'বাজার দর - ভূমি জরিপ উন্নয়ন সংস্থা' }
   },
   { 
     path: '/about', 
     element: About,
-    meta: { title: 'About - ভূমি জরিপ উন্নয়ন সংস্থা' }
+    meta: { title: 'আমাদের সম্পর্কে - ভূমি জরিপ উন্নয়ন সংস্থা' }
   },
   { 
     path: '/contact', 
     element: Contact,
-    meta: { title: 'Contact - ভূমি জরিপ উন্নয়ন সংস্থা' }
+    meta: { title: 'যোগাযোগ - ভূমি জরিপ উন্নয়ন সংস্থা' }
   },
   { 
     path: '/office', 
     element: Office,
-    meta: { title: 'Office - ভূমি জরিপ উন্নয়ন সংস্থা' }
+    meta: { title: 'অফিস সমূহ - ভূমি জরিপ উন্নয়ন সংস্থা' }
   },
   { 
     path: '/PropertyForm', 
     element: PropertyForm,
-    meta: { title: 'Property Form - ভূমি জরিপ উন্নয়ন সংস্থা' }
+    meta: { title: 'সম্পত্তি বিক্রয় ফরম - ভূমি জরিপ উন্নয়ন সংস্থা' }
   },
   { 
     path: '/google-callback', 
     element: GoogleCallback,
-    meta: { title: 'Authentication - ভূমি জরিপ উন্নয়ন সংস্থা' },
+    meta: { title: 'প্রমাণীকরণ - ভূমি জরিপ উন্নয়ন সংস্থা' },
     skipAnimation: true
   },
   { 
     path: '/about-author', 
     element: AuthorBio,
-    meta: { title: 'আমাদের সম্পর্কে - ভূমি জরিপ উন্নয়ন সংস্থা' }
+    meta: { title: 'আেখক পরিচিতি - ভূমি জরিপ উন্নয়ন সংস্থা' }
   },
   { 
     path: '/services/legal', 
     element: Legal,
-    meta: { title: 'Legal Services - ভূমি জরিপ উন্নয়ন সংস্থা' }
-  }
+    meta: { title: 'আইনি সেবা - ভূমি জরিপ উন্নয়ন সংস্থা' }
+  },
+  
 ];
 
 // Enhanced loading component with error handling

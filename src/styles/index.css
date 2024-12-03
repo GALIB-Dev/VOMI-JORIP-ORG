@@ -66,3 +66,23 @@ code {
 }
 
 /* Rest of your existing styles... */
+
+/* Add this to your global CSS file */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;700&display=swap');
+
+/* Global number styling */
+[class*="number"],
+.stats h2,
+.stat-card h2,
+.price,
+.count,
+.numeric,
+.digit,
+.footer-contact p,
+.footer-phone,
+.footer-address,
+.contact-info *,
+[class*="footer"] [class*="tel"],
+[class*="footer"] a[href^="tel:"] {
+  font-family: 'Noto Sans Bengali', sans-serif !important;
+}

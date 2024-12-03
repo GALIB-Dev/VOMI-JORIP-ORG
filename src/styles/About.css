@@ -194,3 +194,10 @@
 .about-author-btn:hover {
   background: #f0f0f0;
 }
+
+/* Add this at the top of your CSS file */
+.stats h2,
+.stat-card h2,
+[class*="number"] {
+  font-family: 'Noto Sans Bengali', sans-serif !important;
+}

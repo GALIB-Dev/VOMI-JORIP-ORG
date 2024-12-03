@@ -2,6 +2,7 @@
   background: #f8f9fa;
   padding: 4rem 0 0;
   color: #2d3436;
+  font-family: 'Noto Sans Bengali', sans-serif !important;
 }
 
 /* Main Content */
@@ -12,12 +13,14 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: 3rem;
+  font-family: 'Noto Sans Bengali', sans-serif !important;
 }
 
 /* Main Info Section */
 .footer-main {
   text-align: center;
   margin-bottom: 2rem;
+  font-family: 'Noto Sans Bengali', sans-serif !important;
 }
 
 .footer-main h3 {
@@ -77,6 +80,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 2rem;
+  font-family: 'Noto Sans Bengali', sans-serif !important;
 }
 
 .footer-section h4 {
@@ -131,6 +135,7 @@
   align-items: center;
   padding: 1rem 2rem;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
+  font-family: 'Noto Sans Bengali', sans-serif !important;
 }
 
 .copyright {
@@ -183,6 +188,7 @@
   align-items: center;
   gap: 0.8rem;
   transition: color 0.3s ease;
+  font-family: 'Noto Sans Bengali', sans-serif !important;
 }
 
 .contact-link:hover {

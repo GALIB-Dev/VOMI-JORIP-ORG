@@ -5,15 +5,17 @@ import { motion } from 'framer-motion';
 import { FaWhatsapp, FaEnvelope } from 'react-icons/fa';
 import '../styles/About.css';
 import roufImage from '../assets/images/MD Abdur Rouf.png';
+import hkImage from '../assets/images/HK.png';
+import nishatImage from '../assets/images/463cb63d-44bd-47b2-81e6-90908fa16052.jpeg';
 
 const About = () => {
   const navigate = useNavigate();
 
   const stats = [
-    { number: "২০+", label: "বছরের অভিজ্ঞতা" },
-    { number: "১০০০০০+", label: "সন্তুষ্ট গ্রাহক" },
-    { number: "৬৪", label: "জেলায় সেবা" },
-    { number: "৫০+", label: "বিশেষজ্ঞ সদস্য" }
+    { number: "20+", label: "বছরের অভিজ্ঞতা" },
+    { number: "100000+", label: "সন্তুষ্ট গ্রাহক" },
+    { number: "64", label: "জেলায় সেবা" },
+    { number: "50+", label: "বিশেষজ্ঞ সদস্য" }
   ];
 
   const team = [
@@ -25,7 +27,19 @@ const About = () => {
       email: "vjusrouf1980@gmail.com",
       about: "/about-author"
     },
-    // Add other team members...
+    {
+      name: "হুমায়ূন কবির",
+      role: "সার্ভে কমিশনার",
+      image: hkImage,
+      whatsapp: "tel:+8801776169929",
+      email: "md.h.kabir65@gmail.com",
+      about: "/about-kabir"
+    },
+    {
+      name: "নিশাত জাহান",
+      role: "প্রকল্প ব্যবস্থাপক",
+      image: nishatImage,
+    }
   ];
 
   return (

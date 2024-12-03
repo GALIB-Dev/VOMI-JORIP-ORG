@@ -158,6 +158,7 @@ const PropertyForm = () => {
         timestamp: serverTimestamp(),
       };
 
+      // eslint-disable-next-line no-unused-vars
       const docRef = await addDoc(collection(db, 'properties'), propertyData);
       toast.success('Property submitted successfully!');
       

@@ -127,7 +127,7 @@ const Market = () => {
               {property.propertyImages && property.propertyImages.length > 0 ? (
                 <img
                   src={property.propertyImages[0]}
-                  alt={property.propertyType}
+                  alt="Property"
                   onClick={() => handleImageClick(property.propertyImages, 0)}
                   className="clickable-image"
                   onError={(e) => {
@@ -137,7 +137,7 @@ const Market = () => {
               ) : (
                 <img
                   src="/placeholder.jpg"
-                  alt="No image available"
+                  alt="No property available"
                   className="placeholder-image"
                 />
               )}

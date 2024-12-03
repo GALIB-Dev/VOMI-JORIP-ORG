@@ -4,3 +4,7 @@ Allow: /
 
 # Sitemaps
 Sitemap: https://vjus.org/sitemap.xml
+
+User-agent: Googlebot
+Allow: /
+

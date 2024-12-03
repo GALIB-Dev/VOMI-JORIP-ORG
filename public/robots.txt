@@ -1,10 +1,20 @@
-# https://www.robotstxt.org/robotstxt.html
+# General rules for all user agents (bots)
 User-agent: *
 Allow: /
+Allow: /sitemap.xml
+Disallow: /private/
+Disallow: /admin/
+Disallow: /login/
+Disallow: /checkout/
+Disallow: /search
 
-# Sitemaps
-Sitemap: https://vjus.org/sitemap.xml
-
+# Specific rules for Googlebot
 User-agent: Googlebot
 Allow: /
 
+# Specific rules for Facebook's external scraper
+User-agent: facebookexternalhit
+Allow: /
+
+# Sitemap location
+Sitemap: https://vjus.org/sitemap.xml

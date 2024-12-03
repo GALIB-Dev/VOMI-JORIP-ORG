@@ -37,7 +37,7 @@ const About = () => {
     },
     {
       name: "নিশাত জাহান",
-      role: "প্রকল্প ব্যবস্থাপক",
+      role: "ব্যবস্থাপক",
       image: nishatImage,
     }
   ];

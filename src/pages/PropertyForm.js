@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { toast } from 'react-toastify';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '../config/firebase';
@@ -35,6 +35,7 @@ const PropertyForm = () => {
   const [imageFiles, setImageFiles] = useState([]);
   const [imagePreviews, setImagePreviews] = useState([]);
   const [loading, setLoading] = useState(false);
+  const canvasRef = useRef(null);
 
   const uploadToImgBB = async (file) => {
     const formData = new FormData();
@@ -172,6 +173,49 @@ const PropertyForm = () => {
       toast.error('Failed to submit property: ' + error.message);
     } finally {
       setLoading(false);
+    }
+  };
+
+  // Solution 1: Remove the unused function
+  // Simply delete or comment out the handleImageUpload function if it's not needed
+
+  // Solution 2: Add eslint disable comment if you plan to use it later
+  // eslint-disable-next-line no-unused-vars
+  const handleImageUpload = async (event) => {
+    if (!event.target.files?.length) return;
+    
+    const file = event.target.files[0];
+    const worker = new Worker(new URL('../workers/heavy-computation.worker.js', import.meta.url));
+    
+    try {
+      const img = await createImageBitmap(file);
+      const canvas = canvasRef.current;
+      const ctx = canvas.getContext('2d');
+      
+      // Set canvas size to match image
+      canvas.width = img.width;
+      canvas.height = img.height;
+      
+      // Draw image to canvas
+      ctx.drawImage(img, 0, 0);
+      
+      // Get image data for processing
+      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      
+      worker.onmessage = (event) => {
+        const processedImageData = event.data;
+        ctx.putImageData(processedImageData, 0, 0);
+        worker.terminate();
+      };
+
+      // Send image data to worker
+      worker.postMessage({
+        type: 'image-processing',
+        data: imageData
+      }, [imageData.data.buffer]);
+      
+    } catch (error) {
+      console.error('Image processing failed:', error);
     }
   };
 
@@ -376,6 +420,7 @@ const PropertyForm = () => {
           {loading ? 'আপলোড হচ্ছে...' : 'জমা দিন'}
         </button>
       </form>
+      <canvas ref={canvasRef} style={{ display: 'none' }} />
     </>
   );
 };

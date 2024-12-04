@@ -493,3 +493,25 @@
 .image-preview-modal {
   touch-action: pan-y pinch-zoom;
 }
+
+.analysis-results {
+  margin: 20px;
+  padding: 20px;
+  background: #f5f5f5;
+  border-radius: 8px;
+}
+
+.analysis-button {
+  margin: 20px;
+  padding: 10px 20px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.analysis-button:disabled {
+  background: #cccccc;
+  cursor: not-allowed;
+}

@@ -14,4 +14,18 @@ export const encryptSensitiveData = (data) => {
       data: new Uint8Array(data)
     });
   });
-}; 
+};
+
+// Function to count and sum all four-letter words in a given text
+export function sumFourLetterWords(text) {
+    const words = text.split(/\s+/); // Split text into words
+    let sum = 0;
+
+    words.forEach(word => {
+        if (word.length === 4) {
+            sum += 1; // Increment sum for each four-letter word
+        }
+    });
+
+    return sum; // Return the total count of four-letter words
+} 

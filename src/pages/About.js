@@ -13,7 +13,7 @@ const About = () => {
 
   const stats = [
     { number: "24+", label: "বছরের অভিজ্ঞতা" },
-    { number: "100000+", label: "সন্তুষ্ট গ্রাহক" },
+    { number: "1560189+", label: "সন্তুষ্ট গ্রাহক" },
     { number: "64", label: "জেলায় সেবা" },
     { number: "100+", label: "বিশেষজ্ঞ সদস্য" }
   ];

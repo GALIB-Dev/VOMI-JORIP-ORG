@@ -5,7 +5,6 @@ import { BiChevronDown } from 'react-icons/bi';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEyeSlash } from '@fortawesome/free-regular-svg-icons';
 import '../styles/Home.css';
-import logo from "../assets/images/land survey.png"
 import { useNavigate, Link } from 'react-router-dom';
 
 const Navigation = () => {
@@ -62,7 +61,7 @@ const Navigation = () => {
             </button>
           </div>
           <div className="brand-section">
-            <img src={logo} alt="Logo" className="nav-logo" />
+            <img src="https://i.ibb.co/RY4sVs0/land-survey.png" alt="Logo" className="nav-logo" />
             <span className="brand-name">ভূমি সেবা</span>
           </div>
         </div>

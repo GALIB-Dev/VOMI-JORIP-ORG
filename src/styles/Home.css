@@ -487,7 +487,7 @@ body {
   background-image: linear-gradient(
     rgba(0, 0, 0, 0.5),
     rgba(0, 0, 0, 0.5)
-  ), url('../assets/images/photo-1497436072909-60f360e1d4b1.avif');
+  ), url('https://i.ibb.co.com/9rgL0Jx/photo-1497436072909-60f360e1d4b1.jpg');
   /* ... existing styles ... */
 }
 
@@ -502,7 +502,7 @@ body {
   background-image: linear-gradient(
     rgba(0, 0, 0, 0.5),
     rgba(0, 0, 0, 0.5)
-  ), url('../assets/images/photo-1497436072909-60f360e1d4b1.avif');
+  ), url('https://i.ibb.co.com/9rgL0Jx/photo-1497436072909-60f360e1d4b1.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

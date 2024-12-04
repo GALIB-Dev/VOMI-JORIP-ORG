@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import '../../styles/NavBar.css';
-import logo from '../../assets/images/logo.jpg';
 import { motion } from 'framer-motion';
 
 const NavBar = () => {
@@ -140,7 +139,7 @@ const NavBar = () => {
         <div className="navbar-content">
           {/* Brand */}
           <Link to="/" className="brand-container">
-            <img src={logo} alt="ভূমি জরিপ Logo" className="nav-logo" />
+            <img src="https://i.ibb.co.com/5WxP9T3/logo.png" alt="ভূমি জরিপ Logo" className="nav-logo" />
             <span className="company-name">ভূমি জরিপ উন্নয়ন সংস্থা</span>
           </Link>
 

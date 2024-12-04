@@ -45,4 +45,13 @@
     <changefreq>monthly</changefreq>
   </url>
 
+  <!-- Add any new pages here -->
+  <!-- Example: -->
+  <!-- <url>
+    <loc>https://vjus.org/new-page</loc>
+    <lastmod>2024-02-26T12:00:00+06:00</lastmod>
+    <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
+  </url> -->
+  
 </urlset>

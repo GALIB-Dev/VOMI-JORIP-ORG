@@ -28,4 +28,4 @@ export function sumFourLetterWords(text) {
     });
 
     return sum; // Return the total count of four-letter words
-} 
+}

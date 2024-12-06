@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import '../../styles/Footer.css';
 import twelveBasesLogo from '../../assets/images/12Bases.png';
+import { FaFileAlt } from 'react-icons/fa';
 import { 
   FaFacebookF, 
   FaWhatsapp, 
@@ -9,6 +10,13 @@ import {
   FaMapMarkerAlt 
 } from 'react-icons/fa';
 
+/**
+ * Footer component of the app.
+ * 
+ * It contains the main information of the app, some useful links, contact information and copyright information.
+ * 
+ * @returns {ReactElement} The JSX element for the Footer component.
+ */
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   
@@ -46,6 +54,9 @@ const Footer = () => {
                aria-label="Email"
                className="social-link email">
               <FaEnvelope />
+            </a>
+            <a href="/privacy-policy.html" target="_blank" rel="noopener noreferrer" aria-label="Privacy Policy" className="social-link privacy-policy">
+              <FaFileAlt />
             </a>
           </div>
         </div>

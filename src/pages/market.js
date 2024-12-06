@@ -12,7 +12,6 @@ const Market = () => {
   const [filter, setFilter] = useState('all');
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [currentPropertyImages, setCurrentPropertyImages] = useState([]);
-  const [analysisResults, setAnalysisResults] = useState(null);
 
   useEffect(() => {
     fetchProperties();
@@ -80,28 +79,6 @@ const Market = () => {
 
   const formatPhoneNumber = (phone) => {
     return phone?.toString() || '';
-  };
-
-  const handleMarketAnalysis = () => {
-    const data = properties.map(property => ({
-      price: property.totalPrice,
-      type: property.propertyType,
-      area: property.propertyAmount,
-      date: property.timestamp
-    }));
-    
-    const worker = new Worker(new URL('../workers/heavy-computation.worker.js', import.meta.url));
-    
-    worker.onmessage = (event) => {
-      const result = event.data;
-      setAnalysisResults(result);
-      worker.terminate();
-    };
-
-    worker.postMessage({
-      type: 'data-analysis',
-      data: data
-    });
   };
 
   if (loading) return <div className="loading">লোড হচ্ছে...</div>;
@@ -260,22 +237,6 @@ const Market = () => {
           </div>
         </div>
       )}
-
-      {/* Add Market Analysis Results Display */}
-      {analysisResults && (
-        <div className="analysis-results">
-          <h2>Market Analysis Results</h2>
-          <pre>{JSON.stringify(analysisResults, null, 2)}</pre>
-        </div>
-      )}
-
-      <button 
-        className="analysis-button" 
-        onClick={handleMarketAnalysis}
-        disabled={properties.length === 0}
-      >
-        Analyze Market Data
-      </button>
     </div>
   );
 };

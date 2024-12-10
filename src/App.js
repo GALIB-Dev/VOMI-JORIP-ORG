@@ -50,6 +50,7 @@ const Office = lazyLoadWithRetry(() => import('./pages/office'));
 const PropertyForm = lazyLoadWithRetry(() => import('./pages/PropertyForm'));
 const GoogleCallback = lazyLoadWithRetry(() => import('./pages/GoogleCallback'));
 const MouzaPrice = lazyLoadWithRetry(() => import('./pages/MouzaPrice'));
+const Login = lazyLoadWithRetry(() => import('./pages/Login'));
 
 // Route configuration with metadata
 const routes = [
@@ -104,6 +105,12 @@ const routes = [
     path: '/services/legal', 
     element: Legal,
     meta: { title: 'আইনি সেবা - ভূমি জরিপ উন্নয়ন সংস্থা' }
+  },
+
+  {
+    path: '/login',
+    element: Login,
+    meta: { title: 'Login - ভূমি জরিপ উন্নয়ন সংস্থা' }
   },
   
 ];

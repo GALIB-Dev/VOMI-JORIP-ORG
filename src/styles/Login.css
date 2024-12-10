@@ -1,0 +1,165 @@
+/* Container for the login page */
+.login-container {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #eef2f7; /* Softer background color for a modern feel */
+    padding: 20px;
+  }
+  
+  /* Login box styling */
+  .login-box {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15); /* Slightly stronger shadow for depth */
+    width: 100%;
+    max-width: 400px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .login-box:hover {
+    transform: translateY(-5px); /* Subtle hover effect for engagement */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  }
+  
+  .login-box h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #444;
+    font-size: 1.8rem;
+    font-weight: bold;
+  }
+  
+  /* Input group styling */
+  .input-group {
+    margin-bottom: 1.5rem;
+  }
+  
+  .input-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #555;
+    font-size: 1rem;
+    font-weight: 500;
+  }
+  
+  .phone-input {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    overflow: hidden;
+    background-color: #fdfdfd; /* Slightly lighter background */
+  }
+  
+  .country-code {
+    background: #f3f3f3;
+    padding: 0.5rem 1rem;
+    border-right: 1px solid #ddd;
+    color: #555;
+    font-weight: bold;
+    font-size: 1rem;
+  }
+  
+  input {
+    width: 100%;
+    padding: 0.6rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    color: #333;
+  }
+  
+  input:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 4px rgba(0, 123, 255, 0.5); /* Focus glow effect */
+    background-color: #f9fcff; /* Slightly highlighted background */
+  }
+  
+  .phone-input input {
+    border: none;
+    flex: 1;
+  }
+  
+  /* Button styling */
+  button {
+    width: 100%;
+    padding: 0.8rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+  button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .resend-button {
+    background: none;
+    color: #007bff;
+    margin-top: 1rem;
+    border: none;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+  
+  .resend-button:hover {
+    color: #0056b3;
+  }
+  
+  /* Error message styling */
+  .error-message {
+    color: #dc3545;
+    text-align: center;
+    margin-top: 1rem;
+    font-weight: bold;
+    font-size: 0.9rem;
+  }
+  
+  .success-message {
+    color: #28a745;
+    text-align: center;
+    margin-top: 1rem;
+    font-weight: bold;
+    font-size: 0.9rem;
+  }
+  
+  /* Recaptcha container */
+  #recaptcha-container {
+    margin-top: 1rem;
+    text-align: center;
+  }
+  
+  /* Add responsiveness */
+  @media (max-width: 480px) {
+    .login-box {
+      padding: 2rem;
+    }
+  
+    h2 {
+      font-size: 1.5rem;
+    }
+  
+    input {
+      font-size: 0.9rem;
+    }
+  
+    button {
+      font-size: 0.9rem;
+    }
+  }
+  

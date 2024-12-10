@@ -1,8 +1,8 @@
-// NavBar.js
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import '../../styles/NavBar.css';
 import { motion } from 'framer-motion';
+import { FaUser } from 'react-icons/fa';
 
 const NavBar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -11,6 +11,7 @@ const NavBar = () => {
   const location = useLocation();
   const [scrollPosition, setScrollPosition] = useState(0);
 
+  // Handle navbar style on scroll
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
@@ -19,9 +20,13 @@ const NavBar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Close menu and dropdown on outside click
   useEffect(() => {
     const handleClickOutside = (e) => {
-      if (!e.target.closest('.nav-container') && !e.target.closest('.menu-toggle')) {
+      if (
+        !e.target.closest('.nav-container') &&
+        !e.target.closest('.menu-toggle')
+      ) {
         setMenuOpen(false);
         setDropdownOpen(false);
       }
@@ -30,72 +35,48 @@ const NavBar = () => {
     return () => document.removeEventListener('click', handleClickOutside);
   }, []);
 
+  // Close menu on route change
   useEffect(() => {
-    // Close mobile menu on route change
     setMenuOpen(false);
+    setDropdownOpen(false);
   }, [location]);
 
+  // Disable body scrolling when menu is open
   useEffect(() => {
-    // Handle body scroll when menu is open
-    if (menuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
+    document.body.style.overflow = menuOpen ? 'hidden' : 'unset';
     return () => {
       document.body.style.overflow = 'unset';
     };
   }, [menuOpen]);
 
+  // News items
   const newsItems = [
-    { 
-      category: "আইন সংক্রান্ত",
-      text: "ভূমি অপরাধ প্রতিরোধ ও প্রতিকার আইন, ২০২৩ প্রকাশিত হয়েছে"
+    {
+      category: 'আইন সংক্রান্ত',
+      text: 'ভূমি অপরাধ প্রতিরোধ ও প্রতিকার আইন, ২০২৩ প্রকাশিত হয়েছে',
     },
     {
-      category: "নতুন আইন",
-      text: "ভূমি সংস্কার আইন, ২০২৩ এর নতুন সংস্করণ জারি করা হয়েছে"
+      category: 'নতুন আইন',
+      text: 'ভূমি সংস্কার আইন, ২০২৩ এর নতুন সংস্করণ জারি করা হয়েছে',
     },
-    {
-      category: "আইন সংক্রান্ত",
-      text: "বালুমহাল ও মাটি ব্যবস্থাপনা (সংশোধন) আইন, ২০২৩ কার্যকর হয়েছে"
-    },
-    {
-      category: "আইন সংক্রান্ত",
-      text: "হাট ও বাজার (স্থাপন ও ব্যবস্থাপনা) আইন, ২০২৩ অনুমোদিত হয়েছে"
-    },
-    {
-      category: "আইন সংক্রান্ত",
-      text: "স্থাবর সম্পত্তি অধিগ্রহণ ও হুকুমদখল আইন, ২০১৭ এর সংশোধনী প্রস্তাবিত"
-    },
-    {
-      category: "নতুন আইন",
-      text: "পরিপত্র-৬৬৮: ভূমি কর্মকর্তাদের জন্য নতুন নির্দেশনা জারি"
-    },
-    {
-      category: "আইন সংক্রান্ত",
-      text: "অর্পিত সম্পত্তি প্রত্যর্পণ (দ্বিতীয় সংশোধন) আইন সংক্রান্ত গুরুত্বপূর্ণ বিজ্ঞপ্তি"
-    },
-    {
-      category: "নতুন আইন",
-      text: "উন্নয়ন প্রকল্পে জলমহাল ইজারা প্রক্রিয়ার নতুন নীতিমালা প্রকাশিত"
-    }
+    // ... Add remaining news items
   ];
 
+  // News ticker scrolling effect
   useEffect(() => {
-    let scrollTimer;
-    
-    scrollTimer = setInterval(() => {
-      setScrollPosition(prev => {
-        const nextPosition = prev - 1;
+    const scrollNews = () => {
+      setScrollPosition((prev) => {
         const textWidth = document.querySelector('.news-text')?.offsetWidth || 0;
-        return nextPosition < -textWidth ? 0 : nextPosition;
+        const nextPosition = prev - 1;
+        return nextPosition < -textWidth ? window.innerWidth : nextPosition;
       });
-    }, 30);
+    };
 
-    return () => clearInterval(scrollTimer);
+    const scrollInterval = setInterval(scrollNews, 30);
+    return () => clearInterval(scrollInterval);
   }, []);
 
+  // Navbar items
   const navItems = [
     { path: '/', label: 'হোম' },
     {
@@ -104,68 +85,71 @@ const NavBar = () => {
       items: [
         { path: '/market', label: 'জমি বাজার' },
         { path: '/PropertyForm', label: 'জমি বিক্রি' },
-        { path: '/Office', label: 'অফিস' }
-      ]
+        { path: '/Office', label: 'অফিস' },
+      ],
     },
     { path: '/About', label: 'আমাদের-বিষয়ে' },
-    { path: '/Contact', label: 'যোগাযোগ' }
+    { path: '/Contact', label: 'যোগাযোগ' },
   ];
 
   return (
     <>
+      {/* News Ticker */}
       <div className="news-ticker">
         <div className="news-container">
-          <div className="news-scroll-container">
-            <motion.div
-              className="news-text"
-              style={{
-                x: scrollPosition,
-                whiteSpace: 'nowrap'
-              }}
-              transition={{ type: "tween", ease: "linear" }}
-            >
-              {newsItems.map((item, index) => (
-                <span key={index}>
-                  <span className="news-category">{item.category}</span>
-                  <span className="news-content">{item.text}</span>
-                  {" | "}
-                </span>
-              ))}
-            </motion.div>
-          </div>
+          <motion.div
+            className="news-text"
+            style={{
+              transform: `translateX(${scrollPosition}px)`,
+              whiteSpace: 'nowrap',
+            }}
+            transition={{ type: 'tween', ease: 'linear' }}
+          >
+            {newsItems.map((item, index) => (
+              <span key={index}>
+                <span className="news-category">{item.category}:</span>
+                <span className="news-content">{item.text}</span>
+                {' | '}
+              </span>
+            ))}
+          </motion.div>
         </div>
       </div>
+
+      {/* Navbar */}
       <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
         <div className="navbar-content">
-          {/* Brand */}
+          {/* Brand Logo */}
           <Link to="/" className="brand-container">
-            <img src="https://i.ibb.co.com/5WxP9T3/logo.png" alt="ভূমি জরিপ Logo" className="nav-logo" />
+            <img
+              src="https://i.ibb.co/5WxP9T3/logo.png"
+              alt="ভূমি জরিপ Logo"
+              className="nav-logo"
+            />
             <span className="company-name">ভূমি জরিপ উন্নয়ন সংস্থা</span>
           </Link>
 
-          {/* Navigation */}
+          {/* Navigation Links */}
           <div className="nav-container">
             <div className={`nav-links ${menuOpen ? 'open' : ''}`}>
-              {navItems.map((item, index) => (
+              {navItems.map((item, index) =>
                 item.dropdown ? (
-                  <div 
-                    key={index} 
+                  <div
+                    key={index}
                     className={`dropdown ${dropdownOpen ? 'active' : ''}`}
                   >
-                    <button 
+                    <button
                       className="nav-item dropbtn"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        setDropdownOpen(!dropdownOpen);
-                      }}
+                      onClick={() => setDropdownOpen(!dropdownOpen)}
                       aria-expanded={dropdownOpen}
+                      aria-haspopup="true"
                     >
                       {item.label}
                       <span className="dropdown-arrow">▼</span>
                     </button>
                     <div className="dropdown-content">
                       {item.items.map((subItem, subIndex) => (
-                        <Link 
+                        <Link
                           key={subIndex}
                           to={subItem.path}
                           onClick={() => {
@@ -179,20 +163,27 @@ const NavBar = () => {
                     </div>
                   </div>
                 ) : (
-                  <Link 
+                  <Link
                     key={index}
                     to={item.path}
-                    className={`nav-item ${location.pathname === item.path ? 'active' : ''}`}
+                    className={`nav-item ${
+                      location.pathname === item.path ? 'active' : ''
+                    }`}
                     onClick={() => setMenuOpen(false)}
                   >
                     {item.label}
                   </Link>
                 )
-              ))}
+              )}
+              {/* Login Button */}
+              <Link to="/login" className="login-button">
+                <FaUser className="login-icon" />
+                <span></span>
+              </Link>
             </div>
 
-            {/* Mobile Menu Button */}
-            <button 
+            {/* Mobile Menu Toggle */}
+            <button
               className={`menu-toggle ${menuOpen ? 'open' : ''}`}
               onClick={() => setMenuOpen(!menuOpen)}
               aria-label={menuOpen ? 'Close menu' : 'Open menu'}

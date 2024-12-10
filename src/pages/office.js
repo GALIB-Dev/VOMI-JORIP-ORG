@@ -10,7 +10,7 @@ import '../styles/office.css';
 
 const mapLinks = {
   akkelpur: {
-    folderId: 'your-folder-id',
+    folderId: '1fIa_R2SY0GMOEe3ExMxySSANfPRrsXSL',
     name: "আক্কেলপুর উপজেলা মৌজা ম্যাপ",
     totalMouzas: "১২৩",
   },
@@ -30,7 +30,7 @@ const mapLinks = {
     totalMouzas: "232",
   },
   panchbibi: {
-    folderId: 'your-folder-id',
+    folderId: '1fIa_R2SY0GMOEe3ExMxySSANfPRrsXSL',
     name: "পাঁচবিবি উপজেলা মৌজা ম্যাপ",
     totalMouzas: "১৩৪",
   },

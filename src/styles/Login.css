@@ -73,9 +73,9 @@
   }
   
   input:focus {
-    border-color: #007bff;
+    border-color: #00ff00;
     outline: none;
-    box-shadow: 0 0 4px rgba(0, 123, 255, 0.5); /* Focus glow effect */
+    box-shadow: 0 0 4px rgba(81, 255, 0, 0.5); /* Focus glow effect */
     background-color: #f9fcff; /* Slightly highlighted background */
   }
   
@@ -88,7 +88,7 @@
   button {
     width: 100%;
     padding: 0.8rem;
-    background-color: #007bff;
+    background-color: #00ff00;
     color: white;
     border: none;
     border-radius: 6px;
@@ -99,7 +99,7 @@
   }
   
   button:hover {
-    background-color: #0056b3;
+    background-color: #00ff00;
   }
   
   button:disabled {
@@ -109,7 +109,7 @@
   
   .resend-button {
     background: none;
-    color: #007bff;
+    color: #00ff00;
     margin-top: 1rem;
     border: none;
     font-size: 0.9rem;
@@ -118,7 +118,7 @@
   }
   
   .resend-button:hover {
-    color: #0056b3;
+    color: #00ff00;
   }
   
   /* Error message styling */

@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './styles/NotFound.css'; // Optional: for styling
-import characterImage from './assets/images/v.png'; // Ensure this path is correct
+import characterImage from './assets/images/404.png'; // Ensure this path is correct
+
 
 const NotFound = () => {
   return (

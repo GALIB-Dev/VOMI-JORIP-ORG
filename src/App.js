@@ -8,6 +8,7 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { ParallaxProvider } from 'react-scroll-parallax';
+import NotFound from './NotFound'; // Import the NotFound component
 
 // Components
 import NavBar from './components/common/NavBar';
@@ -16,6 +17,7 @@ import Loading from './components/common/Loading';
 import ErrorFallback from './components/common/ErrorFallback';
 import AuthorBio from './components/AuthorBio';
 import Legal from './pages/Legal';
+
 // Styles
 import './styles/App.css';
 
@@ -225,7 +227,7 @@ function App() {
                           }
                         />
                       ))}
-                      <Route path="*" element={<Navigate to="/" replace />} />
+                      <Route path="*" element={<NotFound />} />
                     </Routes>
                   </Suspense>
                 </motion.div>
@@ -270,5 +272,5 @@ function AppWithRouter() {
     </Router>
   );
 }
-
 export default AppWithRouter;
+

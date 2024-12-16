@@ -1,0 +1,37 @@
+.not-found {
+  text-align: center;
+  padding: 50px;
+  background-color: #f8f9fa; /* Light background */
+}
+
+.not-found h1 {
+  font-size: 2.5rem;
+  color: #ff0000; /* Red color for emphasis */
+}
+
+.not-found p {
+  font-size: 1.2rem;
+}
+
+.not-found a {
+  text-decoration: none;
+  color: #007bff; /* Bootstrap primary color */
+  font-weight: bold;
+}
+
+.animated-character {
+  width: 200px; /* Adjust size as needed */
+  animation: bounce 2s infinite; /* Animation effect */
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-30px);
+  }
+  60% {
+    transform: translateY(-15px);
+  }
+} 

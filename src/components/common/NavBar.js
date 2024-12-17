@@ -173,19 +173,32 @@ const NavBar = () => {
       <nav className={`navbar ${scrolled ? 'scrolled' : ''}`} role="navigation">
         <div className="navbar-content">
           {/* Brand Logo */}
-          <Link to="/" className="brand-container">
-  <img
-    src="https://i.ibb.co/5WxP9T3/logo.png"
-    alt="ভূমি জরিপ Logo"
-    className="nav-logo"
-    style={{
-      maxWidth: '100%',  // Ensure the image doesn't exceed its container
-      width: 'auto',     // Maintain aspect ratio
-      height: '50px',    // Set a fixed height that works on mobile and desktop
-      objectFit: 'contain', // Ensure the entire logo is visible
-    }}
-  />
-  <span className="company-name">ভূমি জরিপ উন্নয়ন সংস্থা</span>
+          <Link>
+  <div style={{
+    display: 'flex',
+    alignItems: 'center',
+    gap: '10px'
+  }}>
+    <img
+      src="https://i.ibb.co/5WxP9T3/logo.png"
+      alt=""
+      style={{
+        height: '40px',
+        width: 'auto',
+        maxHeight: '100%',
+        objectFit: 'contain',
+        display: 'block'
+      }}
+    />
+    <span 
+      style={{
+        fontSize: '1rem',
+        fontWeight: 'bold'
+      }}
+    >
+      ভূমি জরিপ উন্নয়ন সংস্থা
+    </span>
+  </div>
 </Link>
 
           {/* Navigation Links */}

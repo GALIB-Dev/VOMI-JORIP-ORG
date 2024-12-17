@@ -167,6 +167,12 @@
   .stat-card h2 {
     font-size: 2rem;
   }
+
+  img {
+    display: block; /* Ensure images aren't hidden */
+    max-width: 100%; /* Makes it responsive */
+    height: auto;
+}
 }
 
 @media (max-width: 480px) {

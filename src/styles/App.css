@@ -288,4 +288,14 @@ body {
   select {
     font-size: 16px !important;
   }
+
+
+  img {
+    display: block; /* Ensure images aren't hidden */
+    max-width: 100%; /* Makes it responsive */
+    height: auto;
+ }
 }
+
+
+

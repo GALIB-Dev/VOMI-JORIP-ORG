@@ -192,6 +192,12 @@
     z-index: 1000;
   }
 
+  img {
+    display: block; /* Ensure images aren't hidden */
+    max-width: 100%; /* Makes it responsive */
+    height: auto;
+ }
+
   /* Menu Button Bars */
   .menu-bar {
     width: 100%;

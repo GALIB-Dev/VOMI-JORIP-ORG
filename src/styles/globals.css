@@ -58,3 +58,14 @@ body {
 .btn-primary:hover {
   background-color: #45a049;
 } 
+
+@media (max-width: 768px) { 
+
+  img {
+    display: block; /* Ensure images aren't hidden */
+    max-width: 100%; /* Makes it responsive */
+    height: auto;
+ }
+
+  
+}

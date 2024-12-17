@@ -190,6 +190,12 @@
     padding: 1rem;
   }
 
+  img {
+    display: block; /* Ensure images aren't hidden */
+    max-width: 100%; /* Makes it responsive */
+    height: auto;
+}
+
   .legal-services-grid {
     grid-template-columns: 1fr;
   }

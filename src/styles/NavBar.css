@@ -1,259 +1,13 @@
-/* ====== Main Navbar Container ====== */
-.navbar {
-  position: fixed;
-  top: 40px;
-  left: 0;
-  right: 0;
-  height: 70px;
-  background: #ffffff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
-  z-index: 1000;
-  transition: all 0.3s ease;
+/* ====== Navbar and News Ticker Styles ====== */
+
+/* Global Reset and Base Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-/* Scrolled state for navbar - reduces height */
-.navbar.scrolled {
-  height: 70px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
-}
-
-/* ====== Content Wrapper - Controls max width and spacing ====== */
-.navbar-content {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 0 2rem;
-  height: 100%;
-  display: flex;
-  justify-content: space-between; /* Creates space between logo and menu */
-  align-items: center;
-  gap: 20px; /* Minimum space between elements */
-}
-
-/* ====== Logo and Brand Name Section ====== */
-.brand-container {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  text-decoration: none;
-  padding: 0.5rem 0;
-  flex-shrink: 0; /* Prevents logo from shrinking */
-  margin-right: auto; /* Pushes menu to the right */
-}
-
-/* Logo Image */
-.nav-logo {
-  height: 50px;
-  width: auto;
-  object-fit: contain;
-}
-
-/* Company Name Text */
-.company-name {
-  color: #1a1a1a;
-  font-size: 1.25rem;
-  font-weight: 600;
-  letter-spacing: -0.5px;
-  white-space: nowrap; /* Prevents text wrapping */
-}
-
-/* ====== Navigation Menu Section ====== */
-.nav-container {
-  display: flex;
-  align-items: center;
-  gap: 2rem;
-  margin-left: auto; /* Creates space from logo */
-}
-
-/* Navigation Links Wrapper */
-.nav-links {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-}
-
-/* Individual Nav Items */
-.nav-item {
-  color: #333333;
-  text-decoration: none;
-  justify-items: right;
-  font-size: 1rem;
-  font-weight: 500;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  transition: all 0.2s ease;
-}
-
-/* ====== Dropdown Menu Styles ====== */
-.dropdown {
-  position: relative;
-}
-
-.dropbtn {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 1rem;
-  font-weight: 500;
-  padding: 0.5rem 1rem;
-  color: #333333;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-/* Dropdown arrow animation */
-.dropdown-arrow {
-  transition: transform 0.3s ease;
-}
-
-.dropdown.active .dropdown-arrow {
-  transform: rotate(180deg);
-}
-
-/* Dropdown Content Panel */
-.dropdown-content {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  min-width: 200px;
-  background: white;
-  border-radius: 4px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(10px);
-  transition: all 0.3s ease;
-  z-index: 1001; /* Ensure dropdown appears above other elements */
-}
-
-/* Show dropdown when active */
-.dropdown.active .dropdown-content {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
-}
-
-/* Dropdown links */
-.dropdown-content a {
-  display: block;
-  padding: 0.75rem 1rem;
-  color: #333333;
-  text-decoration: none;
-  transition: background-color 0.2s ease;
-}
-
-.dropdown-content a:hover {
-  background-color: rgba(0, 0, 0, 0.04);
-}
-
-/* Mobile dropdown styles */
-@media (max-width: 768px) {
-  .dropdown-content {
-    position: static;
-    box-shadow: none;
-    opacity: 1;
-    visibility: visible;
-    transform: none;
-    display: none;
-    background: #f8f9fa;
-    margin-top: 0.5rem;
-    border-radius: 4px;
-  }
-
-  .dropdown.active .dropdown-content {
-    display: block;
-  }
-
-  .dropdown-content a {
-    padding: 0.75rem 1.5rem;
-  }
-}
-
-/* ====== Mobile Menu Button ====== */
-.menu-toggle {
-  display: none; /* Hidden on desktop */
-}
-
-/* ====== Mobile Responsive Styles ====== */
-@media (max-width: 768px) {
-  /* Mobile Menu Button Display */
-  .menu-toggle {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 30px;
-    height: 20px;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    margin-left: 50px; /* Space from other elements */
-    position: relative;
-    z-index: 1000;
-  }
-
-  img {
-    display: block; /* Ensure images aren't hidden */
-    max-width: 100%; /* Makes it responsive */
-    height: auto;
- }
-
-  /* Menu Button Bars */
-  .menu-bar {
-    width: 100%;
-    height: 2px;
-    background: #333;
-    border-radius: 2px;
-    transition: all 0.3s ease;
-  }
-
-  /* Menu Open Animation */
-  .menu-toggle.open .top-bar {
-    transform: translateY(9px) rotate(45deg);
-    background: #4CAF50;
-  }
-
-  .menu-toggle.open .bottom-bar {
-    transform: translateY(-9px) rotate(-45deg);
-    background: #4CAF50;
-  }
-
-  /* Mobile Navigation Panel */
-  .nav-links {
-    position: fixed;
-    top: 80px;
-    left: 0;
-    right: 0;
-    background: white;
-    padding: 1rem;
-    flex-direction: column;
-    align-items: stretch;
-    transform: translateY(-150%);
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    z-index: 999;
-  }
-
-  /* Mobile Menu Open State */
-  .nav-links.open {
-    transform: translateY(0);
-    opacity: 1;
-    visibility: visible;
-  }
-}
-
-/* ====== Extra Small Device Adjustments ====== */
-@media (max-width: 380px) {
-  .menu-toggle {
-    width: 25px;
-    height: 18px;
-    margin-left: 15px; /* Reduced spacing for small screens */
-  }
-}
-
-/* Add these styles to your existing NavBar.css */
+/* ====== News Ticker Styles ====== */
 .news-ticker {
   position: fixed;
   top: 0;
@@ -346,95 +100,244 @@
   transform-origin: left;
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .news-container {
-    padding: 0 15px;
-  }
-  
-  .news-text {
-    font-size: 0.8rem;
-  }
+/* ====== Main Navbar Container ====== */
+.navbar {
+  position: fixed;
+  top: 40px;
+  left: 0;
+  right: 0;
+  height: 70px;
+  background: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+  z-index: 1000;
+  transition: all 0.3s ease;
 }
 
-/* Adjust mobile styles */
+.navbar.scrolled {
+  height: 70px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+/* ====== Content Wrapper ====== */
+.navbar-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+/* ====== Logo and Brand Section ====== */
+.brand-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  padding: 0.5rem 0;
+  flex-shrink: 0;
+  margin-right: auto;
+}
+
+.nav-logo {
+  height: 50px;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.company-name {
+  color: #1a1a1a;
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+  white-space: nowrap;
+}
+
+/* ====== Navigation Menu Section ====== */
+.nav-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.nav-item {
+  color: #333333;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+/* ====== Dropdown Menu Styles ====== */
+.dropdown {
+  position: relative;
+}
+
+.dropbtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  color: #333333;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.dropdown-arrow {
+  transition: transform 0.3s ease;
+}
+
+.dropdown.active .dropdown-arrow {
+  transform: rotate(180deg);
+}
+
+.dropdown-content {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 200px;
+  background: white;
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+  z-index: 1001;
+}
+
+.dropdown.active .dropdown-content {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.dropdown-content a {
+  display: block;
+  padding: 0.75rem 1rem;
+  color: #333333;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+.dropdown-content a:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+/* ====== Login Icon ====== */
+.login-icon {
+  font-size: 1.2rem;
+  color: #4dbb0d;
+}
+
+/* ====== Mobile Menu Button ====== */
+.menu-toggle {
+  display: none;
+}
+
+/* ====== Mobile Responsive Styles ====== */
 @media (max-width: 768px) {
-  /* Adjust navbar position to account for news ticker */
-  .navbar {
-    top: 44px; /* Height of news ticker */
+  /* Mobile Menu Button */
+  .menu-toggle {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 20px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin-left: 50px;
+    position: relative;
+    z-index: 1000;
   }
 
-  /* Adjust mobile menu position */
+  /* Menu Toggle Bars */
+  .menu-bar {
+    width: 100%;
+    height: 2px;
+    background: #333;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+  }
+
+  .menu-toggle.open .top-bar {
+    transform: translateY(9px) rotate(45deg);
+    background: #4CAF50;
+  }
+
+  .menu-toggle.open .bottom-bar {
+    transform: translateY(-9px) rotate(-45deg);
+    background: #4CAF50;
+  }
+
+  /* Mobile Navigation */
   .nav-links {
-    top: 70px; /* Reduced from 80px to match scrolled navbar height */
+    position: fixed;
+    top: 95px;
+    left: 0;
+    right: 0;
+    background: white;
+    padding: 1rem;
+    flex-direction: column;
+    align-items: stretch;
+    transform: translateY(-150%);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    z-index: 999;
+    max-height: calc(100vh - 95px);
+    overflow-y: auto;
   }
 
-  /* News ticker mobile adjustments */
-  .news-container {
-    padding: 8px 15px;
-  }
-  
-  .news-text {
-    font-size: 0.85rem;
+  .nav-links.open {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
   }
 
-  /* Hide indicators on mobile to save space */
-  .news-indicators {
+  /* Dropdown Content for Mobile */
+  .dropdown-content {
+    position: static;
+    box-shadow: none;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
     display: none;
+    background: #f8f9fa;
+    margin-top: 0.5rem;
+    border-radius: 4px;
   }
 
-  /* Ensure news icon and pause button are compact */
-  .news-icon {
-    margin-right: 12px;
+  .dropdown.active .dropdown-content {
+    display: block;
   }
 
-  .news-icon-svg {
-    font-size: 1rem;
+  .dropdown-content a {
+    padding: 0.75rem 1.5rem;
   }
 
-
-  .brand-container {
-    gap: 5px; /* Smaller gap on mobile */
-  }
-
-  .nav-logo {
-    height: 40px; /* Slightly smaller on mobile */
-  }
-
-  .company-name {
-    font-size: 0.8rem; /* Smaller font on mobile */
-  }
-
-  
-}
-
-/* Extra small device adjustments */
-@media (max-width: 380px) {
-  .navbar {
-    top: 40px; /* Slightly smaller for very small screens */
-  }
-}
-
-/* Adjust main content to account for fixed header */
-#root > div:first-child {
-  padding-top: 110px; /* Combined height of navbar and news ticker */
-}
-
-/* Mobile adjustments */
-@media (max-width: 768px) {
+  /* Mobile News Ticker */
   .news-ticker {
     height: 35px;
-  }
-
-  .navbar {
-    top: 35px;
-    height: 60px;
-  }
-
-  .nav-links {
-    top: 95px; /* Combined height of news ticker and navbar */
-    max-height: calc(100vh - 95px); /* Prevent overflow */
-    overflow-y: auto;
   }
 
   .news-container {
@@ -445,12 +348,30 @@
     font-size: 0.8rem;
   }
 
-  #root > div:first-child {
-    padding-top: 95px;
+  .news-indicators {
+    display: none;
+  }
+
+  /* Mobile Navbar Adjustments */
+  .navbar {
+    top: 35px;
+    height: 60px;
+  }
+
+  .brand-container {
+    gap: 5px;
+  }
+
+  .nav-logo {
+    height: 40px;
+  }
+
+  .company-name {
+    font-size: 0.9rem;
   }
 }
 
-/* Extra small screens */
+/* Extra Small Devices */
 @media (max-width: 380px) {
   .news-ticker {
     height: 30px;
@@ -461,34 +382,42 @@
     height: 55px;
   }
 
+  .menu-toggle {
+    width: 25px;
+    height: 18px;
+    margin-left: 15px;
+  }
+
   .nav-links {
     top: 85px;
     max-height: calc(100vh - 85px);
   }
 
+  .nav-logo {
+    height: 30px;
+  }
+}
+
+/* Adjust Main Content for Fixed Header */
+#root > div:first-child {
+  padding-top: 110px;
+}
+
+@media (max-width: 768px) {
+  #root > div:first-child {
+    padding-top: 95px;
+  }
+}
+
+@media (max-width: 380px) {
   #root > div:first-child {
     padding-top: 85px;
   }
 }
 
-
-
-.login-icon {
-  font-size: 1.2rem;
-  color: #4dbb0d;
-}
-
-
-
-
-.brand-container {
-  display: flex;
-  align-items: center;
-  gap: 10px; /* Space between logo and company name */
-}
-
-.nav-logo {
+/* Responsive Images */
+img {
+  display: block;
   max-width: 100%;
-  height: 50px;
-  object-fit: contain;
+  height: auto;
 }

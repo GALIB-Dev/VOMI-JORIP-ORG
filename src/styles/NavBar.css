@@ -391,6 +391,21 @@
   .news-icon-svg {
     font-size: 1rem;
   }
+
+
+  .brand-container {
+    gap: 5px; /* Smaller gap on mobile */
+  }
+
+  .nav-logo {
+    height: 40px; /* Slightly smaller on mobile */
+  }
+
+  .company-name {
+    font-size: 0.8rem; /* Smaller font on mobile */
+  }
+
+  
 }
 
 /* Extra small device adjustments */
@@ -461,4 +476,19 @@
 .login-icon {
   font-size: 1.2rem;
   color: #4dbb0d;
+}
+
+
+
+
+.brand-container {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Space between logo and company name */
+}
+
+.nav-logo {
+  max-width: 100%;
+  height: 50px;
+  object-fit: contain;
 }

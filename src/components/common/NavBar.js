@@ -9,30 +9,33 @@ const NavBar = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
-  const [scrollPosition, setScrollPosition] = useState(0);
 
-  // Handle navbar style on scroll
+  // Scroll and outside click handling
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
-  // Close menu and dropdown on outside click
-  useEffect(() => {
     const handleClickOutside = (e) => {
+      const navContainer = document.querySelector('.nav-container');
+      const menuToggle = document.querySelector('.menu-toggle');
+      
       if (
-        !e.target.closest('.nav-container') &&
-        !e.target.closest('.menu-toggle')
+        navContainer && !navContainer.contains(e.target) &&
+        menuToggle && !menuToggle.contains(e.target)
       ) {
         setMenuOpen(false);
         setDropdownOpen(false);
       }
     };
+
+    window.addEventListener('scroll', handleScroll);
     document.addEventListener('click', handleClickOutside);
-    return () => document.removeEventListener('click', handleClickOutside);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      document.removeEventListener('click', handleClickOutside);
+    };
   }, []);
 
   // Close menu on route change
@@ -49,7 +52,7 @@ const NavBar = () => {
     };
   }, [menuOpen]);
 
-  // News items
+  // News items with more robust scrolling
   const newsItems = [
     {
       category: 'আইন সংক্রান্ত',
@@ -59,16 +62,61 @@ const NavBar = () => {
       category: 'নতুন আইন',
       text: 'ভূমি সংস্কার আইন, ২০২৩ এর নতুন সংস্করণ জারি করা হয়েছে',
     },
-    // ... Add remaining news items
+    {
+      category: 'জমি নিবন্ধন',
+      text: 'অনলাইন জমি নিবন্ধন সিস্টেম চালু করা হয়েছে',
+    },
+    {
+      category: 'সরকারি নীতি',
+      text: '  সাম্প্রতিক ভূমি ব্যবস্থাপনা নীতিমালা সম্পর্কে গুরুত্বপূর্ণ তথ্য',
+    },
+    {
+      category: 'প্রকল্প',
+      text: '    ডিজিটাল ভূমি ব্যবস্থাপনা প্রকল্পের নতুন পর্যায় শুরু',
+    },
+    {
+      category: 'সেবা',
+      text: '             জমি সংক্রান্ত সকল তথ্য এখন আরও সহজলভ্য',
+    },
+    {
+      category: 'আইনগত পরামর্শ',
+      text: 'জমি সংক্রান্ত আইনি পরামর্শ দেওয়ার নতুন ব্যবস্থা চালু',
+    },
+    {
+      category: 'সংবাদ',
+      text: '            ভূমি ব্যবস্থাপনা উন্নয়নে নতুন পদক্ষেপ গৃহীত',
+    },
+    {
+      category: 'প্রযুক্তি',
+      text: 'ভূমি তথ্য ব্যবস্থাপনায় নতুন ডিজিটাল সমাধান',
+    },
+    {
+      category: 'নিবন্ধন',
+      text: '       জমি নিবন্ধন প্রক্রিয়ায় আরও স্বচ্ছতা আনা হচ্ছে',
+    },
+    {
+      category: 'সম্মেলন',
+      text: '           জাতীয় ভূমি ব্যবস্থাপনা সম্মেলন আগামী মাসে অনুষ্ঠিত হবে',
+    },
+    {
+      category: 'পরিকল্পনা',
+      text: '         দেশব্যাপী ভূমি সমীক্ষা প্রকল্পের উদ্বোধন',
+    }
   ];
 
-  // News ticker scrolling effect
+  // News ticker scrolling with more reliable calculation
+  const [scrollPosition, setScrollPosition] = useState(0);
   useEffect(() => {
+    const newsTextElement = document.querySelector('.news-text');
+    if (!newsTextElement) return;
+
     const scrollNews = () => {
+      const textWidth = newsTextElement.offsetWidth;
+      const screenWidth = window.innerWidth;
+      
       setScrollPosition((prev) => {
-        const textWidth = document.querySelector('.news-text')?.offsetWidth || 0;
         const nextPosition = prev - 1;
-        return nextPosition < -textWidth ? window.innerWidth : nextPosition;
+        return nextPosition < -textWidth ? screenWidth : nextPosition;
       });
     };
 
@@ -76,7 +124,7 @@ const NavBar = () => {
     return () => clearInterval(scrollInterval);
   }, []);
 
-  // Navbar items
+  // Navbar items with improved accessibility
   const navItems = [
     { path: '/', label: 'হোম' },
     {
@@ -92,10 +140,15 @@ const NavBar = () => {
     { path: '/Contact', label: 'যোগাযোগ' },
   ];
 
+  // Toggle dropdown with improved accessibility
+  const toggleDropdown = () => {
+    setDropdownOpen(prev => !prev);
+  };
+
   return (
     <>
       {/* News Ticker */}
-      <div className="news-ticker">
+      <div className="news-ticker" aria-label="Latest News">
         <div className="news-container">
           <motion.div
             className="news-text"
@@ -117,17 +170,23 @@ const NavBar = () => {
       </div>
 
       {/* Navbar */}
-      <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
+      <nav className={`navbar ${scrolled ? 'scrolled' : ''}`} role="navigation">
         <div className="navbar-content">
           {/* Brand Logo */}
           <Link to="/" className="brand-container">
-            <img
-              src="https://i.ibb.co/5WxP9T3/logo.png"
-              alt="ভূমি জরিপ Logo"
-              className="nav-logo"
-            />
-            <span className="company-name">ভূমি জরিপ উন্নয়ন সংস্থা</span>
-          </Link>
+  <img
+    src="https://i.ibb.co/5WxP9T3/logo.png"
+    alt="ভূমি জরিপ Logo"
+    className="nav-logo"
+    style={{
+      maxWidth: '100%',  // Ensure the image doesn't exceed its container
+      width: 'auto',     // Maintain aspect ratio
+      height: '50px',    // Set a fixed height that works on mobile and desktop
+      objectFit: 'contain', // Ensure the entire logo is visible
+    }}
+  />
+  <span className="company-name">ভূমি জরিপ উন্নয়ন সংস্থা</span>
+</Link>
 
           {/* Navigation Links */}
           <div className="nav-container">
@@ -140,14 +199,17 @@ const NavBar = () => {
                   >
                     <button
                       className="nav-item dropbtn"
-                      onClick={() => setDropdownOpen(!dropdownOpen)}
+                      onClick={toggleDropdown}
                       aria-expanded={dropdownOpen}
                       aria-haspopup="true"
                     >
                       {item.label}
-                      <span className="dropdown-arrow">▼</span>
+                      <span className="dropdown-arrow" aria-hidden="true">▼</span>
                     </button>
-                    <div className="dropdown-content">
+                    <div 
+                      className="dropdown-content" 
+                      aria-hidden={!dropdownOpen}
+                    >
                       {item.items.map((subItem, subIndex) => (
                         <Link
                           key={subIndex}
@@ -176,7 +238,11 @@ const NavBar = () => {
                 )
               )}
               {/* Login Button */}
-              <Link to="/login" className="login-button">
+              <Link 
+                to="/login" 
+                className="login-button"
+                aria-label="Login"
+              >
                 <FaUser className="login-icon" />
                 <span></span>
               </Link>
@@ -189,8 +255,8 @@ const NavBar = () => {
               aria-label={menuOpen ? 'Close menu' : 'Open menu'}
               aria-expanded={menuOpen}
             >
-              <span className="menu-bar top-bar"></span>
-              <span className="menu-bar bottom-bar"></span>
+              <span className="menu-bar top-bar" aria-hidden="true"></span>
+              <span className="menu-bar bottom-bar" aria-hidden="true"></span>
             </button>
           </div>
         </div>

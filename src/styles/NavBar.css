@@ -369,6 +369,10 @@
   .company-name {
     font-size: 0.9rem;
   }
+
+  .mobile-logo {
+    height: 40px; /* Adjust the height as needed */
+  }
 }
 
 /* Extra Small Devices */

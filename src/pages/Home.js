@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { FaBars, FaTimes, FaRuler, FaFileContract, FaHandshake } from 'react-icons/fa';
+import { FaBars, FaTimes, FaRuler, FaFileContract, FaHandshake, FaCalculator } from 'react-icons/fa';
 import { BiChevronDown } from 'react-icons/bi';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEyeSlash } from '@fortawesome/free-regular-svg-icons';
 import '../styles/Home.css';
 import { useNavigate, Link } from 'react-router-dom';
 
+// Navigation Component
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
@@ -127,6 +128,7 @@ const Navigation = () => {
   );
 };
 
+// ServiceCard Component
 const ServiceCard = ({ icon: Icon, title, description, onClick }) => {
   return (
     <motion.div 
@@ -142,6 +144,119 @@ const ServiceCard = ({ icon: Icon, title, description, onClick }) => {
   );
 };
 
+// LandCalculator Component
+const LandCalculator = () => {
+  const [values, setValues] = useState({
+    bigha: '',
+    katha: '',
+    decimal: '',
+    squareFeet: ''
+  });
+
+  // Updated conversions based on Bangladesh land measurements
+  const conversions = {
+    bigha: 33, // 1 bigha = 33 decimal
+    katha: 1.65, // 1 katha = 1.65 decimal
+    squareFeet: 435.6 // 1 decimal = 435.6 sq ft
+  };
+
+  const handleChange = (unit, value) => {
+    if (value === '' || isNaN(value)) {
+      setValues({
+        bigha: '',
+        katha: '',
+        decimal: '',
+        squareFeet: ''
+      });
+      return;
+    }
+
+    let decimal = 0;
+    const numValue = parseFloat(value);
+
+    switch(unit) {
+      case 'bigha':
+        decimal = numValue * conversions.bigha;
+        break;
+      case 'katha':
+        decimal = numValue * conversions.katha;
+        break;
+      case 'decimal':
+        decimal = numValue;
+        break;
+      case 'squareFeet':
+        decimal = numValue / conversions.squareFeet;
+        break;
+      default:
+        break;
+    }
+
+    setValues({
+      bigha: (decimal / conversions.bigha).toFixed(4),
+      katha: (decimal / conversions.katha).toFixed(4),
+      decimal: decimal.toFixed(4),
+      squareFeet: (decimal * conversions.squareFeet).toFixed(4)
+    });
+  };
+
+  return (
+    <div className="calculator-section">
+      <div className="calculator-header">
+        <FaCalculator className="calculator-icon" />
+        <h2>জমি পরিমাপ ক্যালকুলেটর</h2>
+        <p className="calculator-subtitle">বাংলাদেশী জমি পরিমাপ একক রূপান্তর</p>
+      </div>
+      <div className="calculator-grid">
+        <div className="calc-input-group">
+          <label>বিঘা</label>
+          <input
+            type="number"
+            value={values.bigha}
+            onChange={(e) => handleChange('bigha', e.target.value)}
+            placeholder="0.0000"
+            min="0"
+            step="any"
+          />
+        </div>
+        <div className="calc-input-group">
+          <label>কাঠা</label>
+          <input
+            type="number"
+            value={values.katha}
+            onChange={(e) => handleChange('katha', e.target.value)}
+            placeholder="0.0000"
+            min="0"
+            step="any"
+          />
+        </div>
+        <div className="calc-input-group">
+          <label>ডেসিমাল</label>
+          <input
+            type="number"
+            value={values.decimal}
+            onChange={(e) => handleChange('decimal', e.target.value)}
+            placeholder="0.0000"
+            min="0"
+            step="any"
+          />
+        </div>
+        <div className="calc-input-group">
+          <label>বর্গফুট</label>
+          <input
+            type="number"
+            value={values.squareFeet}
+            onChange={(e) => handleChange('squareFeet', e.target.value)}
+            placeholder="0.0000"
+            min="0"
+            step="any"
+          />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Main Home Component
 const Home = () => {
   const navigate = useNavigate();
 
@@ -195,6 +310,7 @@ const Home = () => {
             onClick={() => handleServiceClick('property')}
           />
         </div>
+        <LandCalculator />
       </section>
     </div>
   );
